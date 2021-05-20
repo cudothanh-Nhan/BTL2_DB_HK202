@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
+
 
 namespace E_BookStore
 {
@@ -23,6 +25,7 @@ namespace E_BookStore
         public MainWindow()
         {
             InitializeComponent();
+            Debug.WriteLine("Send to debug output.");
         }
     }
 }
