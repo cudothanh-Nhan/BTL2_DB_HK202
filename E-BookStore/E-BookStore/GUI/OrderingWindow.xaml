@@ -1,0 +1,27 @@
+﻿<Window x:Class="E_BookStore.GUI.OrderingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:E_BookStore.GUI"
+        mc:Ignorable="d"
+        Title="MyOrdering" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="OnCart">
+                <StackPanel x:Name="demoStack">
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Pending">
+            </TabItem>
+            <TabItem Header="Processing">
+            </TabItem>
+            <TabItem Header="Delivering">
+            </TabItem>
+            <TabItem Header="Completed">
+            </TabItem>
+            <TabItem Header="Canceled">
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

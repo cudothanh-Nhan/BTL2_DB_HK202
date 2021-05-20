@@ -1,9 +1,9 @@
 ﻿<Application x:Class="E_BookStore.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:E_BookStore"
-             StartupUri="GUI/MainWindow.xaml">
+             xmlns:local="clr-namespace:E_BookStore" xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             StartupUri="GUI/OrderingWindow.xaml">
     <Application.Resources>
-         
+        <sys:String x:Key="ImgUrl">C:\DbImg\</sys:String>
     </Application.Resources>
 </Application>
