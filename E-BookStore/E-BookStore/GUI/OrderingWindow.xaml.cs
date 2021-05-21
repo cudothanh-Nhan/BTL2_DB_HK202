@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Diagnostics;
+using MySql.Data.MySqlClient;
 
 namespace E_BookStore.GUI
 {
@@ -22,13 +24,42 @@ namespace E_BookStore.GUI
         public OrderingWindow()
         {
             InitializeComponent();
-            StackPanel stack = demoStack;
-            for(int i = 0; i < 20; i++)
+            string host = "localhost";
+            int port = 3306;
+            string database = "ebookstore";
+            string username = "root";
+            string password = "123456";
+            String connString = "Server=" + host + ";Database="
+            + database
+            + ";port=" + port + ";User Id=" + username + ";password=" +
+            password;
+            try
             {
-                TextBox txt = new TextBox();
-                txt.Text = i.ToString();
-                stack.Children.Add(txt);
+                using (var conn = new MySqlConnection(connString))
+                {
+                    conn.Open();
+
+                    using (var cmd = new MySqlCommand("SELECT * FROM books", conn))
+                    {
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var dName = reader.GetString(0);
+                                var dNumber = reader.GetString(1);
+
+                                Debug.WriteLine($"{dName} {dNumber}");
+                            }
+                        }
+                    }
+                }
+
+
             }
-        }
+            catch(Exception e)
+            {
+                Debug.WriteLine("Error tut cuc");
+            }
+}
     }
 }
