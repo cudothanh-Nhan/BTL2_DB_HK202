@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using MySql.Data.MySqlClient;
+using E_BookStore.BLL;
+using E_BookStore.DTO;
 
 namespace E_BookStore.GUI
 {
@@ -21,45 +23,27 @@ namespace E_BookStore.GUI
     /// </summary>
     public partial class OrderingWindow : Window
     {
+        
+        public static Image getImage(string url, int height, int width)
+        {
+            var image = new Image();
+            var fullFilePath = url;
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(fullFilePath, UriKind.Absolute);
+            bitmap.EndInit();
+
+            image.Source = bitmap;
+            image.Height = height;
+            image.Width = width; 
+            return image;
+        }
+        private OrderingBLL bll;
         public OrderingWindow()
         {
             InitializeComponent();
-            string host = "localhost";
-            int port = 3306;
-            string database = "ebookstore";
-            string username = "root";
-            string password = "123456";
-            String connString = "Server=" + host + ";Database="
-            + database
-            + ";port=" + port + ";User Id=" + username + ";password=" +
-            password;
-            try
-            {
-                using (var conn = new MySqlConnection(connString))
-                {
-                    conn.Open();
-
-                    using (var cmd = new MySqlCommand("SELECT * FROM books", conn))
-                    {
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var dName = reader.GetString(0);
-                                var dNumber = reader.GetString(1);
-
-                                Debug.WriteLine($"{dName} {dNumber}");
-                            }
-                        }
-                    }
-                }
-
-
-            }
-            catch(Exception e)
-            {
-                Debug.WriteLine("Error tut cuc");
-            }
-}
+            bll = new OrderingBLL(this);
+            bll.getOrder(0, Order.S_ON_CART);
+        }
     }
 }
