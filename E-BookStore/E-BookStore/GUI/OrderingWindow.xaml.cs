@@ -26,9 +26,9 @@ namespace E_BookStore.GUI
             InitializeComponent();
             string host = "localhost";
             int port = 3306;
-            string database = "ebookstore";
+            string database = "db";
             string username = "root";
-            string password = "123456";
+            string password = "anhentai";
             String connString = "Server=" + host + ";Database="
             + database
             + ";port=" + port + ";User Id=" + username + ";password=" +
@@ -39,7 +39,7 @@ namespace E_BookStore.GUI
                 {
                     conn.Open();
 
-                    using (var cmd = new MySqlCommand("SELECT * FROM books", conn))
+                    using (var cmd = new MySqlCommand("SELECT * FROM products", conn))
                     {
                         using (var reader = cmd.ExecuteReader())
                         {
@@ -47,7 +47,6 @@ namespace E_BookStore.GUI
                             {
                                 var dName = reader.GetString(0);
                                 var dNumber = reader.GetString(1);
-
                                 Debug.WriteLine($"{dName} {dNumber}");
                             }
                         }

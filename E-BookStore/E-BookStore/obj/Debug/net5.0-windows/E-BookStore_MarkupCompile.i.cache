@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\Users\admin\Desktop\DB\BTL2_DB_HK202\E-BookStore\E-BookStore\App.xaml
-2330461800
+3401403302
 
-12-1785316254
+13-270507213
 202-1955999901
-GUI\MainWindow.xaml;GUI\OrderingWindow.xaml;
+GUI\MainUI.xaml;GUI\MainWindow.xaml;GUI\OrderingWindow.xaml;
 
-True
+False
 
