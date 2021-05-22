@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_BookStore.DAO
+namespace E_BookStore.DTO
 {
     class Customer
     {
@@ -19,7 +19,10 @@ namespace E_BookStore.DAO
         public string LName { get => lName; set => lName = value; }
         public string TelNum { get => telNum; set => telNum = value; }
         public string Address { get => address; set => address = value; }
-    
+        public Customer()
+        {
+
+        }
         public Customer(int id, string fName, string lName, string telNum, string address)
         {
             this.Id = id;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_BookStore.DAO
+namespace E_BookStore.DTO
 {
     class Author
     {
@@ -15,7 +15,7 @@ namespace E_BookStore.DAO
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public DateTime Dob { get => dob; set => dob = value; }
-        Author(int id, string name, DateTime dob)
+        public Author(int id, string name, DateTime dob)
         {
             this.Id = id;
             this.Name = name;
