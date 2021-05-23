@@ -53,6 +53,7 @@ namespace E_BookStore.DTO
                     item.ImgUrl = itemReader.GetString(findIndex(itemColumn, "ImgUrl"));
                     item.Type = "Book";
                     order.ItemsOfOrder.Add(item);
+                    order.Total += item.Total;
                 }
                 conn.Close();
             }
@@ -61,7 +62,7 @@ namespace E_BookStore.DTO
                 Debug.WriteLine(e.ToString());
             }
         }
-        public List<KeyValuePair<Product, int>> getOrder(int customerId, string status)
+        public Order getOrder(int customerId, string status)
         {
             var conn = new MySqlConnection(connString);
             try
@@ -79,9 +80,9 @@ namespace E_BookStore.DTO
                     columnName[i] = reader.GetName(i); 
                 }
                 int preOrderId = -1;
+                Order order = null;
                 while (reader.Read())
                 {
-                    Order order;
                     int orderId = reader.GetInt32(findIndex(columnName, "Order_ID"));
                     if (preOrderId != orderId) {
                         preOrderId = orderId;
@@ -105,6 +106,7 @@ namespace E_BookStore.DTO
                     }
                 }
                 conn.Close();
+                return order;
             }
             catch(Exception e)
             {

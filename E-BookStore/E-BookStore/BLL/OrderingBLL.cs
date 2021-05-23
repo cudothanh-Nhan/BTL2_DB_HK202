@@ -18,7 +18,7 @@ namespace E_BookStore.BLL
             this.window = window;
             dao = new OrderingDAO("localhost", 3306, "ebookstore", "root", "123456");
         }
-        public List<KeyValuePair<Product, int>> getOrder(int customerId, string status)
+        public Order getOrder(int customerId, string status)
         {
             return dao.getOrder(customerId, status);
         }
