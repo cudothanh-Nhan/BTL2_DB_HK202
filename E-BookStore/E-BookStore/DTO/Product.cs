@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_BookStore.DAO
+namespace E_BookStore.DTO
 {
     abstract class Product
     {
@@ -12,21 +12,28 @@ namespace E_BookStore.DAO
         protected int price;
         protected int quantiy;
         protected string language;
+        private string imgUrl;
         private Store store;
 
-        public Product(int id, int price, int quantity, string language, Store store)
+        public Product()
+        {
+            
+        }
+        public Product(int id, int price, int quantity, string language, Store store, string imgUrl)
         {
             this.Id = id;
             this.Price = price;
             this.Quantiy = quantity;
             this.Language = language;
             this.store = store;
+            this.ImgUrl = imgUrl;
         }
         public int Id { get => id; set => id = value; }
         public int Price { get => price; set => price = value; }
         public int Quantiy { get => quantiy; set => quantiy = value; }
         public string Language { get => language; set => language = value; }
         protected Store Store { get => store; set => store = value; }
+        protected string ImgUrl { get => imgUrl; set => imgUrl = value; }
 
         public abstract string getClassName();
     }
@@ -44,7 +51,8 @@ namespace E_BookStore.DAO
         public DateTime PublishYear { get => publishYear; set => publishYear = value; }
         public int NPage { get => nPage; set => nPage = value; }
         public List<Author> Authors { get => authors; set => authors = value; }
-        public Book(int id, int price, int quantity, string language, Store store) : base(id, price, quantity, language, store)
+        public Book(int id, int price, int quantity, string language, Store store, string imgUrl)
+            : base(id, price, quantity, language, store, imgUrl)
         {
             this.Name = this.Publisher = string.Empty;
             this.PublishYear = new DateTime();
@@ -65,7 +73,8 @@ namespace E_BookStore.DAO
         public DateTime PublishDate { get => publishDate; set => publishDate = value; }
         public int No { get => no; set => no = value; }
 
-        public Magazine(int id, int price, int quantity, string language) : base(id, price, quantity, language)
+        public Magazine(int id, int price, int quantity, string language, Store store, string imgUrl) 
+            : base(id, price, quantity, language, store, imgUrl)
         {
             this.PublishDate = new DateTime();
             this.No = 0;

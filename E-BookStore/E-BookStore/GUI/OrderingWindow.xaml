@@ -9,7 +9,39 @@
     <Grid>
         <TabControl>
             <TabItem Header="OnCart">
-                <StackPanel x:Name="demoStack">
+                <StackPanel>
+                    <TextBlock Text="My OnCart Order Management" FontSize="15" Margin="0 10 0 10"/>
+                    <ScrollViewer Width="800">
+                        <StackPanel x:Name="onCartStack">
+                            <!--<Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="300"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="20"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Order ID: 0" FontSize="12" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+                                <TextBlock Text="There are 2 products" Padding="5 0 0 0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+                                <Image Stretch="UniformToFill" Source="https://salt.tikicdn.com/cache/w444/media/catalog/product/d/a/day-con-lam-giau-tap1a.jpg" Grid.Column="0" Grid.Row="1"/>
+                                <StackPanel Grid.Column="1" Grid.Row="1">
+                                    <TextBlock Text="Sach Day Lam Giau" FontSize="13" FontWeight="Bold" Padding="5 0 0 0" Grid.Column="1" Grid.Row="1"/>
+                                    <TextBlock Text="x1" Padding="5 0 0 0" />
+                                    <TextBlock Text="Unit Price: 10,000" Padding="5 0 0 0"/>
+                                    <TextBlock Text="Product total: 10,000" Foreground="#EDA500" Padding="5 0 0 0"/>
+                                </StackPanel>
+                                <TextBlock Text="Order Total: 32,000" FontSize="13" Foreground="#D0011B" Padding="5 0 0 0" Grid.Column="1" Grid.Row="2"/>
+                                <TextBlock Text="Click for more detail" Padding="5 0 0 0" TextDecorations="Underline" Foreground="#0046AB"  Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"/>
+                                <Button Content="Cancel" Background="#FF6600" Foreground="White" Height="30" Grid.Column="0" Grid.Row="2" Grid.RowSpan="2"/>
+                            </Grid>-->
+                        
+                        </StackPanel>
+                        
+                        
+                    </ScrollViewer>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Pending">

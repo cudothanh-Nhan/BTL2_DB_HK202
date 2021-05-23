@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_BookStore.DAO
+namespace E_BookStore.DTO
 {
     class Account
     {
