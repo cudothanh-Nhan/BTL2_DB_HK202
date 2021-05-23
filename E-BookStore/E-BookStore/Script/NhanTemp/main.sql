@@ -253,3 +253,12 @@ use ebookstore;
 -- values ("John", "Smith", 0, "johnwick", "john@gmail.com", "01 Nguyen Tri Phuong", "Ho Chi Minh", "091565111");
 
 -- alter table products drop primary key, add primary key(Product_Id);
+
+-- insert magazine_seri_names
+-- values(0, "Tuoi Tre", "Hoa Hoc Tro");
+
+-- insert products
+-- values("Kha Van Can", "Ho Chi Minh", "Tieng Viet", 10000, 3, 2, "https://cafebiz.cafebizcdn.vn/2017/photo-1-1498018165414.jpg");
+
+-- insert magazines
+-- values("2021-05-23", 1, 2, 0);

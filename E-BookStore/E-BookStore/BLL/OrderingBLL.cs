@@ -1,4 +1,5 @@
-﻿using E_BookStore.DTO;
+﻿using E_BookStore.DAO;
+using E_BookStore.DTO;
 using E_BookStore.GUI;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,13 @@ namespace E_BookStore.BLL
             this.window = window;
             dao = new OrderingDAO("localhost", 3306, "ebookstore", "root", "123456");
         }
-        public Order getOrder(int customerId, string status)
+        public List<Order> getOrder(int customerId, string status)
         {
             return dao.getOrder(customerId, status);
+        }
+        public void updateStatus(int orderId, string status)
+        {
+            dao.updateStatus(orderId, status);
         }
     }
 }

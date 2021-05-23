@@ -46,7 +46,7 @@ namespace E_BookStore.DTO
         static public string S_PROCESSING = "Processing";
         static public string S_DELIVERING = "Delivering";
         static public string S_COMPLETED = "Completed";
-        static public string S_CANCELLED = "Cancelled";
+        static public string S_CANCELED = "Canceled";
 
         private int id;
         private Status status;

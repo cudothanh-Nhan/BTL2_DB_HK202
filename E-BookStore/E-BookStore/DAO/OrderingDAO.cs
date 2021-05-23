@@ -1,4 +1,4 @@
-﻿using E_BookStore.GUI;
+﻿using E_BookStore.DTO;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_BookStore.DTO
+namespace E_BookStore.DAO
 {
     class OrderingDAO
     {
@@ -25,6 +25,25 @@ namespace E_BookStore.DTO
         {
             return Array.FindIndex<String>(arr, element => element.ToUpper() == key.ToUpper());
         }
+        private void parseItemInfo(MySqlDataReader itemReader, Order order, ItemOfOrder item)
+        {
+            while(itemReader.Read())
+            {
+                string[] itemColumn = new string[itemReader.FieldCount];
+                for (int i = 0; i < itemReader.FieldCount; i++)
+                {
+                    itemColumn[i] = itemReader.GetName(i);
+                }
+                item.Name = itemReader.GetString(findIndex(itemColumn, "Name"));
+                item.UPrice = itemReader.GetInt32(findIndex(itemColumn, "Price"));
+                item.Total = item.Quantity * item.UPrice;
+                item.ImgUrl = itemReader.GetString(findIndex(itemColumn, "ImgUrl"));
+                //item.Type = "Book";
+                order.ItemsOfOrder.Add(item);
+                order.Total += item.Total;   
+            }
+            itemReader.Close();
+        }
         private void addItemOfOrder(MySqlDataReader orderReader, Order order, String[] orderColumn)
         {
             try
@@ -38,23 +57,51 @@ namespace E_BookStore.DTO
                             + item.Id.ToString() + ");";
                 var cmd = new MySqlCommand(sqlStatement, conn);
                 var itemReader = cmd.ExecuteReader();
-               
-                if(itemReader.FieldCount > 0)
-                {
-                    string[] itemColumn = new string[itemReader.FieldCount];
-                    for (int i = 0; i < itemReader.FieldCount; i++)
-                    {
-                        itemColumn[i] = itemReader.GetName(i);
-                    }
-                    itemReader.Read();
-                    item.Name = itemReader.GetString(findIndex(itemColumn, "Name"));
-                    item.UPrice = itemReader.GetInt32(findIndex(itemColumn, "Price"));
-                    item.Total = item.Quantity * item.UPrice;
-                    item.ImgUrl = itemReader.GetString(findIndex(itemColumn, "ImgUrl"));
-                    item.Type = "Book";
-                    order.ItemsOfOrder.Add(item);
-                    order.Total += item.Total;
-                }
+                parseItemInfo(itemReader, order, item);
+
+                sqlStatement = "call GetMagazineInfo("
+                            + item.Id.ToString() + ");";
+                cmd = new MySqlCommand(sqlStatement, conn);
+                itemReader = cmd.ExecuteReader();
+                parseItemInfo(itemReader, order, item);
+                //if(itemReader.FieldCount > 0)
+                //{
+                //    string[] itemColumn = new string[itemReader.FieldCount];
+                //    for (int i = 0; i < itemReader.FieldCount; i++)
+                //    {
+                //        itemColumn[i] = itemReader.GetName(i);
+                //    }
+                //    itemReader.Read();
+                //    item.Name = itemReader.GetString(findIndex(itemColumn, "Name"));
+                //    item.UPrice = itemReader.GetInt32(findIndex(itemColumn, "Price"));
+                //    item.Total = item.Quantity * item.UPrice;
+                //    item.ImgUrl = itemReader.GetString(findIndex(itemColumn, "ImgUrl"));
+                //    item.Type = "Book";
+                //    order.ItemsOfOrder.Add(item);
+                //    order.Total += item.Total;
+                //}
+                //itemReader.Close();
+                //sqlStatement = "call GetMagazineInfo("
+                //        + item.Id.ToString() + ");";
+                //cmd = new MySqlCommand(sqlStatement, conn);
+                //itemReader = cmd.ExecuteReader();
+
+                //if (itemReader.FieldCount > 0)
+                //{
+                //    string[] itemColumn = new string[itemReader.FieldCount];
+                //    for (int i = 0; i < itemReader.FieldCount; i++)
+                //    {
+                //        itemColumn[i] = itemReader.GetName(i);
+                //    }
+                //    itemReader.Read();
+                //    item.Name = itemReader.GetString(findIndex(itemColumn, "Name"));
+                //    item.UPrice = itemReader.GetInt32(findIndex(itemColumn, "Price"));
+                //    item.Total = item.Quantity * item.UPrice;
+                //    item.ImgUrl = itemReader.GetString(findIndex(itemColumn, "ImgUrl"));
+                //    item.Type = "Book";
+                //    order.ItemsOfOrder.Add(item);
+                //    order.Total += item.Total;
+                //}
                 conn.Close();
             }
             catch(Exception e)
@@ -62,7 +109,23 @@ namespace E_BookStore.DTO
                 Debug.WriteLine(e.ToString());
             }
         }
-        public Order getOrder(int customerId, string status)
+        public void updateStatus(int orderId, string status)
+        {
+            var conn = new MySqlConnection(connString);
+            try
+            {
+                conn.Open();
+                string sqlStatement = "call UpdateStatus("
+                        + orderId + ", \"" + status + "\");";
+                var cmd = new MySqlCommand(sqlStatement, conn);
+                cmd.ExecuteReader();
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+        }
+        public List<Order> getOrder(int customerId, string status)
         {
             var conn = new MySqlConnection(connString);
             try
@@ -106,7 +169,7 @@ namespace E_BookStore.DTO
                     }
                 }
                 conn.Close();
-                return order;
+                return orderList;
             }
             catch(Exception e)
             {

@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:E_BookStore" xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              StartupUri="GUI/OrderingWindow.xaml">
     <Application.Resources>
-        <sys:String x:Key="ImgUrl">C:\DbImg\</sys:String>
+
     </Application.Resources>
 </Application>

@@ -1,13 +1,32 @@
 
-DROP PROCEDURE IF EXISTS GetAllOrderItem;
-DROP PROCEDURE IF EXISTS GetBookOrderItem;
+DROP PROCEDURE IF EXISTS GetAllOrder;
+DROP PROCEDURE IF EXISTS GetNOfOrderItem;
+DROP PROCEDURE IF EXISTS GetBookInfo;
+DROP PROCEDURE IF EXISTS GetMagazineInfo;
+DROP PROCEDURE IF EXISTS IsBook;
+DROP PROCEDURE IF EXISTS UpdateStatus;
 DELIMITER //
 
-CREATE PROCEDURE GetAllOrderItem(
+CREATE PROCEDURE GetAllOrder(
 	IN customerId INT,
     IN statusVal VARCHAR(20))
 BEGIN
-	SELECT p.P_Product_ID, p.Order_quantity
+	SELECT DISTINCT o.Order_ID, p.P_Product_ID, s.Status, o.Ship_cash, p.Order_quantity
+	FROM customers as c, orders as o, status as s, p_part_of as p
+	WHERE o.Order_ID = p.P_Order_ID and  p.P_Order_ID IN (
+						SELECT o.Order_ID
+						FROM customers as c, orders as o, status as s
+						WHERE o.Or_cus_ID = customerId
+								and o.Order_ID = s.Sta_Order_ID
+								and s.Status = statusVal)
+	ORDER BY o.Order_ID;
+END //
+
+CREATE PROCEDURE getNOfOrderItem(
+	IN customerId INT,
+    IN statusVal VARCHAR(20))
+BEGIN
+	SELECT COUNT(p.P_Product_ID)
 	FROM customers as c, orders as o, status as s, p_part_of as p
 	WHERE p.P_Order_ID IN (
 						SELECT o.Order_ID
@@ -16,23 +35,33 @@ BEGIN
 								and o.Order_ID = s.Sta_Order_ID
 								and s.Status = statusVal);
 END //
-
-CREATE PROCEDURE GetBookOrderItem(
-	IN pOrderId INT,
-    IN pProductId INT)
+CREATE PROCEDURE GetBookInfo(IN productId INT)
 BEGIN
-	SELECT b.Name, prod.Price, part.Order_quantity
-	FROM products as prod, books as b, orders as o, p_part_of as part
-    WHERE part.P_Product_ID = pProductId
-			and part.P_Order_ID = pOrderId
-            and prod.Product_ID = pProductId
-            and b.Book_Pro_ID = pProductId;
+	SELECT b.Name, p.Price, p.ImgUrl
+    FROM books as b, products p
+    where b.Book_Pro_Id = productId
+			and p.Product_ID = productId;
 END //
 
+CREATE PROCEDURE GetMagazineInfo(IN productId INT)
+BEGIN
+	SELECT concat(n.Name, " No.", m.No) as Name, p.Price, p.ImgUrl
+    FROM magazines as m, products as p, magazine_seri_names as n
+    where m.Maga_Pro_ID = productId
+			and p.Product_ID = productId
+            and n.Seri_name_ID = m.Magazine_ID;
+END //
 
-
-
+CREATE PROCEDURE UpdateStatus(IN productId INT, IN statusVal CHAR(20))
+BEGIN
+	UPDATE status as s
+    SET	s.status = statusVal
+    WHERE s.Sta_Order_ID = productId;
+END //
 DELIMITER ;
-call GetAllOrderItem(0, "OnCart");
-call GetBookOrderItem(0, 0);
-call Foo(GetAllOrderItem(0, "OnCart"));
+-- call GetAllOrder(0, "OnCart");
+-- call GetMagazineInfo(2);
+-- call GetBookInfo(2);
+-- call GetMagazineInOrder(0, 0);
+-- call GetMagazineInfo(2);
+-- call UpdateStatus(0, "Canceled");

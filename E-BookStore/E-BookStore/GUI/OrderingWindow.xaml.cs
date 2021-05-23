@@ -37,38 +37,42 @@ namespace E_BookStore.GUI
             return image;
         }
         private OrderingBLL bll;
-        private Grid getLayout(int orderId, string status)
+        private int customerId;
+        private Grid getLayout(int orderId, string status, Order order)
         {
-            Order order = bll.getOrder(0, Order.S_ON_CART);
-
-            Thickness defaultPadding = new Thickness(5, 0, 0, 0);
+            Thickness defaultPadding = new Thickness(10, 0, 0, 0);
             Grid grid = new Grid();
+            grid.Margin = new Thickness(0, 10, 0, 10);
             ColumnDefinition[] colDef = new ColumnDefinition[2];
             for (int i = 0; i < 2; i++) colDef[i] = new ColumnDefinition();
          
-            colDef[0].Width = new GridLength(100);
-            colDef[1].Width = new GridLength(300);
+            colDef[0].Width = new GridLength(150);
+            colDef[1].Width = new GridLength(400);
             grid.ColumnDefinitions.Add(colDef[0]);
             grid.ColumnDefinitions.Add(colDef[1]);
 
             RowDefinition[] rowDef = new RowDefinition[4];
             for (int i = 0; i < 4; i++) rowDef[i] = new RowDefinition();
-            rowDef[0].Height = rowDef[2].Height = rowDef[3].Height = new GridLength(20);
-            rowDef[1].Height = new GridLength(70);
+            rowDef[0].Height = new GridLength(20); ;
+            rowDef[2].Height = rowDef[3].Height = new GridLength(30);
+            rowDef[1].Height = new GridLength(150);
             foreach (var r in rowDef) grid.RowDefinitions.Add(r);
 
             TextBlock orderInfo = new TextBlock();
-            orderInfo.Text = "Order ID: " + orderId;  
+            orderInfo.Text = "Order ID: " + orderId;
+            orderInfo.FontSize = 13;
 
             TextBlock nProduct = new TextBlock();
             nProduct.Text = "There are " + order.ItemsOfOrder.Count + " products";
+            nProduct.FontSize = 13;
+            nProduct.Padding = defaultPadding;
 
-            Image img = getImage("https://salt.tikicdn.com/cache/w444/media/catalog/product/d/a/day-con-lam-giau-tap1a.jpg");
+            Image img = getImage(order.ItemsOfOrder[0].ImgUrl);
 
             StackPanel productInfo = new StackPanel();
             TextBlock productName = new TextBlock();
             productName.Text = order.ItemsOfOrder[0].Name;
-            productName.FontSize = 13;
+            productName.FontSize = 20;
             productName.FontWeight = FontWeights.Bold;
             productName.Padding = defaultPadding;
             TextBlock quantity = new TextBlock();
@@ -79,6 +83,7 @@ namespace E_BookStore.GUI
             uPrice.Padding = defaultPadding;
             TextBlock productTotal = new TextBlock();
             productTotal.Text = "Product Total: " + String.Format("{0:n0}", order.ItemsOfOrder[0].Total);
+            quantity.FontSize = uPrice.FontSize = productTotal.FontSize = 15;
             productTotal.Padding = defaultPadding;
             productInfo.Children.Add(productName);
             productInfo.Children.Add(quantity);
@@ -87,7 +92,7 @@ namespace E_BookStore.GUI
 
             TextBlock orderTotal = new TextBlock();
             orderTotal.Text = "Order Total: " + String.Format("{0:n0}", order.Total);
-            orderTotal.FontSize = 13;
+            orderTotal.FontSize = 18;
             orderTotal.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#D0011B"));
             orderTotal.Padding = defaultPadding;
 
@@ -96,10 +101,26 @@ namespace E_BookStore.GUI
             detailUrl.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#0046AB"));
             detailUrl.TextDecorations = TextDecorations.Underline;
             detailUrl.Padding = defaultPadding;
+            detailUrl.FontSize = 13;
 
             Button cancelButton = new Button();
-            cancelButton.Content = "Cancel";
-            cancelButton.Height = 30;
+            if (status == Order.S_CANCELED)
+            {
+                cancelButton.Content = "Order again";
+                cancelButton.Click += OrderAgain_OnClick;
+            }
+            else if (status == Order.S_COMPLETED)
+            {
+                cancelButton.Content = "Review";
+            }
+            else
+            {
+                cancelButton.Content = "Cancel";
+                cancelButton.Click += Cancel_OnClick;
+            }
+            cancelButton.Tag = order.Id;
+            cancelButton.Height = 40;
+            cancelButton.FontSize = 15;
             cancelButton.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff6600"));
             cancelButton.Foreground = Brushes.White;
 
@@ -134,12 +155,50 @@ namespace E_BookStore.GUI
             grid.Children.Add(cancelButton);
             return grid;
         }
+        private void Cancel_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            bll.updateStatus(int.Parse(btn.Tag.ToString()), Order.S_CANCELED);
+            reload(Order.S_CANCELED);
+            reload(Order.S_ON_CART);
+        }
+        private void OrderAgain_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            bll.updateStatus(int.Parse(btn.Tag.ToString()), Order.S_ON_CART);
+            reload(Order.S_CANCELED);
+            reload(Order.S_ON_CART);
+        }
+        private void reload(string status)
+        {
+            List<Order> orderList = bll.getOrder(customerId, status);
+            if(status == Order.S_ON_CART)
+            {
+                onCartStack.Children.Clear();
+                foreach (var order in orderList)
+                {
+                    onCartStack.Children.Add(getLayout(order.Id, status, order));
+                    onCartStack.Children.Add(new Separator());
+                }
+            }
+            else if(status == Order.S_CANCELED)
+            {
+                canceledStack.Children.Clear();
+                foreach (var order in orderList)
+                {
+                    canceledStack.Children.Add(getLayout(order.Id, status, order));
+                    canceledStack.Children.Add(new Separator());
+                }
+            }
+        }
         public OrderingWindow()
         {
             InitializeComponent();
             bll = new OrderingBLL(this);
+            this.customerId = 0;
             //bll.getOrder(0, Order.S_ON_CART);
-            onCartStack.Children.Add(getLayout(0, Order.S_ON_CART));
+            reload(Order.S_ON_CART);
+            reload(Order.S_CANCELED);
         }
     }
 }
