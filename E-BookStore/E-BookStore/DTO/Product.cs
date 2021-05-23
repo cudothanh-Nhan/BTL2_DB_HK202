@@ -35,6 +35,7 @@ namespace E_BookStore.DTO
         public Store Store { get => store; set => store = value; }
         public string ImgUrl { get => imgUrl; set => imgUrl = value; }
 
+
         public abstract string getClassName();
     }
 
