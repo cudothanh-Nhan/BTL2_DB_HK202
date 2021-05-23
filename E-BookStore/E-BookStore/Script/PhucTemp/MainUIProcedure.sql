@@ -23,7 +23,7 @@ create table REVIEWS (
 ReCustomer_ID		int 			NOT NULL,
 Date				Date 			NOT NULL,
 Rating 				int				NOT NULL,
-Image_URL			varchar(25),
+Image_URL			blob,
 Comment_text 		text,
 Review_Reply_Date 	Date,
 Re_Pro_ID 			int 			NOT NULL,
@@ -102,10 +102,10 @@ Sto_Street			varchar(25)		NOT NULL,
 Sto_City			varchar(25)		NOT NULL,
 Language			varchar(15),
 Price				int				NOT NULL,
+imgUrl				varchar(255),
 Quantity			int				NOT NULL,
 Product_ID			int 			NOT NULL,
-imgUrl				varchar(255),
-PRIMARY KEY (Product_ID,Sto_Street,Sto_City)
+PRIMARY KEY (Product_ID)
 );
 
 create table P_PART_OF (
@@ -132,8 +132,8 @@ PRIMARY KEY (Maga_Pro_ID)
 );
 
 
+
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("1", "2", "3", 4, 5, 6, "afafa");
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("7", "8", "9", 10, 11, 12, "Adfafa");
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("13", "14", "15", 16, 17, 18, "Hako.re");
 
 insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Sach", "Giao", 2000, 6996, 6);
@@ -141,12 +141,9 @@ insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Gi
 
 
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 4, 5, 12, "Hako.re");
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga2", "2", "3", 4, 12, 13, "Hako.re");
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga2", "3", "3", 4, 34, 13, "Hako.re");
 
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga2", "8", "9", 10, 11, 14, "Hako.re");
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga322", "8", "9", 10, 13, 14, "Hako.re");
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga32", "8", "9", 10, 14, 14, "Hako.re");
 
 insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Sach", "Giao", 2000, 6996, 14);
 

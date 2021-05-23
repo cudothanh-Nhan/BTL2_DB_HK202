@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,15 +38,25 @@ namespace E_BookStore.GUI
             return image;
         }
         MainUIBLL bll;
+
         public MainUIWindow()
         {
             InitializeComponent();
             bll = new MainUIBLL();
-            bll.getallBookUI();
-            bll.getBookDetail(6);
-            bll.getallMagaUI();
-            bll.getMagaDetail(12);
-            bll.getReview(12);
+            List<Book> bookList = bll.getallBookUI();
+            List<Magazine> magaList = bll.getallMagaUI();
+            foreach (Book i in bookList)
+            {
+                Debug.WriteLine(i.Name + " " + i.Price);
+                Book book = bll.getBookDetail(i.Id);
+                Debug.WriteLine(book.Store.City + " " + book.Store.Street);
+            }
+            foreach (Magazine i in magaList)
+            {
+                Debug.WriteLine(i.SeriName + "No. " + i.No + " " + i.Price);
+                Magazine magazine = bll.getMagaDetail(i.Id);
+                Debug.WriteLine(magazine.Store.City + " " + magazine.Store.Street);
+            }
         }
     }
 }
