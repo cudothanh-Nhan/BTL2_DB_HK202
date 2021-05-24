@@ -10,10 +10,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="100"></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="350"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"></ColumnDefinition>
@@ -21,7 +18,6 @@
             <ColumnDefinition Width="200"></ColumnDefinition>
             <ColumnDefinition Width="200"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
         <Button Content="Log out" HorizontalAlignment="Left" Height="26" Margin="140,10,0,0" VerticalAlignment="Top" Width="57" FontSize="14" RenderTransformOrigin="0.506,-0.347" Grid.Column="3"/>
         <TextBox Grid.ColumnSpan="4" TextAlignment="Left" HorizontalAlignment="Left" Height="26" Margin="92,10,0,0" Text="Search" TextWrapping="Wrap" VerticalAlignment="Top" Width="605" FontSize="14" FontFamily="Times New Roman"/>
         <TextBlock Grid.ColumnSpan="4" TextAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="705,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27">
@@ -32,144 +28,22 @@
             <Image Source="https://cdn.icon-icons.com/icons2/2566/PNG/512/search_icon_153438.png"/>
         </Button>
         <TextBlock HorizontalAlignment="Left" Height="26" Margin="17,10,0,0" Text="HCMUT" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="63" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14"/>
-        <ComboBox Name="Instock" HorizontalAlignment="Left" Height="22" Margin="125,50,0,0" VerticalAlignment="Top" Width="72" Grid.Column="3" >
-            <ComboBoxItem IsSelected="True">In stock</ComboBoxItem>
-            <ComboBoxItem >Show all</ComboBoxItem>
+        <ComboBox x:Name="Instock" HorizontalAlignment="Left" Height="22" Margin="125,50,0,0" VerticalAlignment="Top" Width="72" Grid.Column="3" >
+            <ComboBoxItem >In stock</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">Show all</ComboBoxItem>
         </ComboBox>
 
-        <ComboBox HorizontalAlignment="Left" Height="22" Margin="24,50,0,0" VerticalAlignment="Top" Width="73" Grid.Column="3" >
-            <ComboBoxItem IsSelected="True">Books</ComboBoxItem>
+        <ComboBox x:Name="ProType" HorizontalAlignment="Left" Height="22" Margin="24,50,0,0" VerticalAlignment="Top" Width="73" Grid.Column="3" >
+            <ComboBoxItem>Books</ComboBoxItem>
             <ComboBoxItem>Magazines</ComboBoxItem>
-            <ComboBoxItem>Show all</ComboBoxItem>
+            <ComboBoxItem IsSelected="True">Show all</ComboBoxItem>
         </ComboBox>
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="2">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="2">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
+        <StackPanel Grid.ColumnSpan="4" Grid.Row="1" Margin="0,0,0,0" Height="350">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" Width="800" MaxHeight="350">
+                <StackPanel Orientation="Vertical" x:Name="DisplayBookUI">
+                </StackPanel>
+            </ScrollViewer>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="3">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="0">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="2">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="3">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="0">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="1">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="2">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="3">
-            <Button Height="90" Width="75" Margin="-125,5,0,0">
-                <Image Source="https://static.wikia.nocookie.net/kiminonawa/images/6/62/Kimi-no-Na-wa.-Visual.jpg/revision/latest?cb=20160927170951" Width="75" Height="90" Stretch="Fill"></Image>
-            </Button>
-            <Button  Height="40" Width="110" Content="Rem So Kawaii Rem So Cute" Margin="85,-140,0,0"></Button>
-            <TextBlock  Height="20" Width="110" Text="$5000" Margin="85,-70,0,0"></TextBlock>
-            <TextBlock  Height="20" Width="110" Text="Còn hàng" Margin="85,-20,0,0"></TextBlock>
-        </StackPanel>
     </Grid>
 </Window>

@@ -133,30 +133,34 @@ PRIMARY KEY (Maga_Pro_ID)
 
 
 
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("1", "2", "3", 4, 5, 6, "afafa");
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("13", "14", "15", 16, 17, 18, "Hako.re");
+insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("1", "2", "3", 4, 5, 6, "https://cafebiz.cafebizcdn.vn/2017/photo-1-1498018165414.jpg");
+insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("13", "14", "15", 16, 17, 18, "https://chisworldcom.files.wordpress.com/2016/12/kimi-no-nawa-2-jpg.jpg");
 
-insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Sach", "Giao", 2000, 6996, 6);
-insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Giao", "Sach", 1999, 4196, 18);
+insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Vật lí 1", "Giao", 2000, 6996, 6);
+insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Hệ thống số", "Sach", 1999, 4196, 18);
 
 
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 4, 5, 12, "Hako.re");
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga2", "3", "3", 4, 34, 13, "Hako.re");
+insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 4, 0, 12, "https://static.tuoitre.vn/tto/i/s626/2012/07/04/qDKkOgZg.jpg");
+insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga2", "3", "3", 4, 34, 13, "https://static.tuoitre.vn/tto/i/s626/2012/07/04/qDKkOgZg.jpg");
 
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga2", "8", "9", 10, 11, 14, "Hako.re");
+insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga2", "8", "9", 10, 11, 14, "https://chisworldcom.files.wordpress.com/2016/12/kimi-no-nawa-2-jpg.jpg");
 
-insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Sach", "Giao", 2000, 6996, 14);
-
+insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Yêu Nàng Tuyết", "Giao", 2000, 6996, 14);
+insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Lập trình nâng cao", "Giao", 2000, 6996, 13);
+insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Giải tích 2", "Sach", 1999, 4196, 12);
 
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID) values("maga3", "14", "15", 16, 17, 15);
 
-insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (1,"Kim Dong","Tuoi Gia");
-insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (2,"Dong Kim","Tuoi Tre");
+insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (1,"Kim Dong","Tuổi Già");
+insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (2,"Dong Kim","Tuổi Trẻ");
+insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (3,"Dong Kim","Tuổi Trẻ Trâu");
+insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (4,"Dong Kim","Tuổi Lon");
 
 insert into magazines(Publish_date, NO, Maga_Pro_ID, Magazine_ID) values (STR_TO_DATE("30/12/1988", "%d/%m/%Y"), 128, 6, 1);
-insert into magazines(Publish_date, NO, Maga_Pro_ID, Magazine_ID) values (STR_TO_DATE("30/12/1981", "%d/%m/%Y"), 1, 12, 1);
+insert into magazines(Publish_date, NO, Maga_Pro_ID, Magazine_ID) values (STR_TO_DATE("30/12/1981", "%d/%m/%Y"), 1, 12, 3);
 insert into magazines(Publish_date, NO, Maga_Pro_ID, Magazine_ID) values (STR_TO_DATE("30/12/1912", "%d/%m/%Y"), 15, 18, 2);
-
+insert into magazines(Publish_date, NO, Maga_Pro_ID, Magazine_ID) values (STR_TO_DATE("30/12/1988", "%d/%m/%Y"), 128, 13, 4);
+insert into magazines(Publish_date, NO, Maga_Pro_ID, Magazine_ID) values (STR_TO_DATE("30/12/1981", "%d/%m/%Y"), 1, 14, 1);
 
 insert into reviews(ReCustomer_ID, Date, Rating, Image_URL, Comment_text, Review_Reply_Date, Re_Pro_ID) values (1, STR_TO_DATE("30/05/1981", "%d/%m/%Y"), 5, "a", 'test', STR_TO_DATE("30/12/1981", "%d/%m/%Y"), 12);
 insert into reviews(ReCustomer_ID, Date, Rating, Image_URL, Comment_text, Review_Reply_Date, Re_Pro_ID) values (1, STR_TO_DATE("30/01/1981", "%d/%m/%Y"), 5, "a", 'test', STR_TO_DATE("30/11/1981", "%d/%m/%Y"), 12);
@@ -260,7 +264,7 @@ begin
 end$$
 DELIMITER ;
 
-call getReview(12);
+call getBookUI();
 -- call getBookUI();
 
 

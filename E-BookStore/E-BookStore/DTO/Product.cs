@@ -98,4 +98,27 @@ namespace E_BookStore.DTO
             return "Magazine";
         }
     }
+    class ProductDisplay
+    {
+        string name;
+        string imgUrl;
+        int price;
+        int quantity;
+        int id;
+
+        public ProductDisplay(string name, string imgUrl, int price, int quantity, int id)
+        {
+            this.name = name;
+            this.imgUrl = imgUrl;
+            this.price = price;
+            this.quantity = quantity;
+            this.id = id;
+        }
+
+        public string Name { get => name; set => name = value; }
+        public string ImgUrl { get => imgUrl; set => imgUrl = value; }
+        public int Price { get => price; set => price = value; }
+        public int Quantity { get => quantity; set => quantity = value; }
+        public int Id { get => id; set => id = value; }
+    }
 }
