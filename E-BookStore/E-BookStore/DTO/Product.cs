@@ -65,7 +65,7 @@ namespace E_BookStore.DAO
         public DateTime PublishDate { get => publishDate; set => publishDate = value; }
         public int No { get => no; set => no = value; }
 
-        public Magazine(int id, int price, int quantity, string language) : base(id, price, quantity, language)
+        public Magazine(int id, int price, int quantity, string language, Store store) : base(id, price, quantity, language, store)
         {
             this.PublishDate = new DateTime();
             this.No = 0;
