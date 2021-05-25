@@ -42,7 +42,7 @@ namespace E_BookStore.GUI
             //List<Book> bookList = new List<Book>();
             //bookList = bll.getallBookUI();
             Grid grid = new Grid();
-            grid.Margin = new Thickness(0, 5, 0, 5);
+            grid.Margin = new Thickness(0, 0, 0, 0);
             int proCount = 0;
             switch (proType)
             {
@@ -50,17 +50,21 @@ namespace E_BookStore.GUI
                 case "Magazine":    proCount = magaList.Count;                      break;
                 case "All":         proCount = bookList.Count + magaList.Count;     break;
             }
-            ColumnDefinition[] colDef = new ColumnDefinition[2 * proCount];
-            for (int k = 0; k < 2 * proCount; k++) colDef[k] = new ColumnDefinition();
-            for (int k = 0; k < 2 * proCount; k++)
+            ColumnDefinition[] colDef = new ColumnDefinition[3 * proCount];
+            for (int k = 0; k < 3 * proCount; k++) colDef[k] = new ColumnDefinition();
+            for (int k = 0; k < 3 * proCount; k++)
             {
-                if (k % 2 == 0)
+                if (k % 3 == 0)
                 {
                     colDef[k].Width = new GridLength(75);
                 }
+                else if (k % 3 == 1)
+                {
+                    colDef[k].Width = new GridLength(120);
+                }
                 else
                 {
-                    colDef[k].Width = new GridLength(125);
+                    colDef[k].Width = new GridLength(5);
                 }
             }
             foreach (var c in colDef)
@@ -93,27 +97,37 @@ namespace E_BookStore.GUI
                         magaQuantity.Padding = defaultPadding;
                         magaQuantity.TextAlignment = TextAlignment.Center;
                         magaQuantity.Background = (magaList[i].Quantiy > 0) ? (SolidColorBrush)(new BrushConverter().ConvertFrom("#00FF00")) : (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0000"));
+                        magaQuantity.FontSize = 14;
 
                         TextBlock magaPrice = new TextBlock();
                         magaPrice.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", magaList[i].Price) + "đ";
+                        magaPrice.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF8C00"));
                         magaPrice.Padding = defaultPadding;
-                        magaQuantity.FontSize = magaPrice.FontSize = 15;
+                        magaPrice.FontSize = 16;
+
+                        TextBlock separator = new TextBlock();
+                        separator.Width = 0.4;
+                        separator.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#000000"));
+
+                        Grid.SetRowSpan(separator, 3);
+                        Grid.SetColumn(separator, 3 * i + 2);
 
                         Grid.SetRowSpan(img, 3);
-                        Grid.SetColumn(img, 2 * i);
+                        Grid.SetColumn(img, 3 * i);
 
                         Grid.SetRow(magaName, 0);
-                        Grid.SetColumn(magaName, 2 * i + 1);
+                        Grid.SetColumn(magaName, 3 * i + 1);
 
                         Grid.SetRow(magaPrice, 1);
-                        Grid.SetColumn(magaPrice, 2 * i + 1);
+                        Grid.SetColumn(magaPrice, 3 * i + 1);
                         Grid.SetRow(magaQuantity, 2);
-                        Grid.SetColumn(magaQuantity, 2 * i + 1);
+                        Grid.SetColumn(magaQuantity, 3 * i + 1);
 
                         grid.Children.Add(img);
                         grid.Children.Add(magaName);
                         grid.Children.Add(magaPrice);
                         grid.Children.Add(magaQuantity);
+                        grid.Children.Add(separator);
                     }
                     break;
 
@@ -134,27 +148,37 @@ namespace E_BookStore.GUI
                         bookQuantity.Padding = defaultPadding;
                         bookQuantity.TextAlignment = TextAlignment.Center;
                         bookQuantity.Background = (bookList[i].Quantiy > 0) ? (SolidColorBrush)(new BrushConverter().ConvertFrom("#00FF00")) : (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0000"));
-                        
+                        bookQuantity.FontSize = 14;
+
                         TextBlock bookPrice = new TextBlock();
                         bookPrice.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", bookList[i].Price) + "đ";
+                        bookPrice.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF8C00"));
                         bookPrice.Padding = defaultPadding;
-                        bookQuantity.FontSize = bookPrice.FontSize = 15;
+                        bookPrice.FontSize = 16;
+
+                        TextBlock separator = new TextBlock();
+                        separator.Width = 0.4;
+                        separator.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#000000"));
+
+                        Grid.SetRowSpan(separator, 3);
+                        Grid.SetColumn(separator, 3 * i + 2);
 
                         Grid.SetRowSpan(img, 3);
-                        Grid.SetColumn(img, 2 * i);
+                        Grid.SetColumn(img, 3 * i);
 
                         Grid.SetRow(bookName, 0);
-                        Grid.SetColumn(bookName, 2 * i + 1);
+                        Grid.SetColumn(bookName, 3 * i + 1);
 
                         Grid.SetRow(bookPrice, 1);
-                        Grid.SetColumn(bookPrice, 2 * i + 1);
+                        Grid.SetColumn(bookPrice, 3 * i + 1);
                         Grid.SetRow(bookQuantity, 2);
-                        Grid.SetColumn(bookQuantity, 2 * i + 1);
+                        Grid.SetColumn(bookQuantity, 3 * i + 1);
 
                         grid.Children.Add(img);
                         grid.Children.Add(bookName);
                         grid.Children.Add(bookPrice);
                         grid.Children.Add(bookQuantity);
+                        grid.Children.Add(separator);
                     }
                     break;
 
@@ -175,27 +199,37 @@ namespace E_BookStore.GUI
                         bookQuantity.Padding = defaultPadding;
                         bookQuantity.TextAlignment = TextAlignment.Center;
                         bookQuantity.Background = (bookList[i].Quantiy > 0) ? (SolidColorBrush)(new BrushConverter().ConvertFrom("#00FF00")) : (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0000"));
-                        
+                        bookQuantity.FontSize = 14;
+
                         TextBlock bookPrice = new TextBlock();
                         bookPrice.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", bookList[i].Price) + "đ";
+                        bookPrice.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF8C00"));
                         bookPrice.Padding = defaultPadding;
-                        bookQuantity.FontSize = bookPrice.FontSize = 15;
+                        bookPrice.FontSize = 16;
+
+                        TextBlock separator = new TextBlock();
+                        separator.Width = 0.4;
+                        separator.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#000000"));
+
+                        Grid.SetRowSpan(separator, 3);
+                        Grid.SetColumn(separator, 3 * i + 2);
 
                         Grid.SetRowSpan(img, 3);
-                        Grid.SetColumn(img, 2 * i);
+                        Grid.SetColumn(img, 3 * i);
 
                         Grid.SetRow(bookName, 0);
-                        Grid.SetColumn(bookName, 2 * i + 1);
+                        Grid.SetColumn(bookName, 3 * i + 1);
 
                         Grid.SetRow(bookPrice, 1);
-                        Grid.SetColumn(bookPrice, 2 * i + 1);
+                        Grid.SetColumn(bookPrice, 3 * i + 1);
                         Grid.SetRow(bookQuantity, 2);
-                        Grid.SetColumn(bookQuantity, 2 * i + 1);
+                        Grid.SetColumn(bookQuantity, 3 * i + 1);
 
                         grid.Children.Add(img);
                         grid.Children.Add(bookName);
                         grid.Children.Add(bookPrice);
                         grid.Children.Add(bookQuantity);
+                        grid.Children.Add(separator);
                     }
                     for (; i < proCount; i++)
                     {
@@ -214,27 +248,37 @@ namespace E_BookStore.GUI
                         magaQuantity.Padding = defaultPadding;
                         magaQuantity.TextAlignment = TextAlignment.Center;
                         magaQuantity.Background = (magaList[index].Quantiy > 0) ? (SolidColorBrush)(new BrushConverter().ConvertFrom("#00FF00")) : (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0000"));
+                        magaQuantity.FontSize = 14;
 
                         TextBlock magaPrice = new TextBlock();
                         magaPrice.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", magaList[index].Price) + "đ";
+                        magaPrice.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF8C00"));
                         magaPrice.Padding = defaultPadding;
-                        magaQuantity.FontSize = magaPrice.FontSize = 15;
+                        magaPrice.FontSize = 16;
+
+                        TextBlock separator = new TextBlock();
+                        separator.Width = 0.4;
+                        separator.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#000000"));
+
+                        Grid.SetRowSpan(separator, 3);
+                        Grid.SetColumn(separator, 3 * i + 2);
 
                         Grid.SetRowSpan(img, 3);
-                        Grid.SetColumn(img, 2 * i);
+                        Grid.SetColumn(img, 3 * i);
 
                         Grid.SetRow(magaName, 0);
-                        Grid.SetColumn(magaName, 2 * i + 1);
+                        Grid.SetColumn(magaName, 3 * i + 1);
 
                         Grid.SetRow(magaPrice, 1);
-                        Grid.SetColumn(magaPrice, 2 * i + 1);
+                        Grid.SetColumn(magaPrice, 3 * i + 1);
                         Grid.SetRow(magaQuantity, 2);
-                        Grid.SetColumn(magaQuantity, 2 * i + 1);
+                        Grid.SetColumn(magaQuantity, 3 * i + 1);
 
                         grid.Children.Add(img);
                         grid.Children.Add(magaName);
                         grid.Children.Add(magaPrice);
                         grid.Children.Add(magaQuantity);
+                        grid.Children.Add(separator);
                     }
                     break;
             }
@@ -291,9 +335,12 @@ namespace E_BookStore.GUI
                         break;
                 }
 
-                DisplayBookUI.Children.Add(getProUI(bookListOnRow, magaListOnRow, proType));
-                DisplayBookUI.Children.Add(new Separator());
                 Separator separator = new Separator();
+                separator.HorizontalAlignment = HorizontalAlignment.Left;
+                separator.Width = (i != row - 1) ? 795 : -2.5 + 200 * ((proCount % 4 == 0) ? 4 : (proCount % 4));
+
+                DisplayBookUI.Children.Add(getProUI(bookListOnRow, magaListOnRow, proType));
+                DisplayBookUI.Children.Add(separator);
             }
         }
         private string search_string = "";
@@ -366,6 +413,10 @@ namespace E_BookStore.GUI
             }
 
             DisplayBookUI.Children.Clear();
+            Separator separator = new Separator();
+            separator.Width = 795;
+
+            DisplayBookUI.Children.Add(separator);
             getallProUI(bookToSearch, magaToSearch, proType);
         }
 
@@ -438,6 +489,10 @@ namespace E_BookStore.GUI
             }
 
             DisplayBookUI.Children.Clear();
+            Separator separator = new Separator();
+            separator.Width = 795;
+
+            DisplayBookUI.Children.Add(separator);
             getallProUI(bookToSearch, magaToSearch, proType);
 
             //MessageBox.Show(Instock.SelectedItem.ToString());
@@ -512,6 +567,9 @@ namespace E_BookStore.GUI
             }
 
             DisplayBookUI.Children.Clear();
+            Separator separator = new Separator();
+            separator.Width = 795;
+            DisplayBookUI.Children.Add(separator);
             getallProUI(bookToSearch, magaToSearch, proType);
         }
 
@@ -536,6 +594,9 @@ namespace E_BookStore.GUI
             //        return p1.Price.CompareTo(p2.Price);
             //    }
             //);
+            Separator separator = new Separator();
+            separator.Width = 795;
+            DisplayBookUI.Children.Add(separator);
             getallProUI(bookList, magaList, "All");
 
             ProType.SelectionChanged += ProType_SelectionChanged;
