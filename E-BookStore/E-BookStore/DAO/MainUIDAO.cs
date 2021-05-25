@@ -52,11 +52,6 @@ namespace E_BookStore.DAO
                     book.Price = reader.GetInt32(findIndex(columnName, "price"));
                     bookList.Add(book);
                 }
-                for (int i = 0; i < bookList.Count; i++)
-                {
-                    Debug.WriteLine(bookList[i].Id.ToString() + " " + bookList[i].Name + " " +
-                        bookList[i].ImgUrl + " " + bookList[i].Price.ToString() + " " + bookList[i].Quantiy.ToString());
-                }
                 conn.Close();
             }
             catch (Exception e)
@@ -173,11 +168,6 @@ namespace E_BookStore.DAO
                     maga.Quantiy = reader.GetInt32(findIndex(columnName, "sum(Quantity)"));
                     maga.Price = reader.GetInt32(findIndex(columnName, "price"));
                     magaList.Add(maga);
-                }
-                for (int i = 0; i < magaList.Count; i++)
-                {
-                    Debug.WriteLine(magaList[i].Id.ToString() + " " + magaList[i].SeriName.Name + " No."  + magaList[i].No.ToString() + " " +
-                        magaList[i].ImgUrl + " " + magaList[i].Price.ToString() + " " + magaList[i].Quantiy.ToString());
                 }
                 conn.Close();
             }
