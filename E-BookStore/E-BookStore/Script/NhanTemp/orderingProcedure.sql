@@ -5,18 +5,19 @@ DROP PROCEDURE IF EXISTS GetBookInfo;
 DROP PROCEDURE IF EXISTS GetMagazineInfo;
 DROP PROCEDURE IF EXISTS IsBook;
 DROP PROCEDURE IF EXISTS UpdateStatus;
+DROP PROCEDURE IF EXISTS GetAllShipment;
 DELIMITER //
 
 CREATE PROCEDURE GetAllOrder(
 	IN customerId INT,
     IN statusVal VARCHAR(20))
 BEGIN
-	SELECT DISTINCT o.Order_ID, p.P_Product_ID, s.Status, o.Ship_cash, p.Order_quantity
+	SELECT DISTINCT o.Order_ID, p.P_Product_ID, s.Status, o.Ship_cash, o.Ship_Name, p.Order_quantity
 	FROM customers as c, orders as o, status as s, p_part_of as p
 	WHERE o.Order_ID = p.P_Order_ID and  p.P_Order_ID IN (
 						SELECT o.Order_ID
 						FROM customers as c, orders as o, status as s
-						WHERE o.Or_cus_ID = customerId
+						WHERE (o.Or_cus_ID = customerId or @cutomerId = 2)
 								and o.Order_ID = s.Sta_Order_ID
 								and s.Status = statusVal)
 	ORDER BY o.Order_ID;
@@ -58,7 +59,20 @@ BEGIN
     SET	s.status = statusVal
     WHERE s.Sta_Order_ID = productId;
 END //
+
+CREATE PROCEDỦE GetAllCustomer()
+BEGIN
+	SELECT c.Customer_ID
+    FROM customers as c;
+END
+
+CREATE PROCEDURE GetAllShipment()
+BEGIN
+	SELECT *
+    FROM shipment;
+END
 DELIMITER ;
+call GetAllShipment();
 -- call GetAllOrder(0, "OnCart");
 -- call GetMagazineInfo(2);
 -- call GetBookInfo(2);

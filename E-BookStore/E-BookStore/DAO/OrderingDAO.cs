@@ -64,44 +64,6 @@ namespace E_BookStore.DAO
                 cmd = new MySqlCommand(sqlStatement, conn);
                 itemReader = cmd.ExecuteReader();
                 parseItemInfo(itemReader, order, item);
-                //if(itemReader.FieldCount > 0)
-                //{
-                //    string[] itemColumn = new string[itemReader.FieldCount];
-                //    for (int i = 0; i < itemReader.FieldCount; i++)
-                //    {
-                //        itemColumn[i] = itemReader.GetName(i);
-                //    }
-                //    itemReader.Read();
-                //    item.Name = itemReader.GetString(findIndex(itemColumn, "Name"));
-                //    item.UPrice = itemReader.GetInt32(findIndex(itemColumn, "Price"));
-                //    item.Total = item.Quantity * item.UPrice;
-                //    item.ImgUrl = itemReader.GetString(findIndex(itemColumn, "ImgUrl"));
-                //    item.Type = "Book";
-                //    order.ItemsOfOrder.Add(item);
-                //    order.Total += item.Total;
-                //}
-                //itemReader.Close();
-                //sqlStatement = "call GetMagazineInfo("
-                //        + item.Id.ToString() + ");";
-                //cmd = new MySqlCommand(sqlStatement, conn);
-                //itemReader = cmd.ExecuteReader();
-
-                //if (itemReader.FieldCount > 0)
-                //{
-                //    string[] itemColumn = new string[itemReader.FieldCount];
-                //    for (int i = 0; i < itemReader.FieldCount; i++)
-                //    {
-                //        itemColumn[i] = itemReader.GetName(i);
-                //    }
-                //    itemReader.Read();
-                //    item.Name = itemReader.GetString(findIndex(itemColumn, "Name"));
-                //    item.UPrice = itemReader.GetInt32(findIndex(itemColumn, "Price"));
-                //    item.Total = item.Quantity * item.UPrice;
-                //    item.ImgUrl = itemReader.GetString(findIndex(itemColumn, "ImgUrl"));
-                //    item.Type = "Book";
-                //    order.ItemsOfOrder.Add(item);
-                //    order.Total += item.Total;
-                //}
                 conn.Close();
             }
             catch(Exception e)
@@ -121,6 +83,22 @@ namespace E_BookStore.DAO
                 cmd.ExecuteReader();
             }
             catch(Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+        }
+        public void updateShip(int orderId, Shipment ship)
+        {
+            var conn = new MySqlConnection(connString);
+            try
+            {
+                conn.Open();
+                string sqlStatement = "call UpdateShip("
+                        + orderId + ", \"" + ship.ShipName + "\", " + ship.ShipVal + ");";
+                var cmd = new MySqlCommand(sqlStatement, conn);
+                cmd.ExecuteReader();
+            }
+            catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
             }
@@ -152,6 +130,10 @@ namespace E_BookStore.DAO
                         order = new Order();
                         order.Id = orderId;
                         order.ShipCash = reader.GetInt32(findIndex(columnName, "Ship_cash"));
+                        order.Total += order.ShipCash;
+                        if(!reader.IsDBNull(findIndex(columnName, "Ship_Name")))
+                            order.ShipName = reader.GetString(findIndex(columnName, "Ship_Name"));
+                        order.Status.val = reader.GetString(findIndex(columnName, "Status"));
                         orderList.Add(order);
                     }
                     else
@@ -176,6 +158,36 @@ namespace E_BookStore.DAO
                 Debug.WriteLine(e.ToString());
             }
             return null;
+        }
+        public List<Shipment> getAllShipment()
+        {
+            List<Shipment> shipList = new List<Shipment>();
+            try
+            {
+               
+                var conn = new MySqlConnection(connString);
+                conn.Open();
+                string sqlStatement = "call GetAllShipment";
+                var cmd = new MySqlCommand(sqlStatement, conn);
+                var reader = cmd.ExecuteReader();
+                while(reader.Read())
+                {
+                    string[] column = new string[reader.FieldCount];
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        column[i] = reader.GetName(i);
+                    }
+                    Shipment shipment = new Shipment();
+                    shipment.ShipName = reader.GetString(findIndex(column, "Name"));
+                    shipment.ShipVal = reader.GetInt32(findIndex(column, "Price"));
+                    shipList.Add(shipment);
+                }
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return shipList;
         }
     }
 }

@@ -27,5 +27,14 @@ namespace E_BookStore.BLL
         {
             dao.updateStatus(orderId, status);
         }
+        public void updateShip(int orderId, Shipment ship)
+        {
+            dao.updateShip(orderId, ship);
+        }
+        public List<Shipment> getAllShipment()
+        {
+            return dao.getAllShipment();
+        }
+
     }
 }

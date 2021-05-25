@@ -1,0 +1,62 @@
+﻿<Window x:Class="E_BookStore.GUI.OrderDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:E_BookStore.GUI"
+        mc:Ignorable="d"
+        Title="OrderDetailWindow" Height="450" Width="800">
+    <StackPanel Margin="10">
+        <StackPanel Orientation="Horizontal" Margin=" 0 0 0 10">
+            <Button x:Name ="BackButton" Content="Back" Click="BackButton_Click" Width="60" Margin="0 0 10 0" Height="25" FontSize="15"/>
+            <Button x:Name ="SaveButton" IsEnabled="False" Click="SaveButton_Click" Content="Save" Width="60" Height="25"  FontSize="15"/>
+        </StackPanel>
+        <TextBlock x:Name="TotalField"  FontSize="20" Padding="0 0 0 10"/>
+        <StackPanel x:Name="ItemStack"/>
+        <!--<Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="110"/>
+            </Grid.RowDefinitions>
+
+            <Image Stretch="UniformToFill" Source="https://salt.tikicdn.com/cache/w444/media/catalog/product/d/a/day-con-lam-giau-tap1a.jpg" Grid.Column="0" Grid.Row="1"/>
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <TextBlock Text="Sach Day Lam Giau" FontSize="20" FontWeight="Bold" Padding="10 0 0 0" Grid.Column="1" Grid.Row="1"/>
+                <StackPanel Orientation="Horizontal" Margin="0 10 0 10">
+                    <TextBlock Text="Quantity:" FontSize="15" Padding="10 0 0 0" />
+                    <TextBox Text="1" TextAlignment="Center" Width="40" Height="20" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+                    <TextBlock Text="Remaining: 10" Foreground="Red" Padding="10 0 0 0" FontSize="12" VerticalAlignment="Center" FontStyle="Italic"/>
+                </StackPanel>
+                <TextBlock Text="Unit Price: 10,000" FontSize="15" Padding="10 0 0 0"/>
+                <TextBlock Text="Product total: 10,000" FontSize="15" Foreground="#EDA500" Padding="10 0 0 0"/>
+            </StackPanel>
+
+        </Grid>-->
+        <StackPanel Margin="0 10 0 0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Order ID" FontWeight="Bold" Width="100" Padding="0 0 5 0"/>
+                <TextBlock Text="0" FontWeight="Bold" Padding="5 0 5 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Submission Time" Width="100" Padding="0 0 5 0"/>
+                <TextBlock Text="2021-25-05 15:49" Padding="5 0 5 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Delevering Time" Width="100" Padding="0 0 5 0"/>
+                <TextBlock Text="2021-25-05 15:49" Padding="5 0 5 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Completed Time" Width="100" Padding="0 0 5 0"/>
+                <TextBlock Text="2021-25-05 15:49" Padding="5 0 5 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Canceled Time" Width="100" Padding="0 0 5 0"/>
+                <TextBlock Text="2021-25-05 15:49" Padding="5 0 5 0"/>
+            </StackPanel>
+        </StackPanel>
+
+    </StackPanel>
+</Window>
