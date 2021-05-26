@@ -657,16 +657,13 @@ namespace E_BookStore.GUI
             DisplayBookUI.Children.Add(separator);
             List<ProductDisplay> proList = new List<ProductDisplay>();
             proList = getAllProduct(bookList, magaList);
-                //proList.Sort(
-                //    delegate (ProductDisplay p1, ProductDisplay p2)
-                //    {
-                //        return p2.Date.CompareTo(p1.Date);
-                //    }
-                //);
-                getallProUI(proList, "All");
-            List<string> a = new List<string>();
-            a.Add("Hệ thống số");
-            a.Add("ầkfjakjfakjf");
+            proList.Sort(
+                delegate (ProductDisplay p1, ProductDisplay p2)
+                {
+                    return p2.Date.CompareTo(p1.Date);
+                }
+            );
+            getallProUI(proList, "All");
             ProType.SelectionChanged += ProType_SelectionChanged;
             Instock.SelectionChanged += Instock_SelectionChanged;
             Search.Click += Search_click;
