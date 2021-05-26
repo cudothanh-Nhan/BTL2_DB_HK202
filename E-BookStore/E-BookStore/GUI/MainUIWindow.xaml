@@ -50,12 +50,18 @@
             <Image Source="https://cdn.icon-icons.com/icons2/2566/PNG/512/search_icon_153438.png"/>
         </Button>
         <TextBlock HorizontalAlignment="Left" Height="26" Margin="17,10,0,0" Text="HCMUT" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="63" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14"/>
-        <ComboBox x:Name="Instock" HorizontalAlignment="Left" Height="22" Margin="125,55,0,0" VerticalAlignment="Top" Width="72" Grid.Column="3" >
+        <ComboBox x:Name="Instock" HorizontalAlignment="Left" Height="22" Margin="186,55,0,0" VerticalAlignment="Top" Width="72" Grid.Column="2" Grid.ColumnSpan="2" >
             <ComboBoxItem >In stock</ComboBoxItem>
             <ComboBoxItem IsSelected="True">Show all</ComboBoxItem>
         </ComboBox>
+        <ComboBox x:Name="ProSort" HorizontalAlignment="Left" Height="22" Margin="68,55,0,0" VerticalAlignment="Top" Width="129" Grid.Column="3" >
+            <ComboBoxItem IsSelected="True">Release date desc</ComboBoxItem>
+            <ComboBoxItem>Release date asc</ComboBoxItem>
+            <ComboBoxItem>Price desc</ComboBoxItem>
+            <ComboBoxItem>Price asc</ComboBoxItem>
+        </ComboBox>
 
-        <ComboBox x:Name="ProType" HorizontalAlignment="Left" Height="22" Margin="15,55,0,0" VerticalAlignment="Top" Width="90" Grid.Column="3" >
+        <ComboBox x:Name="ProType" HorizontalAlignment="Left" Height="22" Margin="83,55,0,0" VerticalAlignment="Top" Width="90" Grid.Column="2" >
             <ComboBoxItem>Books</ComboBoxItem>
             <ComboBoxItem>Magazines</ComboBoxItem>
             <ComboBoxItem IsSelected="True">Show all</ComboBoxItem>

@@ -133,7 +133,7 @@ PRIMARY KEY (Maga_Pro_ID)
 
 
 
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("1", "2", "3", 4, 50000, 6, "https://chisworldcom.files.wordpress.com/2016/12/kimi-no-nawa-2-jpg.jpg");
+insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("1", "2", "3", 412121313, 50000, 6, "https://chisworldcom.files.wordpress.com/2016/12/kimi-no-nawa-2-jpg.jpg");
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("13", "14", "15", 16000, 17, 18, "https://cdn.anisearch.com/images/character/cover/full/73/73822.jpg");
 
 insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Vật lí 1", "Giao", 2000, 6996, 6);
@@ -151,10 +151,10 @@ insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Gi
 
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga3", "14", "15", 5416000, 17, 15, "https://pbs.twimg.com/media/BIRVTPrCAAAgdHx.jpg");
 
-insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (1,"Kim Dong","Tuổi Cac");
+insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (1,"Kim Dong","Tuổi Già");
 insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (2,"Dong Kim","Tuổi Trẻ");
 insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (3,"Dong Kim","Deo Co Tuổi");
-insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (4,"Dong Kim","Tuổi Lon");
+insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (4,"Dong Kim","Tuổi Moi Lon");
 insert into MAGAZINE_SERI_NAMES(Seri_name_ID, Publisher, Name) values (5,"Dong Kim","Tuổi Gì?");
 
 insert into magazines(Publish_date, NO, Maga_Pro_ID, Magazine_ID) values (STR_TO_DATE("30/12/1988", "%d/%m/%Y"), 128, 6, 1);
@@ -192,11 +192,11 @@ insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 8757, 0, 25, "https://i.pinimg.com/736x/76/6e/55/766e55417e4edbaf7c922e091f418b60.jpg");
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 7876, 0, 26, "https://img-9gag-fun.9cache.com/photo/awXZBBD_460s.jpg");
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 8725727, 0, 27, "https://static.tuoitre.vn/tto/i/s626/2012/07/04/qDKkOgZg.jpg");
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 4, 100, 28, "https://static.tuoitre.vn/tto/i/s626/2012/07/04/qDKkOgZg.jpg");
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 4, 1014540, 29, "https://static.tuoitre.vn/tto/i/s626/2012/07/04/qDKkOgZg.jpg");
+insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 100004, 100, 28, "https://static.tuoitre.vn/tto/i/s626/2012/07/04/qDKkOgZg.jpg");
+insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 14000, 1014540, 29, "https://static.tuoitre.vn/tto/i/s626/2012/07/04/qDKkOgZg.jpg");
 
 insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("No Hope", "Giao", 2000, 6996, 10);
-insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Gỉai tích 1", "Giao", 2000, 6996, 21);
+insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Giải tích 1", "Giao", 2000, 6996, 21);
 insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Vật lí 2", "Sach", 1999, 4196, 22);
 insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Kurumi Tokisaki", "Giao", 2000, 6996, 23);
 insert into BOOKS(name, publisher, publish_year, pages, book_Pro_ID) values ("Rem So Kawaii", "Giao", 2000, 6996, 24);
@@ -211,7 +211,7 @@ insert into magazines(Publish_date, NO, Maga_Pro_ID, Magazine_ID) values (STR_TO
 DELIMITER $$
 create procedure getBookUI()
 begin
-	select imgUrl, name, Product_ID, sum(Quantity), price
+	select imgUrl, name, Product_ID, sum(Quantity), price, Publish_year
     from books, products
     where Book_Pro_ID = Product_ID
     group by Product_ID;
@@ -232,7 +232,7 @@ DELIMITER ;
 DELIMITER $$
 create procedure getMagazineUI()
 begin
-	select imgUrl, Name, NO, Product_ID, sum(Quantity), price
+	select imgUrl, Name, NO, Product_ID, sum(Quantity), price, Publish_date
     from products, magazines, MAGAZINE_SERI_NAMES
     where Product_ID = Maga_Pro_ID and Magazine_ID = Seri_name_ID
     group by Product_ID;

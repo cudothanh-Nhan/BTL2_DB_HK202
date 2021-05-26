@@ -50,6 +50,8 @@ namespace E_BookStore.DAO
                     book.Name = reader.GetString(findIndex(columnName, "name"));
                     book.Quantiy = reader.GetInt32(findIndex(columnName, "sum(Quantity)"));
                     book.Price = reader.GetInt32(findIndex(columnName, "price"));
+                    DateTime date = DateTime.ParseExact(reader.GetString(findIndex(columnName, "Publish_year")), "yyyy", CultureInfo.InvariantCulture);
+                    book.PublishYear = date;
                     bookList.Add(book);
                 }
                 conn.Close();
@@ -167,6 +169,8 @@ namespace E_BookStore.DAO
                     maga.No = reader.GetInt32(findIndex(columnName, "NO"));
                     maga.Quantiy = reader.GetInt32(findIndex(columnName, "sum(Quantity)"));
                     maga.Price = reader.GetInt32(findIndex(columnName, "price"));
+                    DateTime date = DateTime.ParseExact(reader.GetString(findIndex(columnName, "Publish_date")), "M/d/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    maga.PublishDate = date;
                     magaList.Add(maga);
                 }
                 conn.Close();

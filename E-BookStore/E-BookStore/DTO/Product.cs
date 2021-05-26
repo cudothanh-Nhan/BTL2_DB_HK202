@@ -105,14 +105,22 @@ namespace E_BookStore.DTO
         int price;
         int quantity;
         int id;
+        string type;
+        DateTime date;
+        public ProductDisplay()
+        {
+            this.date = new DateTime();
+        }
 
-        public ProductDisplay(string name, string imgUrl, int price, int quantity, int id)
+        public ProductDisplay(string name, string imgUrl, int price, int quantity, int id, string type, DateTime date)
         {
             this.name = name;
             this.imgUrl = imgUrl;
             this.price = price;
             this.quantity = quantity;
             this.id = id;
+            this.type = type;
+            this.date = date;
         }
 
         public string Name { get => name; set => name = value; }
@@ -120,5 +128,7 @@ namespace E_BookStore.DTO
         public int Price { get => price; set => price = value; }
         public int Quantity { get => quantity; set => quantity = value; }
         public int Id { get => id; set => id = value; }
+        public string Type { get => type; set => type = value; }
+        public DateTime Date { get => date; set => date = value; }
     }
 }

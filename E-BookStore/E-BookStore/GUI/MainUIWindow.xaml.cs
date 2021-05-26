@@ -36,20 +36,43 @@ namespace E_BookStore.GUI
             return image;
         }
         MainUIBLL bll;
-        private Grid getProUI(List<Book> bookList, List<Magazine> magaList, string proType)
+        private List<ProductDisplay> getAllProduct (List<Book> bookList, List<Magazine> magaList)
+        {
+            List<ProductDisplay> productList = new List<ProductDisplay>();
+            foreach (var i in bookList)
+            {
+                //ProductDisplay product = new ProductDisplay();
+                //product.Name = i.Name;
+                //product.ImgUrl = i.ImgUrl;
+                //product.Id = i.Id;
+                //product.Price = i.Price;
+                //product.Quantity = i.Quantiy;
+                //product.Type = "Book";
+                //product.Date = i.PublishYear;
+                ProductDisplay product = new ProductDisplay(i.Name, i.ImgUrl, i.Price, i.Quantiy, i.Id, "Book", i.PublishYear);
+                productList.Add(product);
+            }
+            foreach (var i in magaList)
+            {
+                //ProductDisplay product = new ProductDisplay();
+                //product.Name = i.SeriName.Name + " No." + i.No.ToString();
+                //product.ImgUrl = i.ImgUrl;
+                //product.Id = i.Id;
+                //product.Price = i.Price;
+                //product.Quantity = i.Quantiy;
+                //product.Type = "Magazine";
+                //product.Date = i.PublishDate;
+                ProductDisplay product = new ProductDisplay(i.SeriName.Name + " No." + i.No, i.ImgUrl, i.Price, i.Quantiy, i.Id, "Magazine", i.PublishDate);
+                productList.Add(product);
+            }
+            return productList;
+        }
+        private Grid getProUI(List<ProductDisplay> productList)
         {
             Thickness defaultPadding = new Thickness(5, 0, 0, 0);
-            //List<Book> bookList = new List<Book>();
-            //bookList = bll.getallBookUI();
             Grid grid = new Grid();
             grid.Margin = new Thickness(0, 0, 0, 0);
-            int proCount = 0;
-            switch (proType)
-            {
-                case "Book":        proCount = bookList.Count;                      break;
-                case "Magazine":    proCount = magaList.Count;                      break;
-                case "All":         proCount = bookList.Count + magaList.Count;     break;
-            }
+            int proCount = productList.Count;
             ColumnDefinition[] colDef = new ColumnDefinition[3 * proCount];
             for (int k = 0; k < 3 * proCount; k++) colDef[k] = new ColumnDefinition();
             for (int k = 0; k < 3 * proCount; k++)
@@ -77,269 +100,91 @@ namespace E_BookStore.GUI
             rowDef[0].Height = new GridLength(50);
             rowDef[1].Height = rowDef[2].Height = new GridLength(20);
             foreach (var r in rowDef) grid.RowDefinitions.Add(r);
-            int i = 0;
-            switch (proType)
+
+            for (int i = 0; i < productList.Count; i++)
             {
-                case "Magazine":
-                    for (; i < proCount; i++)
-                    {
-                        Image img = getImage(magaList[i].ImgUrl);
+                Image img = getImage(productList[i].ImgUrl);
 
-                        TextBlock magaName = new TextBlock();
-                        magaName.Text = magaList[i].SeriName.Name + " No." + magaList[i].No;
-                        magaName.FontSize = 20;
-                        magaName.FontWeight = FontWeights.Bold;
-                        magaName.Padding = defaultPadding;
-                        magaName.TextWrapping = TextWrapping.Wrap;
+                TextBlock proName = new TextBlock();
+                proName.Text = productList[i].Name;
+                proName.FontSize = 20;
+                proName.FontWeight = FontWeights.Bold;
+                proName.Padding = defaultPadding;
+                proName.TextWrapping = TextWrapping.Wrap;
 
-                        TextBlock magaQuantity = new TextBlock();
-                        magaQuantity.Text = (magaList[i].Quantiy > 0) ? "In stock" : "Out of stock";
-                        magaQuantity.Padding = defaultPadding;
-                        magaQuantity.TextAlignment = TextAlignment.Center;
-                        magaQuantity.Background = (magaList[i].Quantiy > 0) ? (SolidColorBrush)(new BrushConverter().ConvertFrom("#00FF00")) : (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0000"));
-                        magaQuantity.FontSize = 14;
+                TextBlock proQuantity = new TextBlock();
+                proQuantity.Text = (productList[i].Quantity > 0) ? "In stock" : "Out of stock";
+                proQuantity.Padding = defaultPadding;
+                proQuantity.TextAlignment = TextAlignment.Center;
+                proQuantity.Background = (productList[i].Quantity > 0) ? (SolidColorBrush)(new BrushConverter().ConvertFrom("#00FF00")) : (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0000"));
+                proQuantity.FontSize = 14;
 
-                        TextBlock magaPrice = new TextBlock();
-                        magaPrice.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", magaList[i].Price) + "đ";
-                        magaPrice.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF8C00"));
-                        magaPrice.Padding = defaultPadding;
-                        magaPrice.FontSize = 16;
+                TextBlock proPrice = new TextBlock();
+                proPrice.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", productList[i].Price) + "đ";
+                proPrice.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF8C00"));
+                proPrice.Padding = defaultPadding;
+                proPrice.FontSize = 16;
 
-                        TextBlock separator = new TextBlock();
-                        separator.Width = 0.4;
-                        separator.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#000000"));
+                TextBlock separator = new TextBlock();
+                separator.Width = 0.4;
+                separator.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#000000"));
 
-                        Grid.SetRowSpan(separator, 3);
-                        Grid.SetColumn(separator, 3 * i + 2);
+                Grid.SetRowSpan(separator, 3);
+                Grid.SetColumn(separator, 3 * i + 2);
 
-                        Grid.SetRowSpan(img, 3);
-                        Grid.SetColumn(img, 3 * i);
+                Grid.SetRowSpan(img, 3);
+                Grid.SetColumn(img, 3 * i);
 
-                        Grid.SetRow(magaName, 0);
-                        Grid.SetColumn(magaName, 3 * i + 1);
+                Grid.SetRow(proName, 0);
+                Grid.SetColumn(proName, 3 * i + 1);
 
-                        Grid.SetRow(magaPrice, 1);
-                        Grid.SetColumn(magaPrice, 3 * i + 1);
-                        Grid.SetRow(magaQuantity, 2);
-                        Grid.SetColumn(magaQuantity, 3 * i + 1);
+                Grid.SetRow(proPrice, 1);
+                Grid.SetColumn(proPrice, 3 * i + 1);
+                Grid.SetRow(proQuantity, 2);
+                Grid.SetColumn(proQuantity, 3 * i + 1);
 
-                        grid.Children.Add(img);
-                        grid.Children.Add(magaName);
-                        grid.Children.Add(magaPrice);
-                        grid.Children.Add(magaQuantity);
-                        grid.Children.Add(separator);
-                    }
-                    break;
-
-                case "Book":
-                    for (; i < proCount; i++)
-                    {
-                        Image img = getImage(bookList[i].ImgUrl);
-
-                        TextBlock bookName = new TextBlock();
-                        bookName.Text = bookList[i].Name;
-                        bookName.FontSize = 20;
-                        bookName.FontWeight = FontWeights.Bold;
-                        bookName.Padding = defaultPadding;
-                        bookName.TextWrapping = TextWrapping.Wrap;
-
-                        TextBlock bookQuantity = new TextBlock();
-                        bookQuantity.Text = (bookList[i].Quantiy > 0) ? "In stock" : "Out of stock";
-                        bookQuantity.Padding = defaultPadding;
-                        bookQuantity.TextAlignment = TextAlignment.Center;
-                        bookQuantity.Background = (bookList[i].Quantiy > 0) ? (SolidColorBrush)(new BrushConverter().ConvertFrom("#00FF00")) : (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0000"));
-                        bookQuantity.FontSize = 14;
-
-                        TextBlock bookPrice = new TextBlock();
-                        bookPrice.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", bookList[i].Price) + "đ";
-                        bookPrice.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF8C00"));
-                        bookPrice.Padding = defaultPadding;
-                        bookPrice.FontSize = 16;
-
-                        TextBlock separator = new TextBlock();
-                        separator.Width = 0.4;
-                        separator.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#000000"));
-
-                        Grid.SetRowSpan(separator, 3);
-                        Grid.SetColumn(separator, 3 * i + 2);
-
-                        Grid.SetRowSpan(img, 3);
-                        Grid.SetColumn(img, 3 * i);
-
-                        Grid.SetRow(bookName, 0);
-                        Grid.SetColumn(bookName, 3 * i + 1);
-
-                        Grid.SetRow(bookPrice, 1);
-                        Grid.SetColumn(bookPrice, 3 * i + 1);
-                        Grid.SetRow(bookQuantity, 2);
-                        Grid.SetColumn(bookQuantity, 3 * i + 1);
-
-                        grid.Children.Add(img);
-                        grid.Children.Add(bookName);
-                        grid.Children.Add(bookPrice);
-                        grid.Children.Add(bookQuantity);
-                        grid.Children.Add(separator);
-                    }
-                    break;
-
-                case "All":
-                    for (; i < bookList.Count; i++)
-                    {
-                        Image img = getImage(bookList[i].ImgUrl);
-
-                        TextBlock bookName = new TextBlock();
-                        bookName.Text = bookList[i].Name;
-                        bookName.FontSize = 20;
-                        bookName.FontWeight = FontWeights.Bold;
-                        bookName.Padding = defaultPadding;
-                        bookName.TextWrapping = TextWrapping.Wrap;
-                        
-                        TextBlock bookQuantity = new TextBlock();
-                        bookQuantity.Text = (bookList[i].Quantiy > 0) ? "In stock" : "Out of stock";
-                        bookQuantity.Padding = defaultPadding;
-                        bookQuantity.TextAlignment = TextAlignment.Center;
-                        bookQuantity.Background = (bookList[i].Quantiy > 0) ? (SolidColorBrush)(new BrushConverter().ConvertFrom("#00FF00")) : (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0000"));
-                        bookQuantity.FontSize = 14;
-
-                        TextBlock bookPrice = new TextBlock();
-                        bookPrice.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", bookList[i].Price) + "đ";
-                        bookPrice.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF8C00"));
-                        bookPrice.Padding = defaultPadding;
-                        bookPrice.FontSize = 16;
-
-                        TextBlock separator = new TextBlock();
-                        separator.Width = 0.4;
-                        separator.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#000000"));
-
-                        Grid.SetRowSpan(separator, 3);
-                        Grid.SetColumn(separator, 3 * i + 2);
-
-                        Grid.SetRowSpan(img, 3);
-                        Grid.SetColumn(img, 3 * i);
-
-                        Grid.SetRow(bookName, 0);
-                        Grid.SetColumn(bookName, 3 * i + 1);
-
-                        Grid.SetRow(bookPrice, 1);
-                        Grid.SetColumn(bookPrice, 3 * i + 1);
-                        Grid.SetRow(bookQuantity, 2);
-                        Grid.SetColumn(bookQuantity, 3 * i + 1);
-
-                        grid.Children.Add(img);
-                        grid.Children.Add(bookName);
-                        grid.Children.Add(bookPrice);
-                        grid.Children.Add(bookQuantity);
-                        grid.Children.Add(separator);
-                    }
-                    for (; i < proCount; i++)
-                    {
-                        int index = i - bookList.Count;
-                        Image img = getImage(magaList[index].ImgUrl);
-
-                        TextBlock magaName = new TextBlock();
-                        magaName.Text = magaList[index].SeriName.Name + " No." + magaList[index].No;
-                        magaName.FontSize = 20;
-                        magaName.FontWeight = FontWeights.Bold;
-                        magaName.Padding = defaultPadding;
-                        magaName.TextWrapping = TextWrapping.Wrap;
-
-                        TextBlock magaQuantity = new TextBlock();
-                        magaQuantity.Text = (magaList[index].Quantiy > 0) ? "In stock" : "Out of stock";
-                        magaQuantity.Padding = defaultPadding;
-                        magaQuantity.TextAlignment = TextAlignment.Center;
-                        magaQuantity.Background = (magaList[index].Quantiy > 0) ? (SolidColorBrush)(new BrushConverter().ConvertFrom("#00FF00")) : (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0000"));
-                        magaQuantity.FontSize = 14;
-
-                        TextBlock magaPrice = new TextBlock();
-                        magaPrice.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", magaList[index].Price) + "đ";
-                        magaPrice.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF8C00"));
-                        magaPrice.Padding = defaultPadding;
-                        magaPrice.FontSize = 16;
-
-                        TextBlock separator = new TextBlock();
-                        separator.Width = 0.4;
-                        separator.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#000000"));
-
-                        Grid.SetRowSpan(separator, 3);
-                        Grid.SetColumn(separator, 3 * i + 2);
-
-                        Grid.SetRowSpan(img, 3);
-                        Grid.SetColumn(img, 3 * i);
-
-                        Grid.SetRow(magaName, 0);
-                        Grid.SetColumn(magaName, 3 * i + 1);
-
-                        Grid.SetRow(magaPrice, 1);
-                        Grid.SetColumn(magaPrice, 3 * i + 1);
-                        Grid.SetRow(magaQuantity, 2);
-                        Grid.SetColumn(magaQuantity, 3 * i + 1);
-
-                        grid.Children.Add(img);
-                        grid.Children.Add(magaName);
-                        grid.Children.Add(magaPrice);
-                        grid.Children.Add(magaQuantity);
-                        grid.Children.Add(separator);
-                    }
-                    break;
+                grid.Children.Add(img);
+                grid.Children.Add(proName);
+                grid.Children.Add(proPrice);
+                grid.Children.Add(proQuantity);
+                grid.Children.Add(separator);
             }
             return grid;
         }
-        private void getallProUI(List<Book> bookList, List<Magazine> magaList, string proType)
+        private void getallProUI(List<ProductDisplay> proList, string proType)
         {
-            int proCount = 0;
-            switch (proType)
+            List<ProductDisplay> proDisplay = new List<ProductDisplay>();
+
+            foreach (var i in proList)
             {
-                case "Book":        proCount = bookList.Count;                      break;
-                case "Magazine":    proCount = magaList.Count;                      break;
-                case "All":         proCount = bookList.Count + magaList.Count;     break;
+                if (proType != "All")
+                {
+                    if (i.Type == proType)
+                    {
+                        proDisplay.Add(i);
+                    }
+                }
+                else proDisplay.Add(i);
             }
-            double row = Math.Ceiling(proCount / 4.0);
+
+            double row = Math.Ceiling(proDisplay.Count / 4.0);
             for (int i = 0; i < row; i++)
             {
-                List<Magazine> magaListOnRow = new List<Magazine>();
-                List<Book> bookListOnRow = new List<Book>();
-                switch (proType)
+                List<ProductDisplay> proListOnRow = new List<ProductDisplay>();
+
+                for (int j = 0; j < 4; j++)
                 {
-                    case "Magazine":
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (4 * i + j < magaList.Count)
-                            {
-                                magaListOnRow.Add(magaList[4 * i + j]);
-                            }
-                        }
-                        break;
-
-                    case "Book":
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (4 * i + j < bookList.Count)
-                            {
-                                bookListOnRow.Add(bookList[4 * i + j]);
-                            }
-                        }
-                        break;
-
-                    case "All":
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (4 * i + j < bookList.Count)
-                            {
-                                bookListOnRow.Add(bookList[4 * i + j]);
-                            }
-                            else if (4 * i + j - bookList.Count < magaList.Count)
-                            {
-                                magaListOnRow.Add(magaList[4 * i + j - bookList.Count]);
-                            }
-                        }
-                        break;
+                    if (4 * i + j < proDisplay.Count)
+                    {
+                        proListOnRow.Add(proDisplay[4 * i + j]);
+                    }
                 }
 
                 Separator separator = new Separator();
                 separator.HorizontalAlignment = HorizontalAlignment.Left;
-                separator.Width = (i != row - 1) ? 795 : -2.5 + 200 * ((proCount % 4 == 0) ? 4 : (proCount % 4));
+                separator.Width = (i != row - 1) ? 795 : -2.5 + 200 * ((proDisplay.Count % 4 == 0) ? 4 : (proDisplay.Count % 4));
 
-                DisplayBookUI.Children.Add(getProUI(bookListOnRow, magaListOnRow, proType));
+                DisplayBookUI.Children.Add(getProUI(proListOnRow));
                 DisplayBookUI.Children.Add(separator);
             }
         }
@@ -347,6 +192,7 @@ namespace E_BookStore.GUI
         private void Instock_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bll = new MainUIBLL();
+            search_string = SearchTaskBar.Text;
             List<Magazine> magaList = new List<Magazine>();
             List<Book> bookList = new List<Book>();
             magaList = bll.getallMagaUI();
@@ -415,14 +261,52 @@ namespace E_BookStore.GUI
             DisplayBookUI.Children.Clear();
             Separator separator = new Separator();
             separator.Width = 795;
-
             DisplayBookUI.Children.Add(separator);
-            getallProUI(bookToSearch, magaToSearch, proType);
+            List<ProductDisplay> proList = new List<ProductDisplay>();
+
+            proList = getAllProduct(bookToSearch, magaToSearch);
+            switch (ProSort.SelectedIndex)
+            {
+                case 0:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p2.Date.CompareTo(p1.Date);
+                        }
+                    );
+                    break;
+                case 1:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p1.Date.CompareTo(p2.Date);
+                        }
+                    );
+                    break;
+                case 2:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p2.Price.CompareTo(p1.Price);
+                        }
+                    );
+                    break;
+                case 3:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p1.Price.CompareTo(p2.Price);
+                        }
+                    );
+                    break;
+            }
+            getallProUI(proList, proType);
         }
 
         private void ProType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bll = new MainUIBLL();
+            search_string = SearchTaskBar.Text;
             List<Magazine> magaList = new List<Magazine>();
             List<Book> bookList = new List<Book>();
             magaList = bll.getallMagaUI();
@@ -491,11 +375,46 @@ namespace E_BookStore.GUI
             DisplayBookUI.Children.Clear();
             Separator separator = new Separator();
             separator.Width = 795;
-
             DisplayBookUI.Children.Add(separator);
-            getallProUI(bookToSearch, magaToSearch, proType);
+            List<ProductDisplay> proList = new List<ProductDisplay>();
 
-            //MessageBox.Show(Instock.SelectedItem.ToString());
+            proList = getAllProduct(bookToSearch, magaToSearch);
+            switch (ProSort.SelectedIndex)
+            {
+                case 0:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p2.Date.CompareTo(p1.Date);
+                        }
+                    );
+                    break;
+                case 1:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p1.Date.CompareTo(p2.Date);
+                        }
+                    );
+                    break;
+                case 2:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p2.Price.CompareTo(p1.Price);
+                        }
+                    );
+                    break;
+                case 3:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p1.Price.CompareTo(p2.Price);
+                        }
+                    );
+                    break;
+            }
+            getallProUI(proList, proType);
         }
         private void Search_click(object sender, RoutedEventArgs e)
         {
@@ -570,7 +489,158 @@ namespace E_BookStore.GUI
             Separator separator = new Separator();
             separator.Width = 795;
             DisplayBookUI.Children.Add(separator);
-            getallProUI(bookToSearch, magaToSearch, proType);
+            List<ProductDisplay> proList = new List<ProductDisplay>();
+
+            proList = getAllProduct(bookToSearch, magaToSearch);
+            switch (ProSort.SelectedIndex)
+            {
+                case 0:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p2.Date.CompareTo(p1.Date);
+                        }
+                    );
+                    break;
+                case 1:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p1.Date.CompareTo(p2.Date);
+                        }
+                    );
+                    break;
+                case 2:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p2.Price.CompareTo(p1.Price);
+                        }
+                    );
+                    break;
+                case 3:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p1.Price.CompareTo(p2.Price);
+                        }
+                    );
+                    break;
+            }
+            getallProUI(proList, proType);
+        }
+        private void ProSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            bll = new MainUIBLL();
+            search_string = SearchTaskBar.Text;
+            List<Magazine> magaList = new List<Magazine>();
+            List<Book> bookList = new List<Book>();
+            magaList = bll.getallMagaUI();
+            bookList = bll.getallBookUI();
+            List<Magazine> magaToDisplay = new List<Magazine>();
+            List<Book> bookToDisplay = new List<Book>();
+
+            if (Instock.SelectedIndex == 0)
+            {
+                foreach (var i in magaList)
+                {
+                    if (i.Quantiy > 0)
+                    {
+                        magaToDisplay.Add(i);
+                    }
+                }
+                foreach (var i in bookList)
+                {
+                    if (i.Quantiy > 0)
+                    {
+                        bookToDisplay.Add(i);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var i in magaList)
+                {
+                    magaToDisplay.Add(i);
+                }
+                foreach (var i in bookList)
+                {
+                    bookToDisplay.Add(i);
+                }
+            }
+            List<Magazine> magaToSearch = new List<Magazine>();
+            List<Book> bookToSearch = new List<Book>();
+            foreach (var i in magaToDisplay)
+            {
+                if ((i.SeriName.Name + " No." + i.No).Contains(search_string, StringComparison.OrdinalIgnoreCase))
+                {
+                    magaToSearch.Add(i);
+                }
+            }
+            foreach (var i in bookToDisplay)
+            {
+                if (i.Name.Contains(search_string, StringComparison.OrdinalIgnoreCase))
+                {
+                    bookToSearch.Add(i);
+                }
+            }
+            string proType;
+            if (ProType.SelectedIndex == 0)
+            {
+                proType = "Book";
+            }
+            else if (ProType.SelectedIndex == 1)
+            {
+                proType = "Magazine";
+            }
+            else
+            {
+                proType = "All";
+            }
+
+            DisplayBookUI.Children.Clear();
+            Separator separator = new Separator();
+            separator.Width = 795;
+            DisplayBookUI.Children.Add(separator);
+            List<ProductDisplay> proList = new List<ProductDisplay>();
+
+            proList = getAllProduct(bookToSearch, magaToSearch);
+            switch (ProSort.SelectedIndex)
+            {
+                case 0:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p2.Date.CompareTo(p1.Date);
+                        }
+                    );
+                    break;
+                case 1:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p1.Date.CompareTo(p2.Date);
+                        }
+                    );
+                    break;
+                case 2:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p2.Price.CompareTo(p1.Price);
+                        }
+                    );
+                    break;
+                case 3:
+                    proList.Sort(
+                        delegate (ProductDisplay p1, ProductDisplay p2)
+                        {
+                            return p1.Price.CompareTo(p2.Price);
+                        }
+                    );
+                    break;
+            }
+            getallProUI(proList, proType);
         }
 
         public MainUIWindow()
@@ -582,26 +652,25 @@ namespace E_BookStore.GUI
             List<Magazine> magaList = new List<Magazine>();
             bookList = bll.getallBookUI();
             magaList = bll.getallMagaUI();
-            //bookList.Sort(
-            //    delegate (Book p1, Book p2)
-            //    {
-            //        return p1.Price.CompareTo(p2.Price);
-            //    }
-            //);
-            //magaList.Sort(
-            //    delegate (Magazine p1, Magazine p2)
-            //    {
-            //        return p1.Price.CompareTo(p2.Price);
-            //    }
-            //);
             Separator separator = new Separator();
             separator.Width = 795;
             DisplayBookUI.Children.Add(separator);
-            getallProUI(bookList, magaList, "All");
-
+            List<ProductDisplay> proList = new List<ProductDisplay>();
+            proList = getAllProduct(bookList, magaList);
+                //proList.Sort(
+                //    delegate (ProductDisplay p1, ProductDisplay p2)
+                //    {
+                //        return p2.Date.CompareTo(p1.Date);
+                //    }
+                //);
+                getallProUI(proList, "All");
+            List<string> a = new List<string>();
+            a.Add("Hệ thống số");
+            a.Add("ầkfjakjfakjf");
             ProType.SelectionChanged += ProType_SelectionChanged;
             Instock.SelectionChanged += Instock_SelectionChanged;
             Search.Click += Search_click;
+            ProSort.SelectionChanged += ProSort_SelectionChanged;
         }
 
     }
