@@ -168,7 +168,7 @@ insert into reviews(ReCustomer_ID, Date, Rating, Image_URL, Comment_text, Review
 insert into reviews(ReCustomer_ID, Date, Rating, Image_URL, Comment_text, Review_Reply_Date, Re_Pro_ID) values (1, STR_TO_DATE("30/12/1980", "%d/%m/%Y"), 5, "a", 'test', STR_TO_DATE("30/01/1981", "%d/%m/%Y"), 12);
 
 insert into reviews(ReCustomer_ID, Date, Rating, Image_URL, Comment_text, Review_Reply_Date, Re_Pro_ID) values (2, STR_TO_DATE("30/11/1981", "%d/%m/%Y"), 5, "a", 'test', STR_TO_DATE("30/12/1981", "%d/%m/%Y"), 12);
-insert into reviews(ReCustomer_ID, Date, Rating, Image_URL, Comment_text, Review_Reply_Date, Re_Pro_ID) values (1, STR_TO_DATE("30/10/1981", "%d/%m/%Y"), 5, "a", 'test', STR_TO_DATE("30/12/1981", "%d/%m/%Y"),14);
+insert into reviews(ReCustomer_ID, Date, Rating, Image_URL, Comment_text, Review_Reply_Date, Re_Pro_ID) values (1, STR_TO_DATE('30/10/1981', '%d/%m/%Y'), 5, "a", 'test', STR_TO_DATE("30/12/1981", "%d/%m/%Y"),14);
 insert into reviews(ReCustomer_ID, Date, Rating, Image_URL, Comment_text, Review_Reply_Date, Re_Pro_ID) values (1, STR_TO_DATE("30/9/1981", "%d/%m/%Y"), 5, "a", 'test', STR_TO_DATE("30/12/1981", "%d/%m/%Y"), 13);
 
 insert into customers(Firstname, Last_name, Customer_ID, Cus_Username, Email, Street, City, Telephone_number) values ("Rem", "So Kawaii", 1, "Cute", "Kurumi", "Tokisaki", "Touka Kirishima", "10");
@@ -185,7 +185,7 @@ insert into written_by(WBook_Pro_ID, WAuthor_ID) values(6, 1);
 insert into written_by(WBook_Pro_ID, WAuthor_ID) values(6, 3);
 insert into written_by(WBook_Pro_ID, WAuthor_ID) values(18, 2);
 
-insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 40000, 0, 20, "https://pbs.twimg.com/media/BIRVTPrCAAAgdHx.jpg");
+insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values('maga1', "2", "3", 40000, 0, 20, "https://pbs.twimg.com/media/BIRVTPrCAAAgdHx.jpg");
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 1245454, 0, 21, "https://static.wikia.nocookie.net/fategrandorder/images/2/23/Lily1.png/revision/latest?cb=20180110162335&path-prefix=vi");
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 575272, 0, 23, "https://static.wikia.nocookie.net/berserkofgluttony/images/5/5f/Ellis_%28LN%29.jpg/revision/latest?cb=20200408183938");
 insert into products(Sto_Street, Sto_City, Language, Price, Quantity, Product_ID, imgUrl) values("maga1", "2", "3", 787, 0, 24, "https://i.pinimg.com/564x/a7/d0/e1/a7d0e19553c73e57069983ec256fc530.jpg");
@@ -287,8 +287,43 @@ begin
 end$$
 DELIMITER ;
 
-call getBookUI();
--- call getBookUI();
+DELIMITER $$
+create procedure getAllProID()
+begin
+	select Product_ID
+    from products;
+end$$
+DELIMITER ;
+
+DELIMITER $$
+create procedure getAllBookID()
+begin
+	select Book_Pro_ID
+    from books;
+end$$
+DELIMITER ;
+
+DELIMITER $$
+create procedure getAllMagazineID()
+begin
+	select Maga_Pro_ID
+    from magazines;
+end$$
+DELIMITER ;
+
+DELIMITER $$
+create procedure getAllMagazineSeriID()
+begin
+	select Seri_name_ID
+    from magazine_seri_names;
+end$$
+DELIMITER ;
+
+call getMagazineDetail(26);
+update products set Sto_Street = 'Truong1', Sto_City ='Hoang1', Language = 'Phuc1', Price = 1000, imgUrl = 'Phuc1', Quantity = 699669 where Product_ID = 6;
+update books set Name = 'truong hoang phuc', Publisher = 'Kurumi', Publish_year = 2001, Pages = 17824 where Book_Pro_ID = 6;
+update magazines set Publish_date = STR_TO_DATE('1/1/2001', '%d/%m/%Y'), NO = 1111, Magazine_ID = 5 where Maga_Pro_ID = 26;
+call getMagazineDetail(26);
 
 
     

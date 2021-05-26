@@ -8,7 +8,7 @@ namespace E_BookStore.DTO
 {
     class MagazineSeri
     {
-        private int Id;
+        private int id;
         private string publisher;
         private string name;
         public MagazineSeri()
@@ -17,12 +17,12 @@ namespace E_BookStore.DTO
         }
         public MagazineSeri(int id, string publisher, string name)
         {
-            Id1 = id;
-            this.Publisher = publisher;
-            this.Name = name;
+            this.id = id;
+            this.publisher = publisher;
+            this.name = name;
         }
 
-        public int Id1 { get => Id; set => Id = value; }
+        public int Id { get => id; set => id = value; }
         public string Publisher { get => publisher; set => publisher = value; }
         public string Name { get => name; set => name = value; }
     }
