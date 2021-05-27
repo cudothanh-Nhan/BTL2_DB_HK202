@@ -36,7 +36,7 @@ namespace E_BookStore.GUI
             return image;
         }
         MainUIBLL bll;
-        private List<ProductDisplay> getAllProduct (List<Book> bookList, List<Magazine> magaList)
+        private List<ProductDisplay> getAllProduct(List<Book> bookList, List<Magazine> magaList)
         {
             List<ProductDisplay> productList = new List<ProductDisplay>();
             foreach (var i in bookList)
@@ -104,8 +104,10 @@ namespace E_BookStore.GUI
             for (int i = 0; i < productList.Count; i++)
             {
                 Image img = getImage(productList[i].ImgUrl);
+                img.Tag = productList[i].Id;
 
                 TextBlock proName = new TextBlock();
+                proName.Tag = productList[i].Id;
                 proName.Text = productList[i].Name;
                 proName.FontSize = 20;
                 proName.FontWeight = FontWeights.Bold;
@@ -143,6 +145,9 @@ namespace E_BookStore.GUI
                 Grid.SetRow(proQuantity, 2);
                 Grid.SetColumn(proQuantity, 3 * i + 1);
 
+                img.PreviewMouseDown += getDetail;
+                proName.PreviewMouseDown += getDetail;
+
                 grid.Children.Add(img);
                 grid.Children.Add(proName);
                 grid.Children.Add(proPrice);
@@ -151,6 +156,7 @@ namespace E_BookStore.GUI
             }
             return grid;
         }
+
         private void getallProUI(List<ProductDisplay> proList, string proType)
         {
             List<ProductDisplay> proDisplay = new List<ProductDisplay>();
@@ -641,6 +647,13 @@ namespace E_BookStore.GUI
                     break;
             }
             getallProUI(proList, proType);
+        }
+
+        private void getDetail(object sender, RoutedEventArgs e)
+        {
+            var proID = (sender.GetType() ==  typeof(TextBlock)) ? (sender as TextBlock)?.Tag : (sender as Image)?.Tag;
+            MessageBox.Show(proID.ToString());
+
         }
 
         public MainUIWindow()

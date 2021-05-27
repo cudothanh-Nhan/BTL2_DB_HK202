@@ -11,10 +11,10 @@ namespace E_BookStore.BLL
     class MainUIBLL
     {
         MainUIDAO dao;
-
-        public MainUIBLL ()
+        public MainUIBLL()
         {
-            dao = new MainUIDAO("localhost", 3306, "db", "root", "anhentai");
+            SqlConnectBLL sql = new SqlConnectBLL();
+            dao = new MainUIDAO(sql.host, sql.port, sql.database, sql.username, sql.password);
         }
         public List<Book> getallBookUI()
         {

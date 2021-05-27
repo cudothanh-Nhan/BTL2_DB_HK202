@@ -16,7 +16,8 @@ namespace E_BookStore.BLL
         public OrderingBLL(OrderingWindow window)
         {
             this.window = window;
-            dao = new OrderingDAO("localhost", 3306, "ebookstore", "root", "123456");
+            SqlConnectBLL sql = new SqlConnectBLL();
+            dao = new OrderingDAO(sql.host, sql.port, sql.database, sql.username, sql.password);
         }
         public Order getOrder(int customerId, string status)
         {

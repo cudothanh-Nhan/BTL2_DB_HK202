@@ -13,7 +13,8 @@ namespace E_BookStore.BLL
         InsertAndEditDAO dao;
         public InsertAndEditBLL()
         {
-            dao = new InsertAndEditDAO("localhost", 3306, "db", "root", "anhentai");
+            SqlConnectBLL sql = new SqlConnectBLL();
+            dao = new InsertAndEditDAO(sql.host ,sql.port, sql.database, sql.username, sql.password);
         }
         public bool CheckEmpty(string input_string)
         {

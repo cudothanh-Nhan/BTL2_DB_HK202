@@ -57,7 +57,30 @@
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="183,183,0,0" Name="BooktextBoxStreet" VerticalAlignment="Top" Width="450" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="183,211,0,0" Name="BooktextBoxLanguage" VerticalAlignment="Top" Width="450" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="183,239,0,0" Name="BooktextBoxPublisher" VerticalAlignment="Top" Width="450" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="183,267,0,0" Name="BooktextBoxPublishYear" VerticalAlignment="Top" Width="450" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="183,267,0,0" Name="BooktextBoxPublishYear" VerticalAlignment="Top" Width="450">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                <Style.Resources>
+                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                        <VisualBrush.Visual>
+                                            <Label Content="yyyy" Foreground="Gray" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Style.Resources>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="183,295,0,0" Name="BooktextBoxPages" VerticalAlignment="Top" Width="450" />
 
                     <Button Content="Edit" Height="23" HorizontalAlignment="Left" Margin="183,335,0,0" Name="BookSubmit" VerticalAlignment="Top" Width="70" Click="SubmitBook"/>
