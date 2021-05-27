@@ -17,7 +17,7 @@ namespace E_BookStore.DTO
 
         public Status()
         {
-
+            this.val = this.submissionTime = this.completedTime = this.deliveringTime = this.canceledTime = string.Empty;
         }
         public Status(Status status)
         {
@@ -30,6 +30,7 @@ namespace E_BookStore.DTO
         private string name;
         private int uPrice;
         private int quantity;
+        private int maxQuantity;
         private int total;
         private string imgUrl;
         private string type;
@@ -42,6 +43,7 @@ namespace E_BookStore.DTO
             this.Total = item.Total;
             this.ImgUrl = item.ImgUrl;
             this.Type = item.Type;
+            this.MaxQuantity = item.MaxQuantity;
         }
         public ItemOfOrder()
         {
@@ -57,6 +59,7 @@ namespace E_BookStore.DTO
             this.UPrice = item.UPrice;
             this.Name = item.Name;
             this.ImgUrl = item.ImgUrl;
+            this.MaxQuantity = item.MaxQuantity;
         }
         public string Name { get => name; set => name = value; }
         public int UPrice { get => uPrice; set => uPrice = value; }
@@ -81,9 +84,16 @@ namespace E_BookStore.DTO
         public string ImgUrl { get => imgUrl; set => imgUrl = value; }
         public string Type { get => type; set => type = value; }
         public int Id { get => id; set => id = value; }
+        public int MaxQuantity { 
+            get => maxQuantity;
+            set
+            {
+                maxQuantity = value;
+                OnPropertyChanged("MaxQuantity");
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = this.PropertyChanged;
@@ -119,6 +129,7 @@ namespace E_BookStore.DTO
             this.ItemsOfOrder = new List<ItemOfOrder>();
             foreach (var item in refOrder.ItemsOfOrder)
                 this.ItemsOfOrder.Add(new ItemOfOrder(item));
+            this.Status = refOrder.Status;
         } 
         public Order()
         {

@@ -33,6 +33,7 @@ namespace E_BookStore.GUI
         List<int> allCustomerId;
 
         public List<Order> OrderList { get => orderList; set => orderList = value; }
+        internal OrderingBLL Bll { get => bll; set => bll = value; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -269,6 +270,15 @@ namespace E_BookStore.GUI
             }
             
         }
+        public void reload()
+        {
+            reload(Order.S_ON_CART);
+            reload(Order.S_CANCELED);
+            reload(Order.S_SUBMITTED);
+            reload(Order.S_PROCESSING);
+            reload(Order.S_DELIVERING);
+            reload(Order.S_COMPLETED);
+        }
         public OrderingWindow()
         {
             InitializeComponent();
@@ -283,9 +293,7 @@ namespace E_BookStore.GUI
                 orderList.AddRange(bll.getOrder(customerId, Order.S_CANCELED));
                 orderList.AddRange(bll.getOrder(customerId, Order.S_SUBMITTED));
             }
-            reload(Order.S_ON_CART);
-            reload(Order.S_CANCELED);
-            reload(Order.S_SUBMITTED);
+            reload();
         }
     }
 }

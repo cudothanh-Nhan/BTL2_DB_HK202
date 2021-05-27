@@ -35,6 +35,9 @@ namespace E_BookStore.BLL
         {
             return dao.getAllShipment();
         }
-
+        public int getProductQuantity(int productId)
+        {
+            return dao.getProductQuantity(productId);
+        }
     }
 }

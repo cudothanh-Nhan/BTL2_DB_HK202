@@ -29,9 +29,9 @@
     <Grid x:Name="Root">
         <TabControl>
             <TabItem Header="OnCart">
-                <StackPanel>
-                    <Image Width="20" Height="20" HorizontalAlignment="Left" Source="https://drive.google.com/uc?id=19hyKeuJ8rDF1Wm7o29S9E_rltvDOhITs"/>
-                    <TextBlock Text="My OnCart Order Management" Width="800" FontSize="15" Margin="0 10 0 10"/>
+                <StackPanel Margin="10">
+                    <!--<Image Width="20" Height="20" HorizontalAlignment="Left" Source="https://drive.google.com/uc?id=19hyKeuJ8rDF1Wm7o29S9E_rltvDOhITs"/>-->
+                    <TextBlock Text="OnCart Order Management" Width="800" FontSize="15" Margin="0 10 0 10"/>
                     <ScrollViewer VerticalScrollBarVisibility="Hidden" Width="800" MaxHeight="300">
                         <StackPanel Orientation="Vertical" x:Name="OnCartStack">
                             <Grid>
@@ -70,8 +70,8 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Submitted">
-                <StackPanel>
-                    <TextBlock Text="My Submitted Order Management" Width="800" FontSize="15" Margin="0 10 0 10"/>
+                <StackPanel Margin="10">
+                    <TextBlock Text="Submitted Order Management" Width="800" FontSize="15" Margin="0 10 0 10"/>
                     <ScrollViewer VerticalScrollBarVisibility="Hidden" Width="800" MaxHeight="300">
                         <StackPanel Orientation="Vertical" x:Name="SubmittedStack">
 
@@ -80,14 +80,38 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Processing">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Processing Order Management" Width="800" FontSize="15" Margin="0 10 0 10"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden" Width="800" MaxHeight="300">
+                        <StackPanel Orientation="Vertical" x:Name="ProcessingStack">
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
             </TabItem>
-            <TabItem Header="Delivering">
+            <TabItem Header="Delivering" >
+                <StackPanel Margin="10">
+                    <TextBlock Text="Delivering Order Management" Width="800" FontSize="15" Margin="0 10 0 10"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden" Width="800" MaxHeight="300">
+                        <StackPanel Orientation="Vertical" x:Name="DeliveringStack">
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
             </TabItem>
             <TabItem Header="Completed">
+                <StackPanel  Margin="10">
+                    <TextBlock Text="Completed Order Management" Width="800" FontSize="15" Margin="0 10 0 10"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden" Width="800" MaxHeight="300">
+                        <StackPanel Orientation="Vertical" x:Name="CompletedStack">
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
             </TabItem>
             <TabItem Header="Canceled">
-                <StackPanel>
-                    <TextBlock Text="My Canceled Order Management" Width="800" FontSize="15" Margin="0 10 0 10"/>
+                <StackPanel Margin="10">
+                    <TextBlock Text="Canceled Order Management" Width="800" FontSize="15" Margin="0 10 0 10"/>
                     <ScrollViewer VerticalScrollBarVisibility="Hidden" Width="800" MaxHeight="300">
                         <StackPanel Orientation="Vertical" x:Name="CanceledStack">
 

@@ -262,3 +262,9 @@ use ebookstore;
 
 -- insert magazines
 -- values("2021-05-23", 1, 2, 0);
+
+-- alter table orders
+-- add column Ship_Name VARCHAR(255);
+
+-- alter table books
+-- modify column Name VARCHAR(255);
