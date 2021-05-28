@@ -415,7 +415,7 @@ namespace E_BookStore.GUI
 
         //    }
         //}
-        ;
+        
         private void getallProUI(List<Book> bookList, List<Magazine> magaList, string proType)
         {
             int proCount = 0;
@@ -596,7 +596,7 @@ namespace E_BookStore.GUI
 
         private void Ngulon_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            DetailWindow detail = new DetailWindow(5, 1);
+            DetailWindow detail = new DetailWindow(2, 1);
             detail.Show();
         }
     }

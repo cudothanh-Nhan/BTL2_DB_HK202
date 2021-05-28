@@ -22,8 +22,18 @@ namespace E_BookStore.GUI
     /// </summary>
     public partial class DetailWindow : Window
     {
+        int proID = 0;
+        int CusID = 0;
 
-        public static Image getImage(string url)
+
+        public DetailWindow(int _proID, int _CusID)
+        {
+            InitializeComponent();
+            this.proID = _proID;
+            this.CusID = _CusID;
+            textBlockTotalQuantity.Text = bllDetail.ShowTotalProCate(this.CusID).ToString();
+        }
+        public static Image GetImage(string url)
         {
             var image = new Image();
             var fullFilePath = url;
@@ -35,6 +45,39 @@ namespace E_BookStore.GUI
             image.Stretch = Stretch.UniformToFill;
             return image;
         }
-        MainUIBLL bll;
+        DetailBLL bllDetail = new DetailBLL();
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // check if quantity is valid
+            if (bllDetail.checkQuantity(textBoxQuantity.Text))
+            {
+                textBlockTotalQuantity.Text = bllDetail.ShowTotalProCate(this.CusID).ToString();
+            }
+            // check if customer has a order oncart yet?
+            if (bllDetail.CheckOrderExistBLL(this.CusID))
+            {
+                // if yes, work on this order
+                int x = Int32.Parse(textBoxQuantity.Text);
+                bllDetail.UpdatePPartOf(this.proID, x, this.CusID);
+                textBlockTotalQuantity.Text = bllDetail.ShowTotalProCate(this.CusID).ToString();
+            }
+            else
+            {
+                // otherwise, create a new order
+                int x = Int32.Parse(textBoxQuantity.Text);
+                bllDetail.InsertPPartOf(this.proID, x, this.CusID);
+                textBlockTotalQuantity.Text = bllDetail.ShowTotalProCate(this.CusID).ToString();
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
