@@ -596,7 +596,7 @@ namespace E_BookStore.GUI
 
         private void Ngulon_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            DetailWindow detail = new DetailWindow(2, 1);
+            DetailWindow detail = new DetailWindow(5, 1);
             detail.Show();
         }
     }

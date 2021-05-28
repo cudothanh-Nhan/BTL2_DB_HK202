@@ -63,7 +63,12 @@ namespace E_BookStore.BLL
         }
         public void InsertPPartOf(int P_Product_ID, int Order_quantity, int Or_cus_ID)
         {
+            
             dao.InsertOrder(P_Product_ID, Order_quantity, Or_cus_ID);
+        }
+        public void InsertStatus(int Or_cus_ID)
+        {
+            dao.InsertNewOrder(Or_cus_ID);
         }
     }
 }

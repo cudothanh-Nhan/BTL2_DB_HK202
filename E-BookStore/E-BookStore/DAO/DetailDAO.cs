@@ -58,8 +58,8 @@ namespace E_BookStore.DAO
             cmd2.CommandType = CommandType.Text;
             cmd2.ExecuteNonQuery();
             int x = this.getOrderID(Or_cus_ID);
-            MessageBox.Show(x.ToString());
-            string Query1 = "Insert into P_PART_OF(P_Order_ID,P_Product_ID,Order_quantity) values (" + x + ","
+            //MessageBox.Show(x.ToString());
+            string Query1 = "Insert into P_PART_OF(P_Order_ID,P_Product_ID,Order_quantity) values (" + x.ToString() + ","
                 + P_Product_ID.ToString() + "," +
                 Order_quantity.ToString() + ");";
             MySqlCommand cmd1 = new MySqlCommand(Query1, con);
@@ -68,12 +68,25 @@ namespace E_BookStore.DAO
             con.Close();
 
         }
+        public void InsertNewOrder(int Or_cus_ID)
+        {
+            MySqlConnection con = new MySqlConnection(connString);
+            con.Open();
+            int x = this.getOrderID(Or_cus_ID);
+            MessageBox.Show(x.ToString());
+            string Query1 = "Insert into STATUS(Status,Sta_Order_ID) values ('onCart'," +
+                x.ToString() + ");";
+            MySqlCommand cmd1 = new MySqlCommand(Query1, con);
+            cmd1.CommandType = CommandType.Text;
+            cmd1.ExecuteNonQuery();
+            con.Close();
+        }
         public void InsertPro(int P_Product_ID, int Order_quantity, int Or_cus_ID)
         {
             MySqlConnection con = new MySqlConnection(connString);
             con.Open();
             int x = this.getOrderID(Or_cus_ID);
-            string Query1 = "Insert into P_PART_OF(P_Order_ID,P_Product_ID,Order_quantity) values (" +x+","+
+            string Query1 = "Insert into P_PART_OF(P_Order_ID,P_Product_ID,Order_quantity) values (" +x.ToString()+","+
                 P_Product_ID.ToString() + "," +
                 Order_quantity.ToString() + ");";
             MySqlCommand cmd1 = new MySqlCommand(Query1, con);
@@ -146,5 +159,6 @@ namespace E_BookStore.DAO
             }
             return res;
         }
+        
     }
 }
