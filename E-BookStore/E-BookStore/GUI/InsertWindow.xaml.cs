@@ -26,6 +26,7 @@ namespace E_BookStore.GUI
     public partial class InsertWindow : Window
     {
         InsertAndEditBLL bll;
+        MainUIWindow main = new MainUIWindow();
         public InsertWindow()
         {
             InitializeComponent();
@@ -105,9 +106,14 @@ namespace E_BookStore.GUI
             {
                 MessageBox.Show("Product ID existed!");
             }
-            else bll.insertBook(BooktextBoxID.Text, BooktextBoxImgUrl.Text, BooktextBoxName.Text,
+            else if(bll.insertBook(BooktextBoxID.Text, BooktextBoxImgUrl.Text, BooktextBoxName.Text,
                 BooktextboxPrice.Text, BooktextboxQuantity.Text, BooktextBoxCity.Text, BooktextBoxStreet.Text,
-                BooktextBoxLanguage.Text, BooktextBoxPublisher.Text, BooktextBoxPublishYear.Text, BooktextBoxPages.Text);
+                BooktextBoxLanguage.Text, BooktextBoxPublisher.Text, BooktextBoxPublishYear.Text, BooktextBoxPages.Text))
+            {
+                ResetBook(null, null);
+                MessageBox.Show("Insert successed");
+            }
+            else MessageBox.Show("Insert failed. Please enter valid items");
         }
         private void ResetBook(object sender, RoutedEventArgs e)
         {
@@ -125,6 +131,7 @@ namespace E_BookStore.GUI
         }
         private void CancelBook(object sender, RoutedEventArgs e)
         {
+            main.Show();
             Close();
         }
         private void SubmitMaga(object sender, RoutedEventArgs e)
@@ -194,9 +201,14 @@ namespace E_BookStore.GUI
             {
                 MessageBox.Show("Magazine seri ID does not exist!");
             }
-            else bll.insertMaga(MagatextBoxID.Text, MagatextBoxImgUrl.Text, MagatextBoxSeriNameID.Text, MagatextBoxNo.Text,
+            else if (bll.insertMaga(MagatextBoxID.Text, MagatextBoxImgUrl.Text, MagatextBoxSeriNameID.Text, MagatextBoxNo.Text,
                  MagatextboxPrice.Text, MagatextboxQuantity.Text, MagatextBoxCity.Text, MagatextBoxStreet.Text,
-                 MagatextBoxLanguage.Text, MagatextBoxPublishDate.Text);
+                 MagatextBoxLanguage.Text, MagatextBoxPublishDate.Text))
+            {
+                ResetMaga(null,null);
+                MessageBox.Show("Insert successed");
+            }
+            else MessageBox.Show("Insert failed. Please enter valid items");
         }
         private void ResetMaga(object sender, RoutedEventArgs e)
         {
@@ -214,6 +226,7 @@ namespace E_BookStore.GUI
 
         private void CancelMaga(object sender, RoutedEventArgs e)
         {
+            main.Show();
             Close();
         }
     }

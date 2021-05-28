@@ -140,7 +140,7 @@ namespace E_BookStore.DAO
             return proID;
         }
 
-        public void insertBook(string proID, string imgUrl, string name, string price, string quantity, 
+        public bool insertBook(string proID, string imgUrl, string name, string price, string quantity, 
             string city, string street, string language, string publisher, string publishYear, string pages)
         {
             MySqlConnection con = new MySqlConnection(connString);
@@ -159,10 +159,11 @@ namespace E_BookStore.DAO
             }
             catch (Exception e)
             {
-                MessageBox.Show("Please enter valid items!");
+                return false;
             }
+            return true;
         }
-        public void insertMaga(string proID, string imgUrl, string seriNameID, string no, string price, string quantity,
+        public bool insertMaga(string proID, string imgUrl, string seriNameID, string no, string price, string quantity,
             string city, string street, string language, string publishDate)
         {
             MySqlConnection con = new MySqlConnection(connString);
@@ -181,8 +182,9 @@ namespace E_BookStore.DAO
             }
             catch (Exception e)
             {
-                MessageBox.Show("Please enter valid items!");
+                return false;
             }
+            return true;
         }
         public Book getBookDetail(int bookId)
         {
@@ -269,7 +271,7 @@ namespace E_BookStore.DAO
             }
             return maga;
         }
-        public void editBook(string proID, string imgUrl, string name, string price, string quantity,
+        public bool editBook(string proID, string imgUrl, string name, string price, string quantity,
             string city, string street, string language, string publisher, string publishYear, string pages)
         {
             MySqlConnection con = new MySqlConnection(connString);
@@ -288,10 +290,11 @@ namespace E_BookStore.DAO
             }
             catch (Exception e)
             {
-                MessageBox.Show("Please enter valid items!");
+                return false;
             }
+            return true;
         }
-        public void editMaga(string proID, string imgUrl, string seriNameID, string no, string price, string quantity,
+        public bool editMaga(string proID, string imgUrl, string seriNameID, string no, string price, string quantity,
             string city, string street, string language, string publishDate)
         {
             MySqlConnection con = new MySqlConnection(connString);
@@ -310,8 +313,45 @@ namespace E_BookStore.DAO
             }
             catch (Exception e)
             {
-                MessageBox.Show("Please enter valid items!");
+                return false;
             }
+            return true;
+        }
+        public bool removeBook(string proID)
+        {
+            MySqlConnection con = new MySqlConnection(connString);
+            try
+            {
+                con.Open();
+                string Query = "call removeBook(" + proID + ");";
+                MySqlCommand cmd = new MySqlCommand(Query, con);
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool removeMaga(string proID)
+        {
+            MySqlConnection con = new MySqlConnection(connString);
+            try
+            {
+                con.Open();
+                string Query = "call removeMagazine(" + proID + ");";
+                MySqlCommand cmd = new MySqlCommand(Query, con);
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

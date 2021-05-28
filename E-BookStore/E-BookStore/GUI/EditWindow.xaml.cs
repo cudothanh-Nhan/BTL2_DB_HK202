@@ -22,6 +22,7 @@ namespace E_BookStore.GUI
     public partial class EditWindow : Window
     {
         InsertAndEditBLL bll;
+        MainUIWindow main = new MainUIWindow();
         public EditWindow()
         {
             InitializeComponent();
@@ -37,11 +38,13 @@ namespace E_BookStore.GUI
         {
             bll = new InsertAndEditBLL();
             Book book = new Book();
-            
-            if (!bll.getBookDetail(BooktextBoxID.Text, ref book))
+            if (bll.CheckEmpty(BooktextBoxID.Text))
+            {
+                MessageBox.Show("Please enter Product ID!");
+            }
+            else if (!bll.getBookDetail(BooktextBoxID.Text, ref book))
             {
                 MessageBox.Show("Please enter valid Product ID!");
-                
             }
             else if (!bll.CheckBookIDExist(BooktextBoxID.Text))
             {
@@ -125,9 +128,44 @@ namespace E_BookStore.GUI
             {
                 MessageBox.Show(error + "!");
             }
-            else bll.editBook(BooktextBoxID.Text, BooktextBoxImgUrl.Text, BooktextBoxName.Text,
+            else if (!bll.CheckBookIDExist(BooktextBoxID.Text))
+            {
+                MessageBox.Show("Product ID does not exist!");
+            }
+            else if(bll.editBook(BooktextBoxID.Text, BooktextBoxImgUrl.Text, BooktextBoxName.Text,
                 BooktextboxPrice.Text, BooktextboxQuantity.Text, BooktextBoxCity.Text, BooktextBoxStreet.Text,
-                BooktextBoxLanguage.Text, BooktextBoxPublisher.Text, BooktextBoxPublishYear.Text, BooktextBoxPages.Text);
+                BooktextBoxLanguage.Text, BooktextBoxPublisher.Text, BooktextBoxPublishYear.Text, BooktextBoxPages.Text))
+            {
+                ResetBook(null, null);
+                MessageBox.Show("Edit successed");
+            }
+            else MessageBox.Show("Edit failed. Please enter valid items");
+        }
+        private void RemoveBook(object sender, RoutedEventArgs e)
+        {
+            bll = new InsertAndEditBLL();
+            string error = "Please enter";
+            bool empty = false;
+            if (bll.CheckEmpty(BooktextBoxID.Text))
+            {
+                empty = true;
+                error += " product ID";
+            }
+            if (empty)
+            {
+                MessageBox.Show(error + "!");
+            }
+            else if (!bll.CheckBookIDExist(BooktextBoxID.Text))
+            {
+                MessageBox.Show("Product ID does not exist!");
+            }
+            else if (bll.removeBook(BooktextBoxID.Text))
+            {
+                BooktextBoxID.Text = "";
+                ResetBook(null, null);
+                MessageBox.Show("Remove successed");
+            }
+            else MessageBox.Show("Remove failed. Please enter valid items");
         }
         private void ResetBook(object sender, RoutedEventArgs e)
         {
@@ -144,14 +182,18 @@ namespace E_BookStore.GUI
         }
         private void CancelBook(object sender, RoutedEventArgs e)
         {
+            main.Show();
             Close();
         }
         private void MagaIDGet(object sender, RoutedEventArgs e)
         {
             bll = new InsertAndEditBLL();
             Magazine maga = new Magazine();
-
-            if (!bll.getMagaDetail(MagatextBoxID.Text, ref maga))
+            if (bll.CheckEmpty(MagatextBoxID.Text))
+            {
+                MessageBox.Show("Please enter Product ID!");
+            }
+            else if (!bll.getMagaDetail(MagatextBoxID.Text, ref maga))
             {
                 MessageBox.Show("Please enter valid Product ID!");
 
@@ -234,13 +276,48 @@ namespace E_BookStore.GUI
             {
                 MessageBox.Show(error + "!");
             }
+            else if (!bll.CheckMagaIDExist(MagatextBoxID.Text))
+            {
+                MessageBox.Show("Product ID does not exist!");
+            }
             else if (!bll.CheckMagaSeriIDExist(MagatextBoxSeriNameID.Text))
             {
                 MessageBox.Show("Magazine seri ID does not exist!");
             }
-            else bll.editMaga(MagatextBoxID.Text, MagatextBoxImgUrl.Text, MagatextBoxSeriNameID.Text, MagatextBoxNo.Text,
+            else if (bll.editMaga(MagatextBoxID.Text, MagatextBoxImgUrl.Text, MagatextBoxSeriNameID.Text, MagatextBoxNo.Text,
                  MagatextboxPrice.Text, MagatextboxQuantity.Text, MagatextBoxCity.Text, MagatextBoxStreet.Text,
-                 MagatextBoxLanguage.Text, MagatextBoxPublishDate.Text);
+                 MagatextBoxLanguage.Text, MagatextBoxPublishDate.Text))
+            {
+                ResetMaga(null, null);
+                MessageBox.Show("Edit successed");
+            }
+            else MessageBox.Show("Edit failed. Please enter valid items");
+        }
+        private void RemoveMaga(object sender, RoutedEventArgs e)
+        {
+            bll = new InsertAndEditBLL();
+            string error = "Please enter";
+            bool empty = false;
+            if (bll.CheckEmpty(MagatextBoxID.Text))
+            {
+                empty = true;
+                error += " product ID";
+            }
+            if (empty)
+            {
+                MessageBox.Show(error + "!");
+            }
+            else if (!bll.CheckMagaIDExist(MagatextBoxID.Text))
+            {
+                MessageBox.Show("Product ID does not exist!");
+            }
+            else if (bll.removeMaga(MagatextBoxID.Text))
+            {
+                MagatextBoxID.Text = "";
+                ResetMaga(null, null);
+                MessageBox.Show("Remove successed");
+            }
+            else MessageBox.Show("Remove failed. Please enter valid items");
         }
         private void ResetMaga(object sender, RoutedEventArgs e)
         {
@@ -257,6 +334,7 @@ namespace E_BookStore.GUI
 
         private void CancelMaga(object sender, RoutedEventArgs e)
         {
+            main.Show();
             Close();
         }
     }

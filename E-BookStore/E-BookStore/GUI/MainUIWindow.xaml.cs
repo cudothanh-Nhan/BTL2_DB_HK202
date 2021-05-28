@@ -36,32 +36,17 @@ namespace E_BookStore.GUI
             return image;
         }
         MainUIBLL bll;
+        private Account account;
         private List<ProductDisplay> getAllProduct(List<Book> bookList, List<Magazine> magaList)
         {
             List<ProductDisplay> productList = new List<ProductDisplay>();
             foreach (var i in bookList)
             {
-                //ProductDisplay product = new ProductDisplay();
-                //product.Name = i.Name;
-                //product.ImgUrl = i.ImgUrl;
-                //product.Id = i.Id;
-                //product.Price = i.Price;
-                //product.Quantity = i.Quantiy;
-                //product.Type = "Book";
-                //product.Date = i.PublishYear;
                 ProductDisplay product = new ProductDisplay(i.Name, i.ImgUrl, i.Price, i.Quantiy, i.Id, "Book", i.PublishYear);
                 productList.Add(product);
             }
             foreach (var i in magaList)
             {
-                //ProductDisplay product = new ProductDisplay();
-                //product.Name = i.SeriName.Name + " No." + i.No.ToString();
-                //product.ImgUrl = i.ImgUrl;
-                //product.Id = i.Id;
-                //product.Price = i.Price;
-                //product.Quantity = i.Quantiy;
-                //product.Type = "Magazine";
-                //product.Date = i.PublishDate;
                 ProductDisplay product = new ProductDisplay(i.SeriName.Name + " No." + i.No, i.ImgUrl, i.Price, i.Quantiy, i.Id, "Magazine", i.PublishDate);
                 productList.Add(product);
             }
@@ -98,7 +83,8 @@ namespace E_BookStore.GUI
             RowDefinition[] rowDef = new RowDefinition[3];
             for (int k = 0; k < 3; k++) rowDef[k] = new RowDefinition();
             rowDef[0].Height = new GridLength(50);
-            rowDef[1].Height = rowDef[2].Height = new GridLength(20);
+            rowDef[1].Height = new GridLength(23);
+            rowDef[2].Height = new GridLength(17);
             foreach (var r in rowDef) grid.RowDefinitions.Add(r);
 
             for (int i = 0; i < productList.Count; i++)
@@ -110,9 +96,11 @@ namespace E_BookStore.GUI
                 proName.Tag = productList[i].Id;
                 proName.Text = productList[i].Name;
                 proName.FontSize = 20;
-                proName.FontWeight = FontWeights.Bold;
+                proName.VerticalAlignment = VerticalAlignment.Top;
+                //proName.FontWeight = FontWeights.Bold;
                 proName.Padding = defaultPadding;
                 proName.TextWrapping = TextWrapping.Wrap;
+                proName.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#333333"));
 
                 TextBlock proQuantity = new TextBlock();
                 proQuantity.Text = (productList[i].Quantity > 0) ? "In stock" : "Out of stock";
@@ -125,7 +113,9 @@ namespace E_BookStore.GUI
                 proPrice.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", productList[i].Price) + "đ";
                 proPrice.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF8C00"));
                 proPrice.Padding = defaultPadding;
-                proPrice.FontSize = 16;
+                proPrice.FontSize = 18;
+                proPrice.FontWeight = FontWeights.Medium;
+;
 
                 TextBlock separator = new TextBlock();
                 separator.Width = 0.4;
@@ -653,14 +643,13 @@ namespace E_BookStore.GUI
         {
             var proID = (sender.GetType() ==  typeof(TextBlock)) ? (sender as TextBlock)?.Tag : (sender as Image)?.Tag;
             MessageBox.Show(proID.ToString());
-
         }
 
         public MainUIWindow()
         {
             InitializeComponent();
             bll = new MainUIBLL();
-
+            this.account = new Account("Manager", "nhanchodien", "nhanchodien");
             List<Book> bookList = new List<Book>();
             List<Magazine> magaList = new List<Magazine>();
             bookList = bll.getallBookUI();
@@ -676,6 +665,11 @@ namespace E_BookStore.GUI
                     return p2.Date.CompareTo(p1.Date);
                 }
             );
+            if (this.account.Role != "Manager")
+            {
+                manage.Visibility = Visibility.Hidden;
+                manage.IsEnabled = false;
+            }
             getallProUI(proList, "All");
             ProType.SelectionChanged += ProType_SelectionChanged;
             Instock.SelectionChanged += Instock_SelectionChanged;
@@ -683,5 +677,11 @@ namespace E_BookStore.GUI
             ProSort.SelectionChanged += ProSort_SelectionChanged;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InsertWindow insert = new InsertWindow();
+            insert.Show();
+            Close();
+        }
     }
 }

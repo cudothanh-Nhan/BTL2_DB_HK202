@@ -72,5 +72,6 @@
                 </StackPanel>
             </ScrollViewer>
         </StackPanel>
+        <Button Content="Manage" x:Name="manage" HorizontalAlignment="Left" Height="22" Margin="-190,55,0,0" VerticalAlignment="Top" Width="56" Grid.Column="1" Click="Button_Click"/>
     </Grid>
 </Window>

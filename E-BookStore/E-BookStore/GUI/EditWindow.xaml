@@ -83,9 +83,10 @@
                     </TextBox>
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="183,295,0,0" Name="BooktextBoxPages" VerticalAlignment="Top" Width="450" />
 
-                    <Button Content="Edit" Height="23" HorizontalAlignment="Left" Margin="183,335,0,0" Name="BookSubmit" VerticalAlignment="Top" Width="70" Click="SubmitBook"/>
-                    <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="259,335,0,0" Name="BookReset" VerticalAlignment="Top" Width="70" Click="ResetBook"/>
-                    <Button Content="Cancel" Height="23" HorizontalAlignment="Left" Margin="335,335,0,0" Name="BookCancel" VerticalAlignment="Top" Width="70" Click="CancelBook"/>
+                    <Button Content="Save" Height="23" HorizontalAlignment="Left" Margin="183,335,0,0" Name="BookSubmit" VerticalAlignment="Top" Width="70" Click="SubmitBook"/>
+                    <Button Content="Remove" Height="23" HorizontalAlignment="Left" Margin="259,335,0,0" Name="BookRemove" VerticalAlignment="Top" Width="70" Click="RemoveBook"/>
+                    <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="335,335,0,0" Name="BookReset" VerticalAlignment="Top" Width="70" Click="ResetBook"/>
+                    <Button Content="Cancel" Height="23" HorizontalAlignment="Left" Margin="411,335,0,0" Name="BookCancel" VerticalAlignment="Top" Width="70" Click="CancelBook"/>
                     <Button Content="Get" Height="23" HorizontalAlignment="Left" Margin="658,15,0,0" x:Name="GetBookID" VerticalAlignment="Top" Width="36" Click="BookIDGet"/>
                 </Grid>
             </TabItem>
@@ -141,9 +142,10 @@
                             </Style>
                         </TextBox.Style>
                     </TextBox>
-                    <Button Content="Edit" Height="23" HorizontalAlignment="Left" Margin="183,300,0,0" Name="MagaSubmit" VerticalAlignment="Top" Width="70" Click="SubmitMaga"/>
-                    <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="259,300,0,0" Name="MagaReset" VerticalAlignment="Top" Width="70" Click="ResetMaga"/>
-                    <Button Content="Cancel" Height="23" HorizontalAlignment="Left" Margin="335,300,0,0" Name="MagaCancel" VerticalAlignment="Top" Width="70" Click="CancelMaga"/>
+                    <Button Content="Save" Height="23" HorizontalAlignment="Left" Margin="183,300,0,0" Name="MagaSubmit" VerticalAlignment="Top" Width="70" Click="SubmitMaga"/>
+                    <Button Content="Remove" Height="23" HorizontalAlignment="Left" Margin="259,300,0,0" Name="MagaRemove" VerticalAlignment="Top" Width="70" Click="RemoveMaga"/>
+                    <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="335,300,0,0" Name="MagaReset" VerticalAlignment="Top" Width="70" Click="ResetMaga"/>
+                    <Button Content="Cancel" Height="23" HorizontalAlignment="Left" Margin="411,300,0,0" Name="MagaCancel" VerticalAlignment="Top" Width="70" Click="CancelMaga"/>
                     <Button Content="Get" Height="23" HorizontalAlignment="Left" Margin="658,15,0,0" x:Name="GetMagaID" VerticalAlignment="Top" Width="36" Click="MagaIDGet"/>
                 </Grid>
             </TabItem>
