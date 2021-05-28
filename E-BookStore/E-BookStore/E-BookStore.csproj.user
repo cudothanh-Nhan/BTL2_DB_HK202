@@ -7,15 +7,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="GUI\OrderingWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="GUI\MainWindow.xaml">
+    <Page Update="GUI\DetailWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\OrderingWindow.xaml">
+    <Page Update="GUI\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
