@@ -15,7 +15,7 @@ namespace E_BookStore.DTO
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public DateTime Dob { get => dob; set => dob = value; }
-        Author(int id, string name, DateTime dob)
+        public Author(int id, string name, DateTime dob)
         {
             this.Id = id;
             this.Name = name;

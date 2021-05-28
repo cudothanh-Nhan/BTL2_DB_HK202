@@ -19,6 +19,10 @@ namespace E_BookStore.DTO
         public string LName { get => lName; set => lName = value; }
         public string TelNum { get => telNum; set => telNum = value; }
         public string Address { get => address; set => address = value; }
+        public Customer()
+        {
+
+        }
         public Customer(int id)
         {
             this.Id = id;

@@ -58,7 +58,7 @@
                                         <ComboBoxItem Content="VnExpress - 12000"/>
                                     </ComboBox>
                                 </StackPanel>
-                                
+
                                 <TextBlock Text="Order Total: 32,000" FontSize="18" Foreground="#D0011B" Padding="0 0 10 0" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="2"/>
                                 <TextBlock Text="Click for more detail" FontSize="13" Padding="0 0 10 0" HorizontalAlignment="Right" TextDecorations="Underline" Foreground="#0046AB"  Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"/>
                                 <Button Content="Submit" FontSize="15" Background="#FF6600" Foreground="White" Height="40" Grid.Column="0" Grid.Row="2" Grid.RowSpan="2"/>
