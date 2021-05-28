@@ -66,9 +66,7 @@ namespace E_BookStore.GUI
                 // otherwise, create a new order
                 int x = Int32.Parse(textBoxQuantity.Text);
                 bllDetail.InsertPPartOf(this.proID, x, this.CusID);
-                bllDetail.InsertStatus(this.CusID);
                 textBlockTotalQuantity.Text = bllDetail.ShowTotalProCate(this.CusID).ToString();
-                Console.WriteLine("Hi");
             }
         }
 

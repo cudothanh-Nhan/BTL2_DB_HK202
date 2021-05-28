@@ -65,22 +65,14 @@ namespace E_BookStore.DAO
             MySqlCommand cmd1 = new MySqlCommand(Query1, con);
             cmd1.CommandType = CommandType.Text;
             cmd1.ExecuteNonQuery();
-            con.Close();
-
-        }
-        public void InsertNewOrder(int Or_cus_ID)
-        {
-            MySqlConnection con = new MySqlConnection(connString);
-            con.Open();
-            int x = this.getOrderID(Or_cus_ID);
-            MessageBox.Show(x.ToString());
-            string Query1 = "Insert into STATUS(Status,Sta_Order_ID) values ('onCart'," +
-                x.ToString() + ");";
-            MySqlCommand cmd1 = new MySqlCommand(Query1, con);
-            cmd1.CommandType = CommandType.Text;
-            cmd1.ExecuteNonQuery();
+            string Query3 = "Insert into STATUS(Sta_Order_ID,Status) values (" +
+                x.ToString() +"," +"'onCart'"+");";
+            MySqlCommand cmd3 = new MySqlCommand(Query3, con);
+            cmd3.CommandType = CommandType.Text;
+            cmd3.ExecuteNonQuery();
             con.Close();
         }
+        
         public void InsertPro(int P_Product_ID, int Order_quantity, int Or_cus_ID)
         {
             MySqlConnection con = new MySqlConnection(connString);
