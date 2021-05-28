@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <Button Content="Log out" HorizontalAlignment="Left" Height="26" Margin="140,10,0,0" VerticalAlignment="Top" Width="57" FontSize="14" RenderTransformOrigin="0.506,-0.347" Grid.Column="3"/>
         <TextBox Grid.ColumnSpan="4" TextAlignment="Left" HorizontalAlignment="Left" Height="26" Margin="92,10,0,0" Text="Search" TextWrapping="Wrap" VerticalAlignment="Top" Width="605" FontSize="14" FontFamily="Times New Roman"/>
-        <TextBlock Grid.ColumnSpan="4" TextAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="705,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27">
+        <TextBlock Grid.ColumnSpan="4" TextAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="705,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" x:Name="ngulon">
             <Image Source="https://drive.google.com/uc?id=1MUXeIB4r70gRQm36GDRka4-NaBASPzt_" OpacityMask="Black"/>
         </TextBlock>
 

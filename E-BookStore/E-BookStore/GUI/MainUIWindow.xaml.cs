@@ -188,9 +188,9 @@ namespace E_BookStore.GUI
             int proCount = 0;
             switch (proType)
             {
-                case "Book":        proCount = bookList.Count;                      break;
-                case "Magazine":    proCount = magaList.Count;                      break;
-                case "All":         proCount = bookList.Count + magaList.Count;     break;
+                case "Book": proCount = bookList.Count; break;
+                case "Magazine": proCount = magaList.Count; break;
+                case "All": proCount = bookList.Count + magaList.Count; break;
             }
             ColumnDefinition[] colDef = new ColumnDefinition[2 * proCount];
             for (int k = 0; k < 2 * proCount; k++) colDef[k] = new ColumnDefinition();
@@ -259,7 +259,7 @@ namespace E_BookStore.GUI
                     }
                     break;
                 case "Book":
-                                        for (; i < proCount; i++)
+                    for (; i < proCount; i++)
                     {
                         Image img = getImage(bookList[i].ImgUrl);
 
@@ -415,6 +415,7 @@ namespace E_BookStore.GUI
 
         //    }
         //}
+        ;
         private void getallProUI(List<Book> bookList, List<Magazine> magaList, string proType)
         {
             int proCount = 0;
@@ -590,8 +591,13 @@ namespace E_BookStore.GUI
             getallProUI(bookList, magaList, "All");
             ProType.SelectionChanged += ProType_SelectionChanged;
             Instock.SelectionChanged += Instock_SelectionChanged;
+            ngulon.PreviewMouseDown += Ngulon_PreviewMouseDown;
         }
 
-
+        private void Ngulon_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DetailWindow detail = new DetailWindow(5, 1);
+            detail.Show();
+        }
     }
 }
