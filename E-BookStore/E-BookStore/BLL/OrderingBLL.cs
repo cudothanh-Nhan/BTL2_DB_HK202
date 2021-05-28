@@ -17,7 +17,7 @@ namespace E_BookStore.BLL
         public OrderingBLL(OrderingWindow window)
         {
             this.window = window;
-            dao = new OrderingDAO("localhost", 3306, "ebookstore", "root", "123456");
+            dao = new OrderingDAO("localhost", 3306, "db", "root", "123456");
         }
         public List<Order> getOrder(int customerId, string status)
         {
@@ -38,6 +38,14 @@ namespace E_BookStore.BLL
         public int getProductQuantity(int productId)
         {
             return dao.getProductQuantity(productId);
+        }
+        public void insertCompletedTime(int orderId)
+        {
+            dao.insertCompletedTime(orderId);
+        }
+        public List<Customer> getAllCustomer()
+        {
+            return dao.getAllCustomer();
         }
     }
 }

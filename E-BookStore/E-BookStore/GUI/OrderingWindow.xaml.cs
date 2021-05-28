@@ -34,6 +34,7 @@ namespace E_BookStore.GUI
 
         public List<Order> OrderList { get => orderList; set => orderList = value; }
         internal OrderingBLL Bll { get => bll; set => bll = value; }
+        internal Account Account { get => account;}
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -86,6 +87,7 @@ namespace E_BookStore.GUI
             productName.Text = order.ItemsOfOrder[0].Name;
             productName.FontSize = 20;
             productName.FontWeight = FontWeights.Bold;
+            productName.TextTrimming = TextTrimming.CharacterEllipsis;
 
             TextBlock quantity = new TextBlock();
             quantity.SetBinding(TextBlock.TextProperty, UIHelper.getBinding(itemString + ".Quantity", this, "x{0}", BindingMode.OneWay));
@@ -154,17 +156,39 @@ namespace E_BookStore.GUI
             Button actionButton = new Button();
             if (status == Order.S_CANCELED)
             {
-                actionButton.Content = "Order again";
-                actionButton.Click += OrderAgain_OnClick;
+                actionButton.Visibility = Visibility.Hidden;
             }
             else if (status == Order.S_COMPLETED)
             {
-                actionButton.Content = "Review";
+                if (this.account.Role == Account.R_CUSTOMER)
+                    actionButton.Content = "Review";
+                else actionButton.Visibility = Visibility.Hidden;
             }
             else if(status == Order.S_ON_CART)
             {
                actionButton.Content = "Submit";
                actionButton.Click += Submit_OnClick; 
+            }
+            else if(status == Order.S_SUBMITTED && this.account.Role == Account.R_MANAGER)
+            {
+                actionButton.Content = "Process";
+                actionButton.Click += Process_OnClick;
+            }
+            else if(status == Order.S_PROCESSING && this.account.Role == Account.R_MANAGER)
+            {
+                actionButton.Content = "Deliver";
+                actionButton.Click += Deliver_OnClick;
+            }
+            else if(status == Order.S_DELIVERING && this.account.Role == Account.R_MANAGER)
+            {
+                actionButton.Content = "Complete";
+                actionButton.Click += Complete_OnClick;
+            }
+            else if(status == Order.S_DELIVERING && this.account.Role == Account.R_CUSTOMER
+                && this.OrderList[orderIndex].Status.completedTime == string.Empty)
+            {
+                actionButton.Content = "Got order";
+                actionButton.Click += GotOrder_OnClick;
             }
             else
             {
@@ -243,19 +267,52 @@ namespace E_BookStore.GUI
             else
                 MessageBox.Show("Please choose shipment method");
         }
-        private void Cancel_OnClick(object sender, RoutedEventArgs e)
+        public void Cancel_OnClick(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            bll.updateStatus(int.Parse(btn.Tag.ToString()), Order.S_CANCELED);
-            reload(Order.S_CANCELED);
-            reload(Order.S_ON_CART);
+            int orderId = int.Parse(btn.Tag.ToString());
+            bll.updateStatus(orderId, Order.S_CANCELED);
+            Order order = OrderList[OrderList.FindIndex(element => element.Id == orderId)];
+            order.Status.val = Order.S_CANCELED;
+            order.Status.canceledTime = DateTime.Now.ToString("M/d/yyyy h:mm:ss tt");
+            reload();
         }
-        private void OrderAgain_OnClick(object sender, RoutedEventArgs e)
+        private void Deliver_OnClick(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            bll.updateStatus(int.Parse(btn.Tag.ToString()), Order.S_ON_CART);
-            reload(Order.S_CANCELED);
-            reload(Order.S_ON_CART);
+            int orderId = int.Parse(btn.Tag.ToString());
+            bll.updateStatus(orderId, Order.S_DELIVERING);
+            Order order = OrderList[OrderList.FindIndex(element => element.Id == orderId)];
+            order.Status.val = Order.S_DELIVERING;
+            order.Status.deliveringTime = DateTime.Now.ToString("M/d/yyyy h:mm:ss tt");
+            reload(Order.S_PROCESSING);
+            reload(Order.S_DELIVERING);
+        }
+        private void Complete_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            int orderId = int.Parse(btn.Tag.ToString());
+            bll.insertCompletedTime(orderId);
+            Order order = OrderList[OrderList.FindIndex(element => element.Id == orderId)];
+            order.Status.completedTime = DateTime.Now.ToString("M/d/yyyy h:mm:ss tt");
+            reload(Order.S_DELIVERING);
+        }
+        private void GotOrder_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            bll.updateStatus(int.Parse(btn.Tag.ToString()), Order.S_COMPLETED);
+            reload(Order.S_DELIVERING);
+            reload(Order.S_COMPLETED);
+        }
+        private void Process_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            int orderId = int.Parse(btn.Tag.ToString());
+            bll.updateStatus(orderId, Order.S_PROCESSING);
+            Order order = OrderList[OrderList.FindIndex(element => element.Id == orderId)];
+            order.Status.val = Order.S_PROCESSING;
+            reload(Order.S_SUBMITTED);
+            reload(Order.S_PROCESSING);
         }
         private void reload(string status)
         {
@@ -283,15 +340,26 @@ namespace E_BookStore.GUI
         {
             InitializeComponent();
             bll = new OrderingBLL(this);
-            this.account = new Account(Account.R_CUSTOMER, "johnwick", 0);
+            //this.account = new Account(Account.R_CUSTOMER, "johnwick", 0);
+            this.account = new Account(Account.R_MANAGER, "nhancu", 100);
             this.allCustomerId = new List<int>();
-            if (this.account.Role == Account.R_CUSTOMER) allCustomerId.Add(this.account.CustomerId);
+            if (this.account.Role == Account.R_CUSTOMER)
+                allCustomerId.Add(this.account.CustomerId);
+            else
+            {
+                List<Customer> customerList = bll.getAllCustomer();
+                foreach (var cus in customerList)
+                    allCustomerId.Add(cus.Id);
+            }
             this.orderList = new List<Order>();
             foreach(var customerId in allCustomerId)
             {
                 orderList.AddRange(bll.getOrder(customerId, Order.S_ON_CART));
                 orderList.AddRange(bll.getOrder(customerId, Order.S_CANCELED));
                 orderList.AddRange(bll.getOrder(customerId, Order.S_SUBMITTED));
+                orderList.AddRange(bll.getOrder(customerId, Order.S_PROCESSING));
+                orderList.AddRange(bll.getOrder(customerId, Order.S_DELIVERING));
+                orderList.AddRange(bll.getOrder(customerId, Order.S_COMPLETED));
             }
             reload();
         }

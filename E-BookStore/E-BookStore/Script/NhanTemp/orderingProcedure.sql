@@ -10,6 +10,7 @@ DROP PROCEDURE IF EXISTS GetAllCustomer;
 DROP PROCEDURE IF EXISTS UpdateShip;
 DROP PROCEDURE IF EXISTS GetProductQuantity;
 DROP PROCEDURE IF EXISTS UpdateOrderItemQuantity;
+DROP PROCEDURE IF EXISTS InsertCompletedTime;
 
 DELIMITER //
 
@@ -68,13 +69,9 @@ BEGIN
 		UPDATE status as s
 		SET	s.Submission_Time = now()
 		WHERE s.Sta_Order_ID = orderId;
-	elseif statusVal ="Delevering" then
+	elseif statusVal = "Delivering" then
 		UPDATE status as s
-        SET s.Delevering_Time = now()
-        WHERE s.Sta_Order_ID = orderId;
-	elseif statusVal ="Completed" then
-		UPDATE status as s
-        SET s.Completed_Time = now()
+        SET s.Delivering_Time = now()
         WHERE s.Sta_Order_ID = orderId;
 	elseif statusVal ="Canceled" then
 		UPDATE status as s
@@ -127,12 +124,16 @@ BEGIN
 		SET p.Order_quantity = newQuantity, pro.Quantity = pro.Quantity - newQuantity
 		WHERE p.P_Order_Id = orderId and p.P_Product_Id = productId and pro.Product_Id = productId;
     END IF;
-    
-
 
 END //
-
+CREATE PROCEDURE InsertCompletedTime(IN orderId INT)
+BEGIN
+	UPDATE status as s
+    SET Completed_Time = now()
+    WHERE s.Sta_Order_Id = orderId;
+END //
 DELIMITER ;
+call GetAllCustomer();
 -- call UpdateStatus(0, "Submitted");
 -- call GetAllShipment;
 -- call GetAllOrder(0, "Submitted");

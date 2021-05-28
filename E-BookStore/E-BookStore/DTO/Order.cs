@@ -113,6 +113,7 @@ namespace E_BookStore.DTO
         static readonly public string S_DELIVERING = "Delivering";
         static readonly public string S_COMPLETED = "Completed";
         static readonly public string S_CANCELED = "Canceled";
+        static readonly public string S_DELETE = "Deleted";
 
         private int id;
         private Status status;

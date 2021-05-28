@@ -129,7 +129,8 @@ namespace E_BookStore.DAO
                         preOrderId = orderId;
                         order = new Order();
                         order.Id = orderId;
-                        order.ShipCash = reader.GetInt32(findIndex(columnName, "Ship_cash"));
+                        if (!reader.IsDBNull(findIndex(columnName, "Ship_cash")))
+                            order.ShipCash = reader.GetInt32(findIndex(columnName, "Ship_cash"));
                         if(!reader.IsDBNull(findIndex(columnName, "Ship_Name")))
                             order.ShipName = reader.GetString(findIndex(columnName, "Ship_Name"));
                         order.Status.val = reader.GetString(findIndex(columnName, "Status"));
@@ -208,6 +209,28 @@ namespace E_BookStore.DAO
                 quantity = reader.GetInt32(0);
             }
             return quantity;
+        }
+        public void insertCompletedTime(int orderId)
+        {
+            var conn = new MySqlConnection(connString);
+            conn.Open();
+            string sqlStatement = "call InsertCompletedTime(" + orderId + ")";
+            var cmd = new MySqlCommand(sqlStatement, conn);
+            cmd.ExecuteReader();
+        }
+        public List<Customer> getAllCustomer()
+        {
+            List<Customer> customerList = new List<Customer>();
+            var conn = new MySqlConnection(connString);
+            conn.Open();
+            string sqlStatement = "call GetAllCustomer()";
+            var cmd = new MySqlCommand(sqlStatement, conn);
+            var reader = cmd.ExecuteReader();
+            while(reader.Read())
+            {
+                customerList.Add(new Customer(reader.GetInt32(0)));
+            }
+            return customerList;
         }
     }
 }

@@ -59,6 +59,7 @@ namespace E_BookStore.GUI
             itemName.FontSize = 17;
             itemName.FontWeight = FontWeights.Bold;
             itemName.Padding = defaultPadding;
+            itemName.TextTrimming = TextTrimming.CharacterEllipsis;
 
             StackPanel quantityStack = new StackPanel();
             quantityStack.Orientation = Orientation.Horizontal;
@@ -102,6 +103,8 @@ namespace E_BookStore.GUI
             deleteButton.HorizontalAlignment = HorizontalAlignment.Left;
             deleteButton.Margin = new Thickness(10, 5, 5, 5);
             deleteButton.Click += Delete_Onclick;
+            if (MyOrder.Status.val != Order.S_ON_CART)
+                deleteButton.IsEnabled = false;
             
             itemName.Padding = uPrice.Padding = productTotal.Padding = remaining.Padding = defaultPadding;
             uPrice.FontSize = productTotal.FontSize = 15;
@@ -190,6 +193,22 @@ namespace E_BookStore.GUI
                 ItemStack.Children.Add(getLayout(item));
             }
         }
+        private void DeleteOrder_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            this.parent.Bll.updateStatus(int.Parse(btn.Tag.ToString()), Order.S_DELETE);
+            this.parent.OrderList.RemoveAll(element => element.Id == int.Parse(btn.Tag.ToString()));
+            this.parent.Show();
+            this.parent.reload();
+            this.Close();
+        }
+        private void Cancel_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.parent.Cancel_OnClick(sender, null);
+            this.parent.Show();
+            this.parent.reload();
+            this.Close();
+        }
         public OrderDetailWindow(OrderingWindow parent, Order order)
         {
             InitializeComponent();
@@ -202,8 +221,26 @@ namespace E_BookStore.GUI
             DeleveringTime.Text = MyOrder.Status.deliveringTime;
             CompletedTime.Text = MyOrder.Status.completedTime;
             CanceledTime.Text = MyOrder.Status.canceledTime;
-            if (MyOrder.Status.val != Order.S_ON_CART)
+            OrderTotal.SetBinding(TextBlock.TextProperty, UIHelper.getBinding("MyOrder.Total", this, "Total: {0:n0}", BindingMode.OneWay));
+            DeleteButton.Tag = MyOrder.Id;
+            if (MyOrder.Status.val != Order.S_ON_CART && MyOrder.Status.val != Order.S_CANCELED)
+            {
+                if(this.parent.Account.Role == Account.R_MANAGER)
+                {
+                    DeleteButton.Content = "Cancel";
+                    DeleteButton.Click += Cancel_OnClick;
+                }
+                else
+                    DeleteButton.IsEnabled = false;
+            }
+            else if(MyOrder.Status.val == Order.S_ON_CART)
+            {
+                DeleteButton.Click += DeleteOrder_OnClick;
+            }
+            else
+            {
                 DeleteButton.IsEnabled = false;
+            }
             reload();
         }
 

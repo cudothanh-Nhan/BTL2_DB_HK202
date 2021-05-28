@@ -12,7 +12,7 @@ namespace E_BookStore.BLL
         private OrderDetailDAO dao;
         public OrderDetailBLL()
         {
-            dao = new OrderDetailDAO("localhost", 3306, "ebookstore", "root", "123456");
+            dao = new OrderDetailDAO("localhost", 3306, "db", "root", "123456");
         }
         public void updateItemQuantity(int orderId, int productId, int quantity)
         {
