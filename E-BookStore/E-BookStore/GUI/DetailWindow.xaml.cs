@@ -53,6 +53,11 @@ namespace E_BookStore.GUI
             {
                 textBlockTotalQuantity.Text = bllDetail.ShowTotalProCate(this.CusID).ToString();
             }
+            else
+            {
+                MessageBox.Show("Invalid quantity!");
+                return;
+            }
             // check if customer has a order oncart yet?
             if (bllDetail.CheckOrderExistBLL(this.CusID))
             {
@@ -60,6 +65,7 @@ namespace E_BookStore.GUI
                 int x = Int32.Parse(textBoxQuantity.Text);
                 bllDetail.UpdatePPartOf(this.proID, x, this.CusID);
                 textBlockTotalQuantity.Text = bllDetail.ShowTotalProCate(this.CusID).ToString();
+                MessageBox.Show("Add product successfully!");
             }
             else
             {
@@ -67,6 +73,7 @@ namespace E_BookStore.GUI
                 int x = Int32.Parse(textBoxQuantity.Text);
                 bllDetail.InsertPPartOf(this.proID, x, this.CusID);
                 textBlockTotalQuantity.Text = bllDetail.ShowTotalProCate(this.CusID).ToString();
+                MessageBox.Show("Add product successfully!");
             }
         }
 

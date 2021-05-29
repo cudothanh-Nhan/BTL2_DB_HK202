@@ -66,7 +66,7 @@ namespace E_BookStore.DAO
             cmd1.CommandType = CommandType.Text;
             cmd1.ExecuteNonQuery();
             string Query3 = "Insert into STATUS(Sta_Order_ID,Status) values (" +
-                x.ToString() +"," +"'onCart'"+");";
+                x.ToString() +"," + "'onCart'" + ");";
             MySqlCommand cmd3 = new MySqlCommand(Query3, con);
             cmd3.CommandType = CommandType.Text;
             cmd3.ExecuteNonQuery();
