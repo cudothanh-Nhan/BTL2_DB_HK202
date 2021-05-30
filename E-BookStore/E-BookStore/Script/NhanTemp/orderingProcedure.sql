@@ -11,6 +11,7 @@ DROP PROCEDURE IF EXISTS UpdateShip;
 DROP PROCEDURE IF EXISTS GetProductQuantity;
 DROP PROCEDURE IF EXISTS UpdateOrderItemQuantity;
 DROP PROCEDURE IF EXISTS InsertCompletedTime;
+DROP PROCEDURE IF EXISTS UpdateProductQuantity;
 
 DELIMITER //
 
@@ -111,18 +112,15 @@ END //
 
 CREATE PROCEDURE UpdateOrderItemQuantity(IN orderId INT, IN productId INT, IN newQuantity INT)
 BEGIN
-	UPDATE p_part_of as p, products as pro
-    SET pro.Quantity = pro.Quantity + p.Order_quantity
-    WHERE p.P_Order_Id = orderId and p.P_Product_Id = productId and pro.Product_Id = productId;
     
 	if(newQuantity = 0)
     THEN
 		DELETE FROM p_part_of as p
         WHERE p.P_Order_Id = orderId and p.P_Product_ID = productId;
     ELSE
-		UPDATE p_part_of as p, products as pro
-		SET p.Order_quantity = newQuantity, pro.Quantity = pro.Quantity - newQuantity
-		WHERE p.P_Order_Id = orderId and p.P_Product_Id = productId and pro.Product_Id = productId;
+		UPDATE p_part_of as p
+		SET p.Order_quantity = newQuantity
+		WHERE p.P_Order_Id = orderId and p.P_Product_Id = productId;
     END IF;
 
 END //
@@ -131,6 +129,13 @@ BEGIN
 	UPDATE status as s
     SET Completed_Time = now()
     WHERE s.Sta_Order_Id = orderId;
+END //
+
+CREATE PROCEDURE UpdateProductQuantity (IN productId INT, IN subQuantity INT)
+BEGIN
+	UPDATE products as pro
+	SET pro.Quantity = pro.Quantity - subQuantity
+	WHERE pro.Product_Id = productId;
 END //
 DELIMITER ;
 call GetAllCustomer();

@@ -114,6 +114,7 @@ namespace E_BookStore.GUI
                 shipSelection.Margin = new Thickness(10);
                 shipSelection.Width = 200;
                 shipSelection.Name = "ShipSelection" + order.Id;
+                Debug.WriteLine("ShipInfo: " + shipSelection.Name);
                 shipSelection.HorizontalAlignment = HorizontalAlignment.Right;
                 shipSelection.SelectionChanged += Shipment_OnSelect;
                 List<Shipment> shipList = bll.getAllShipment();
@@ -181,11 +182,19 @@ namespace E_BookStore.GUI
             }
             else if(status == Order.S_DELIVERING && this.account.Role == Account.R_MANAGER)
             {
-                actionButton.Content = "Complete";
-                actionButton.Click += Complete_OnClick;
+                if(order.Status.completedTime == String.Empty)
+                {
+                    actionButton.Content = "Complete";
+                    actionButton.Click += Complete_OnClick;
+                }
+                else
+                {
+                    actionButton.Content = "Waiting confirmation";
+                    actionButton.IsEnabled = false;
+                }
             }
             else if(status == Order.S_DELIVERING && this.account.Role == Account.R_CUSTOMER
-                && this.OrderList[orderIndex].Status.completedTime == string.Empty)
+                && this.OrderList[orderIndex].Status.completedTime != string.Empty)
             {
                 actionButton.Content = "Got order";
                 actionButton.Click += GotOrder_OnClick;
@@ -198,8 +207,8 @@ namespace E_BookStore.GUI
             actionButton.Tag = order.Id;
             actionButton.Height = 40;
             actionButton.FontSize = 15;
-            actionButton.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff6600"));
-            actionButton.Foreground = Brushes.White;
+            //actionButton.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff6600"));
+            //actionButton.Foreground = Brushes.White;
 
             Grid.SetRow(orderInfo, 0);
             Grid.SetColumn(orderInfo, 0);
@@ -251,7 +260,8 @@ namespace E_BookStore.GUI
         private void Submit_OnClick(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            var cmBox = UIHelper.FindChild<ComboBox>(Application.Current.MainWindow, "ShipSelection" + btn.Tag.ToString());
+            Debug.WriteLine("OnClick" + "ShipSelection" + btn.Tag.ToString());
+            var cmBox = UIHelper.FindChild<ComboBox>(this, "ShipSelection" + btn.Tag.ToString());
             if (cmBox.SelectedItem != null)
             {
                 string op = cmBox.SelectedItem.ToString();
@@ -259,8 +269,19 @@ namespace E_BookStore.GUI
                 Shipment ship = new Shipment();
                 ship.ShipName = parseItem[0];
                 ship.ShipVal = int.Parse(parseItem[1]);
-                bll.updateShip(int.Parse(btn.Tag.ToString()), ship);
-                bll.updateStatus(int.Parse(btn.Tag.ToString()), Order.S_SUBMITTED);
+                Order order = orderList[orderList.FindIndex(element => element.Id == int.Parse(btn.Tag.ToString()))];
+                try
+                {
+                    bll.submitOrder(order, ship);
+                    order.Status.val = Order.S_SUBMITTED;
+                    order.Status.submissionTime = DateTime.Now.ToString("M/d/yyyy h:mm:ss tt");
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    fetch();
+                }
+
                 reload(Order.S_ON_CART);
                 reload(Order.S_SUBMITTED);
             }
@@ -271,20 +292,35 @@ namespace E_BookStore.GUI
         {
             Button btn = (Button)sender;
             int orderId = int.Parse(btn.Tag.ToString());
-            bll.updateStatus(orderId, Order.S_CANCELED);
             Order order = OrderList[OrderList.FindIndex(element => element.Id == orderId)];
-            order.Status.val = Order.S_CANCELED;
-            order.Status.canceledTime = DateTime.Now.ToString("M/d/yyyy h:mm:ss tt");
+            try
+            {
+                bll.updateStatus(order, Order.S_CANCELED);
+                order.Status.val = Order.S_CANCELED;
+                order.Status.canceledTime = DateTime.Now.ToString("M/d/yyyy h:mm:ss tt");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                fetch();
+            }
             reload();
         }
         private void Deliver_OnClick(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
             int orderId = int.Parse(btn.Tag.ToString());
-            bll.updateStatus(orderId, Order.S_DELIVERING);
             Order order = OrderList[OrderList.FindIndex(element => element.Id == orderId)];
-            order.Status.val = Order.S_DELIVERING;
-            order.Status.deliveringTime = DateTime.Now.ToString("M/d/yyyy h:mm:ss tt");
+            try
+            {
+                bll.updateStatus(order, Order.S_DELIVERING);
+                order.Status.val = Order.S_DELIVERING;
+                order.Status.deliveringTime = DateTime.Now.ToString("M/d/yyyy h:mm:ss tt");
+            }
+            catch(Exception ex) {
+                MessageBox.Show(ex.Message);
+                fetch();
+            }
             reload(Order.S_PROCESSING);
             reload(Order.S_DELIVERING);
         }
@@ -300,7 +336,17 @@ namespace E_BookStore.GUI
         private void GotOrder_OnClick(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            bll.updateStatus(int.Parse(btn.Tag.ToString()), Order.S_COMPLETED);
+            Order order = orderList[orderList.FindIndex(element => element.Id == int.Parse(btn.Tag.ToString()))];
+            try
+            {
+                bll.updateStatus(order, Order.S_COMPLETED);
+                order.Status.val = Order.S_COMPLETED;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                fetch();
+            }
             reload(Order.S_DELIVERING);
             reload(Order.S_COMPLETED);
         }
@@ -308,9 +354,17 @@ namespace E_BookStore.GUI
         {
             Button btn = (Button)sender;
             int orderId = int.Parse(btn.Tag.ToString());
-            bll.updateStatus(orderId, Order.S_PROCESSING);
             Order order = OrderList[OrderList.FindIndex(element => element.Id == orderId)];
-            order.Status.val = Order.S_PROCESSING;
+            try
+            {
+                bll.updateStatus(order, Order.S_PROCESSING);
+                order.Status.val = Order.S_PROCESSING;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                fetch();
+            }
             reload(Order.S_SUBMITTED);
             reload(Order.S_PROCESSING);
         }
@@ -336,12 +390,32 @@ namespace E_BookStore.GUI
             reload(Order.S_DELIVERING);
             reload(Order.S_COMPLETED);
         }
-        public OrderingWindow()
+       public void fetch()
+        {
+            if (this.account.Role == Account.R_MANAGER) {
+                allCustomerId.Clear();
+                List<Customer> customerList = bll.getAllCustomer();
+                foreach (var cus in customerList)
+                    allCustomerId.Add(cus.Id);
+            }
+            orderList.Clear();
+            foreach (var customerId in allCustomerId)
+            {
+               
+                orderList.AddRange(bll.getOrder(customerId, Order.S_ON_CART));
+                orderList.AddRange(bll.getOrder(customerId, Order.S_CANCELED));
+                orderList.AddRange(bll.getOrder(customerId, Order.S_SUBMITTED));
+                orderList.AddRange(bll.getOrder(customerId, Order.S_PROCESSING));
+                orderList.AddRange(bll.getOrder(customerId, Order.S_DELIVERING));
+                orderList.AddRange(bll.getOrder(customerId, Order.S_COMPLETED));
+            }
+        }
+        public OrderingWindow(Account account)
         {
             InitializeComponent();
             bll = new OrderingBLL(this);
             //this.account = new Account(Account.R_CUSTOMER, "johnwick", 0);
-            this.account = new Account(Account.R_MANAGER, "nhancu", 100);
+            this.account = account;
             this.allCustomerId = new List<int>();
             if (this.account.Role == Account.R_CUSTOMER)
                 allCustomerId.Add(this.account.CustomerId);
@@ -361,6 +435,12 @@ namespace E_BookStore.GUI
                 orderList.AddRange(bll.getOrder(customerId, Order.S_DELIVERING));
                 orderList.AddRange(bll.getOrder(customerId, Order.S_COMPLETED));
             }
+            reload();
+        }
+
+        private void Refresh_OnClick(object sender, SelectionChangedEventArgs e)
+        {
+            fetch();
             reload();
         }
     }

@@ -232,5 +232,25 @@ namespace E_BookStore.DAO
             }
             return customerList;
         }
+        public void updateProductQuantity(int productId, int subQuantity)
+        {
+            var conn = new MySqlConnection(connString);
+            conn.Open();
+            string sqlStatement = "call UpdateProductQuantity(" + productId + ", " + subQuantity + ")";
+            var cmd = new MySqlCommand(sqlStatement, conn);
+            cmd.ExecuteReader();
+        }
+        public string getStatus(int orderId)
+        {
+            var conn = new MySqlConnection(connString);
+            conn.Open();
+            string sqlStatement = "SELECT Status FROM status WHERE Sta_Order_Id = " + orderId;
+            var cmd = new MySqlCommand(sqlStatement, conn);
+            var reader = cmd.ExecuteReader();
+            string curStatus = string.Empty;
+            while (reader.Read()) curStatus = reader.GetString(0);
+            return curStatus;
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Login_WPF.DAO;
+﻿using E_BookStore.BLL;
+using Login_WPF.DAO;
 using Login_WPFGUI;
 using MySql.Data.MySqlClient;
 using System;
@@ -16,7 +17,8 @@ namespace Login_WPF.BLL
         private LoginDAO dao;
         public LoginBLL()
         {
-            dao = new LoginDAO("localhost", 3306, "db", "root", "lekhiettoan1");
+            SqlConnectBLL common = new SqlConnectBLL();
+            dao = new LoginDAO(common.host, common.port, common.database, common.username, common.password);
         }
         public bool checkEmailLength(string email)
         {

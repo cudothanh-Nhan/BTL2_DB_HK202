@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace E_BookStore.DTO
 {
-    class Account
+    public class Account
     {
         static readonly public string R_CUSTOMER = "Customer";
         static readonly public string R_MANAGER = "Manager";

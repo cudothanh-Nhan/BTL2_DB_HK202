@@ -180,7 +180,10 @@ namespace E_BookStore.GUI
         {
             Button btn = (Button)sender;
             int itemId = int.Parse(btn.Tag.ToString());
-            bll.updateItemQuantity(MyOrder.Id, itemId, 0);
+            bll.updateItemQuantity(MyOrder, itemId, 0);
+            ItemOfOrder item = this.MyOrder.ItemsOfOrder.Find(element => element.Id == itemId);
+            this.MyOrder.Total -= item.Total;
+            this.preOrder.Total = this.MyOrder.Total;
             this.MyOrder.ItemsOfOrder.RemoveAll(element => element.Id == itemId);
             this.preOrder.ItemsOfOrder.RemoveAll(element => element.Id == itemId);
             reload();
@@ -196,9 +199,11 @@ namespace E_BookStore.GUI
         private void DeleteOrder_OnClick(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            this.parent.Bll.updateStatus(int.Parse(btn.Tag.ToString()), Order.S_DELETE);
+            
+            this.parent.Bll.updateStatus(MyOrder, Order.S_DELETE);
             this.parent.OrderList.RemoveAll(element => element.Id == int.Parse(btn.Tag.ToString()));
             this.parent.Show();
+            this.parent.fetch();
             this.parent.reload();
             this.Close();
         }
@@ -257,7 +262,7 @@ namespace E_BookStore.GUI
             {
                 foreach(var item in MyOrder.ItemsOfOrder)
                 {
-                    bll.updateItemQuantity(MyOrder.Id, item.Id, item.Quantity);
+                    bll.updateItemQuantity(MyOrder, item.Id, item.Quantity);
                     item.MaxQuantity = this.parent.Bll.getProductQuantity(item.Id);
                     Debug.WriteLine(item.MaxQuantity);
                 }
