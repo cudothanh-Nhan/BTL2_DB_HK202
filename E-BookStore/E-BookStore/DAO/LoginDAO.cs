@@ -8,17 +8,16 @@ using System.Threading.Tasks;
 
 namespace Login_WPF.DAO
 {
-    class MainUIDAO
+    class LoginDAO
     {
         private string connString;
 
-        public MainUIDAO(string host, int port, string database, string username, string password)
+        public LoginDAO(string host, int port, string database, string username, string password)
         {
             this.connString = "Server=" + host + ";Database="
             + database
             + ";port=" + port + ";User Id=" + username + ";password=" +
             password;
-
         }
 
         public void InsertDatabse(string firstname, string lastname, string email, string password, string city, string street)

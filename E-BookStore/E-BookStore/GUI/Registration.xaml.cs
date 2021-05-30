@@ -28,7 +28,7 @@ namespace Registration_WPFGUI
     
         public partial class Registration : Window
         {
-        MainUIBLL bll = new MainUIBLL();
+        LoginBLL bll = new LoginBLL();
         public Registration()
         {
             InitializeComponent();

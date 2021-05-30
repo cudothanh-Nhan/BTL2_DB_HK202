@@ -27,7 +27,7 @@ namespace Login_WPFGUI
 
     public partial class Login : Window
     {
-        MainUIBLL bllLogin = new MainUIBLL();
+        LoginBLL bllLogin = new LoginBLL();
         public Login()
         {
             InitializeComponent();
@@ -35,7 +35,12 @@ namespace Login_WPFGUI
         Registration registration = new Registration();
         Welcome welcome = new Welcome();
 
-          private void button1_Click(object sender, RoutedEventArgs e)
+        private void PasswordKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                button1_Click(sender, e);
+        }
+        private void button1_Click(object sender, RoutedEventArgs e)
         {
             if (!bllLogin.checkEmailLength(textBoxEmail.Text))
             {
