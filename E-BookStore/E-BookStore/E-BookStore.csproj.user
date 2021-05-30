@@ -7,9 +7,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="GUI\DetailWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="GUI\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Login_WPF.BLL
 {
-    class MainUIBLL
+    class LoginBLL
     {
-        private MainUIDAO dao;
-        public MainUIBLL()
+        private LoginDAO dao;
+        public LoginBLL()
         {
-            dao = new MainUIDAO("localhost", 3306, "db", "root", "lekhiettoan1");
+            dao = new LoginDAO("localhost", 3306, "db", "root", "lekhiettoan1");
         }
         public bool checkEmailLength(string email)
         {
