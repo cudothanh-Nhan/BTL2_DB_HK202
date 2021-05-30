@@ -20,7 +20,7 @@ namespace Login_WPF.BLL
         }
         public bool checkEmailLength(string email)
         {
-            if (email.Length == 0)
+            if (email.Length == 0 || email.Length > 255)
             {
                 return false;
             }
@@ -28,7 +28,7 @@ namespace Login_WPF.BLL
         }
         public bool checkFirstNameLength(string firstname)
         {
-            if (firstname.Length == 0)
+            if (firstname.Length == 0 || firstname.Length > 255)
             {
                 return false;
             }
@@ -36,7 +36,7 @@ namespace Login_WPF.BLL
         }
         public bool checkLastNameLength(string lastname)
         {
-            if (lastname.Length == 0)
+            if (lastname.Length == 0 || lastname.Length > 255)
             {
                 return false;
             }
@@ -44,7 +44,7 @@ namespace Login_WPF.BLL
         }
         public bool checkCityLength(string city)
         {
-            if (city.Length == 0)
+            if (city.Length == 0 || city.Length > 255)
             {
                 return false;
             }
@@ -52,7 +52,7 @@ namespace Login_WPF.BLL
         }
         public bool checkStreetLength(string street)
         {
-            if (street.Length == 0)
+            if (street.Length == 0 || street.Length > 255)
             {
                 return false;
             }
@@ -68,7 +68,7 @@ namespace Login_WPF.BLL
         }
         public bool checkPassLength(string password)
         {
-            if (password.Length == 0)
+            if (password.Length == 0 || password.Length >255)
             {
                 return false;
             }
