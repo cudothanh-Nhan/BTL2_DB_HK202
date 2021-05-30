@@ -46,7 +46,7 @@ namespace Login_WPF.DAO
         {
             MySqlConnection con = new MySqlConnection(connString);
             con.Open(); 
-            MySqlCommand cmd = new MySqlCommand("Select * from ACCOUNTS,CUSTOMERS where Username='" + email + "'  and Password='" + password + "'", con);
+            MySqlCommand cmd = new MySqlCommand("Select * from ACCOUNTS,CUSTOMERS where Username = Cus_Username and Username='" + email + "'  and Password='" + password + "'", con);
             return cmd;
         }
 

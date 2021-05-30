@@ -414,8 +414,8 @@ namespace E_BookStore.GUI
         {
             InitializeComponent();
             bll = new OrderingBLL(this);
-            //this.account = new Account(Account.R_CUSTOMER, "johnwick", 0);
             this.account = account;
+            Debug.WriteLine(this.account.Role + this.account.CustomerId);
             this.allCustomerId = new List<int>();
             if (this.account.Role == Account.R_CUSTOMER)
                 allCustomerId.Add(this.account.CustomerId);
