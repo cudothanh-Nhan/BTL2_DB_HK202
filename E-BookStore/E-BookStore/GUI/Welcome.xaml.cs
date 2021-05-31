@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Welcome_WPFGUI
+namespace E_BookStore.GUI
 {
     /// <summary>
     /// Interaction logic for Welcome.xaml

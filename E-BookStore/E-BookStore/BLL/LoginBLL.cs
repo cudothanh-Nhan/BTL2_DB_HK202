@@ -1,6 +1,5 @@
-﻿using E_BookStore.BLL;
-using Login_WPF.DAO;
-using Login_WPFGUI;
+﻿using E_BookStore.DAO;
+using E_BookStore.DTO;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -10,19 +9,19 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Login_WPF.BLL
+namespace E_BookStore.BLL
 {
     class LoginBLL
     {
         private LoginDAO dao;
         public LoginBLL()
         {
-            SqlConnectBLL common = new SqlConnectBLL();
-            dao = new LoginDAO(common.host, common.port, common.database, common.username, common.password);
+            SqlConnectBLL sql = new SqlConnectBLL();
+            dao = new LoginDAO(sql.host, sql.port, sql.database, sql.username, sql.password);
         }
         public bool checkEmailLength(string email)
         {
-            if (email.Length == 0)
+            if (email.Length == 0 || email.Length > 255)
             {
                 return false;
             }
@@ -30,7 +29,7 @@ namespace Login_WPF.BLL
         }
         public bool checkFirstNameLength(string firstname)
         {
-            if (firstname.Length == 0)
+            if (firstname.Length == 0 || firstname.Length > 255)
             {
                 return false;
             }
@@ -38,7 +37,7 @@ namespace Login_WPF.BLL
         }
         public bool checkLastNameLength(string lastname)
         {
-            if (lastname.Length == 0)
+            if (lastname.Length == 0 || lastname.Length > 255)
             {
                 return false;
             }
@@ -46,7 +45,7 @@ namespace Login_WPF.BLL
         }
         public bool checkCityLength(string city)
         {
-            if (city.Length == 0)
+            if (city.Length == 0 || city.Length > 255)
             {
                 return false;
             }
@@ -54,7 +53,7 @@ namespace Login_WPF.BLL
         }
         public bool checkStreetLength(string street)
         {
-            if (street.Length == 0)
+            if (street.Length == 0 || street.Length > 255)
             {
                 return false;
             }
@@ -70,7 +69,7 @@ namespace Login_WPF.BLL
         }
         public bool checkPassLength(string password)
         {
-            if (password.Length == 0)
+            if (password.Length == 0 || password.Length >255)
             {
                 return false;
             }

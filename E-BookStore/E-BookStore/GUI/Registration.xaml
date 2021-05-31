@@ -1,4 +1,4 @@
-﻿<Window x:Class="Registration_WPFGUI.Registration"
+<Window x:Class="E_BookStore.GUI.Registration"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Registration" Height="462.595" Width="787.925" Background="Black">

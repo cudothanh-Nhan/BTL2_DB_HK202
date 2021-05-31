@@ -13,6 +13,7 @@ DROP PROCEDURE IF EXISTS UpdateOrderItemQuantity;
 DROP PROCEDURE IF EXISTS InsertCompletedTime;
 DROP PROCEDURE IF EXISTS UpdateProductQuantity;
 DROP PROCEDURE IF EXISTS InsertReview;
+DROP PROCEDURE IF EXISTS GetAllReview;
 
 DELIMITER //
 
@@ -144,8 +145,15 @@ BEGIN
 	insert reviews
 	values(customerId, now(), rating, imgUrl, cmt, NULL, productId);
 END //
+
+CREATE PROCEDURE GetAllReview(IN productId INT)
+BEGIN
+	SELECT c.Cus_Username, r.Date, r.Rating, r.Image_URL, r.Comment_text
+    FROM reviews as r, customers as c
+    WHERE r.Re_Pro_ID = productId and r.ReCustomer_ID = c.Customer_ID;
+END //
 DELIMITER ;
-call GetAllCustomer();
+call GetAllReview(2);
 -- call UpdateStatus(0, "Submitted");
 -- call GetAllShipment;
 -- call GetAllOrder(0, "Submitted");

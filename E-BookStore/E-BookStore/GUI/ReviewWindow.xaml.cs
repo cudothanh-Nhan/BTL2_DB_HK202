@@ -36,6 +36,8 @@ namespace E_BookStore.GUI
         }
         private void Submit_OnClick(object sender, RoutedEventArgs e)
         {
+            if (Comment.Text == String.Empty)
+                Comment.Text = "No caption";
             bll.insertReview(productId, ImgUrl.Text, Comment.Text, Convert.ToInt32(RatingSlider.Value), customerId);
             this.Close();
         }

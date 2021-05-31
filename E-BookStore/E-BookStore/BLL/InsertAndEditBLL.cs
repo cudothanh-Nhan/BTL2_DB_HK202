@@ -61,15 +61,15 @@ namespace E_BookStore.BLL
             return false;
         }
 
-        public void insertBook(string proID, string imgUrl, string name, string price, string quantity,
+        public bool insertBook(string proID, string imgUrl, string name, string price, string quantity,
             string city, string street, string language, string publisher, string publishYear, string pages)
         {
-            dao.insertBook(proID, imgUrl, name, price, quantity, city, street, language, publisher, publishYear, pages);
+            return dao.insertBook(proID, imgUrl, name, price, quantity, city, street, language, publisher, publishYear, pages);
         }
-        public void insertMaga(string proID, string imgUrl, string seriNameID, string no, string price, string quantity,
+        public bool insertMaga(string proID, string imgUrl, string seriNameID, string no, string price, string quantity,
             string city, string street, string language, string publishDate)
         {
-            dao.insertMaga(proID, imgUrl, seriNameID, no, price, quantity, city, street, language, publishDate);
+            return dao.insertMaga(proID, imgUrl, seriNameID, no, price, quantity, city, street, language, publishDate);
         }
 
         public bool getBookDetail(string proId, ref Book book)
@@ -92,15 +92,23 @@ namespace E_BookStore.BLL
             }
             return false;
         }
-        public void editBook(string proID, string imgUrl, string name, string price, string quantity,
+        public bool editBook(string proID, string imgUrl, string name, string price, string quantity,
             string city, string street, string language, string publisher, string publishYear, string pages)
         {
-            dao.editBook(proID, imgUrl, name, price, quantity, city, street, language, publisher, publishYear, pages);
+            return dao.editBook(proID, imgUrl, name, price, quantity, city, street, language, publisher, publishYear, pages);
         }
-        public void editMaga(string proID, string imgUrl, string seriNameID, string no, string price, string quantity,
+        public bool editMaga(string proID, string imgUrl, string seriNameID, string no, string price, string quantity,
             string city, string street, string language, string publishDate)
         {
-            dao.editMaga(proID, imgUrl, seriNameID, no, price, quantity, city, street, language, publishDate);
+            return dao .editMaga(proID, imgUrl, seriNameID, no, price, quantity, city, street, language, publishDate);
+        }
+        public bool removeBook(string proID)
+        {
+            return dao.removeBook(proID);
+        }
+        public bool removeMaga(string proID)
+        {
+            return dao.removeMaga(proID);
         }
     }
 }

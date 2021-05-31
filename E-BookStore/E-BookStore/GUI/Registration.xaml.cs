@@ -16,10 +16,9 @@ using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
 using System.Windows.Threading;
 using System.Threading.Tasks;
-using Login_WPFGUI;
-using Login_WPF.BLL;
+using E_BookStore.BLL;
 
-namespace Registration_WPFGUI
+namespace E_BookStore.GUI
 {
     /// <summary>  
     /// Interaction logic for Registration.xaml  

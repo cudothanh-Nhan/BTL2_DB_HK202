@@ -15,13 +15,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
-using Registration_WPFGUI;
-using Welcome_WPFGUI;
-using Login_WPF.BLL;
-using E_BookStore.GUI;
-using E_BookStore.DTO;
+using E_BookStore.BLL;
 
-namespace Login_WPFGUI
+namespace E_BookStore.GUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -67,15 +63,14 @@ namespace Login_WPFGUI
                 {
                     DataSet dataSet = bllLogin.checkInfo(textBoxEmail.Text, passwordBox1.Password);
                     string role = dataSet.Tables[0].Rows[0]["Role"].ToString();
-                    string username = dataSet.Tables[0].Rows[0]["Username"].ToString();
-                    string customer_ID = dataSet.Tables[0].Rows[0]["Customer_ID"].ToString();
+                    string username = "Username is: " + dataSet.Tables[0].Rows[0]["Username"].ToString();
+                    var customer_ID = dataSet.Tables[0].Rows[0]["Customer_ID"];
+                    //MessageBox.Show(customer_ID.ToString());
                     //welcome.TextBlockCusID.Text = customer_ID;//Sending value from one form to another form.
                     //welcome.TextBlockUsername.Text = username;//Sending value from one form to another form.
                     //welcome.TextBlockRole.Text = role;//Sending value from one form to another form.
-                    //welcome.Show();
-                    Account account = new Account(role, username, int.Parse(customer_ID));
-                    OrderingWindow orderingWindow = new OrderingWindow(account);
-                    orderingWindow.Show();
+                    MainUIWindow main = new MainUIWindow(role, (int)customer_ID);
+                    main.Show();
                     Close();
                 }                
             }

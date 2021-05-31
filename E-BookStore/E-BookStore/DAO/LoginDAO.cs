@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Login_WPF.DAO
+namespace E_BookStore.DAO
 {
     class LoginDAO
     {

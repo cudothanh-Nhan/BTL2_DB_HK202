@@ -29,6 +29,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="GUI\DetailWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="GUI\EditWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -41,16 +44,26 @@
     <Page Update="GUI\InsertWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="GUI\Login.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="GUI\MainUIWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+
     <Page Update="GUI\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\ReviewWindow.xaml">
+		<SubType>Designer</SubType>
+	</Page>
+    <Page Update="GUI\Registration.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Welcome.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
