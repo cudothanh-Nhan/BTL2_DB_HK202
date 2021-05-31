@@ -6,8 +6,8 @@ Last_name 			varchar(20) 	NOT NULL,
 Customer_ID 		int 			NOT NULL,
 Cus_Username 		varchar(16) 	NOT NULL,
 Email 				varchar(25),
-Street 				varchar(25)		NOT NULL,
-City 				varchar(25)		NOT NULL,
+Street 				varchar(255)		NOT NULL,
+City 				varchar(255)		NOT NULL,
 Telephone_number 	char(10) 		NOT NULL,
 PRIMARY KEY (Customer_ID)
 );
@@ -56,8 +56,8 @@ CONSTRAINT PK_STORES PRIMARY KEY (Street,City)
 );
 
 create table STO_HAS_SHIP (
-H_City 				varchar(25)		NOT NULL,
-H_Street 			varchar(25) 	NOT NULL,
+H_City 				varchar(255)		NOT NULL,
+H_Street 			varchar(255) 	NOT NULL,
 H_Ship_ID			int				NOT NULL,
 PRIMARY KEY (H_Street,H_City,H_Ship_ID)
 );
@@ -89,7 +89,7 @@ PRIMARY KEY (WBook_Pro_ID,WAuthor_ID)
 );
 
 create table BOOKS (
-Name				varchar(20)		NOT NULL,	
+Name				varchar(255)		NOT NULL,	
 Publisher			varchar(20)		NOT NULL,
 Publish_year		year,
 Pages				int,	
@@ -98,9 +98,9 @@ PRIMARY KEY (Book_Pro_ID)
 );
 
 create table PRODUCTS (
-Sto_Street			varchar(25)		NOT NULL,
-Sto_City			varchar(25)		NOT NULL,
-Language			varchar(15),
+Sto_Street			varchar(255)		NOT NULL,
+Sto_City			varchar(255)		NOT NULL,
+Language			varchar(255),
 Price				int				NOT NULL,
 imgUrl				varchar(255),
 Quantity			int				NOT NULL,
@@ -132,7 +132,8 @@ PRIMARY KEY (Maga_Pro_ID)
 );
 
 alter table books
-modify Name varchar (255);
+modify Name varchar (10000), modify Publisher varchar(255);
+
 
 -- Completed
 DELIMITER $$
@@ -176,44 +177,6 @@ begin
 end$$
 DELIMITER ;
 
-DELIMITER $$
-create procedure getReview(Pro_ID INT)
-begin
-	select ReCustomer_ID, Date, Rating, Image_URL, Comment_text, Review_Reply_Date, Re_Pro_ID, Firstname, Last_name, Customer_ID
-    from reviews, customers
-    where Re_Pro_ID = Pro_ID and Customer_ID = ReCustomer_ID;
-end$$
-DELIMITER ;
-
-DELIMITER $$
-create procedure getCustomerReview(cus_ID INT)
-begin
-	select Firstname, Last_name, Customer_ID
-    from customers
-    where Customer_ID = cus_ID;
-end$$
-DELIMITER ;
-
-DELIMITER $$
-create procedure getAuthor(Book_ID INT)
-begin
-	select authors.Name, Author_ID, DOB
-    from authors, written_by, books
-    where WAuthor_ID = Author_ID and WBook_Pro_ID = Book_Pro_ID and Book_Pro_ID = Book_ID;
-end$$
-DELIMITER ;
-
-select 
-
--- need check
-DELIMITER $$
-create procedure getSubribeOfID(input_ID INT)
-begin
-	select imgUrl, Name, NO, price, Quantity, Magazine_ID, Product_ID, Sto_Street, Sto_City, Language
-    from customers, subcribe, magazine_seri_names, magazines
-    where Product_ID = Maga_Pro_ID and Magazine_ID = Seri_name_ID and Magazine_ID = Sub_seriname_ID and Seri_name_ID  = Sub_seriname_ID and S_Cus_ID = Customer_ID and Customer_ID = input_ID;
-end$$
-DELIMITER ;
 
 DELIMITER $$
 create procedure getAllProID()
@@ -266,6 +229,7 @@ begin
 	WHERE Maga_Pro_ID = Maga_ID;
 end$$
 DELIMITER ;
+
 
 call getMagazineUI();
 call getBookUI();

@@ -248,8 +248,6 @@ namespace E_BookStore.DAO
                     MagazineSeri seri = new MagazineSeri();
                     maga.Id = reader.GetInt32(findIndex(columnName, "Product_ID"));
                     maga.ImgUrl = reader.GetString(findIndex(columnName, "imgUrl"));
-                    seri.Name = reader.GetString(findIndex(columnName, "Name"));
-                    seri.Publisher = reader.GetString(findIndex(columnName, "Publisher"));
                     maga.SeriName = seri;
                     maga.No = reader.GetInt32(findIndex(columnName, "NO"));
                     maga.Quantiy = reader.GetInt32(findIndex(columnName, "sum(Quantity)"));
