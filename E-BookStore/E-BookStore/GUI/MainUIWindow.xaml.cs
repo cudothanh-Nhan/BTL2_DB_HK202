@@ -675,6 +675,15 @@ namespace E_BookStore.GUI
             Instock.SelectionChanged += Instock_SelectionChanged;
             Search.Click += Search_click;
             ProSort.SelectionChanged += ProSort_SelectionChanged;
+            SearchTaskBar.KeyDown += Search_KeyDown;
+        }
+
+        private void Search_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Search_click(this, new RoutedEventArgs());
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
