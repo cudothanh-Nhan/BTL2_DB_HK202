@@ -158,8 +158,8 @@ delimiter $$
 create procedure totalProCate(cus_Id int)
 begin
 select count(*) as totall
-from p_part_of,Orders
-where p_order_id = order_ID and or_cus_id = cus_Id  ; 
+from p_part_of,Orders,Status
+where p_order_id = order_ID and or_cus_id = cus_Id and Sta_Order_ID = Order_ID and Status = 'onCart' ; 
 end $$
 delimiter ;
 
@@ -167,8 +167,8 @@ delimiter $$
 create procedure OrderIDuse(cus_Id int)
 begin
 select Order_ID
-from Orders
-where or_cus_id = cus_Id  ; 
+from Orders,Status
+where or_cus_id = cus_Id and Sta_Order_ID = Order_ID and Status = 'onCart' ; 
 end $$
 delimiter ;
 

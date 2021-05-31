@@ -27,14 +27,14 @@ namespace E_BookStore.DAO
         {
             MySqlConnection con = new MySqlConnection(connString);
             con.Open();
-            MySqlCommand cmdCusID = new MySqlCommand("Select * from ORDERS where Or_cus_ID='" + Customer_ID.ToString() + "';", con);
+            MySqlCommand cmdCusID = new MySqlCommand("Select * from ORDERS,Status where Or_cus_ID=" + Customer_ID.ToString() + " and Sta_Order_ID = Order_ID and Status = 'onCart';", con);
             return cmdCusID;
         }
         public MySqlCommand CheckProExist(int P_Product_ID)
         {
             MySqlConnection con = new MySqlConnection(connString);
             con.Open();
-            MySqlCommand cmdEmail = new MySqlCommand("Select * from P_PART_OF where P_Product_ID='" + P_Product_ID.ToString() + "';", con);
+            MySqlCommand cmdEmail = new MySqlCommand("Select * from P_PART_OF where P_Product_ID=" + P_Product_ID.ToString() + ";", con);
             return cmdEmail;
         }
         public void UpdateOrder(int P_Product_ID, int Order_quantity)
@@ -58,7 +58,6 @@ namespace E_BookStore.DAO
             cmd2.CommandType = CommandType.Text;
             cmd2.ExecuteNonQuery();
             int x = this.getOrderID(Or_cus_ID);
-            //MessageBox.Show(x.ToString());
             string Query1 = "Insert into P_PART_OF(P_Order_ID,P_Product_ID,Order_quantity) values (" + x.ToString() + ","
                 + P_Product_ID.ToString() + "," +
                 Order_quantity.ToString() + ");";
@@ -128,7 +127,7 @@ namespace E_BookStore.DAO
             try
             {
                 conn.Open();
-                string sqlStatement = "call OrderIDuse(" + Cus_Id.ToString() + ");";
+                string sqlStatement = "call OrderIDuse2(" + Cus_Id.ToString() + ");";
                 var cmd = new MySqlCommand(sqlStatement, conn);
                 var reader = cmd.ExecuteReader();
 
