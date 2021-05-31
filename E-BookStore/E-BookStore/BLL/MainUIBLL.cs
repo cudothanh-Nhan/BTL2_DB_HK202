@@ -20,21 +20,9 @@ namespace E_BookStore.BLL
         {
             return dao.getallBookUI();
         }
-        public Book getBookDetail(int bookId)
-        {
-            return dao.getBookDetail(bookId);
-        }
         public List<Magazine> getallMagaUI()
         {
             return dao.getallMagaUI();
-        }
-        public Magazine getMagaDetail(int magaId)
-        {
-            return dao.getMagaDetail(magaId);
-        }
-        public List<Review> getReview(int proId)
-        {
-            return dao.getReview(proId);
         }
     }
 }
