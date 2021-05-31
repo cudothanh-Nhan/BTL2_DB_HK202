@@ -1,21 +1,21 @@
 create database db;
 use db;
 create table CUSTOMERS (
-Firstname 			varchar(20) 	NOT NULL,
-Last_name 			varchar(20) 	NOT NULL,
-Customer_ID 		int 			NOT NULL,
-Cus_Username 		varchar(16) 	NOT NULL,
-Email 				varchar(25),
+Firstname 			varchar(205) 	NOT NULL,
+Last_name 			varchar(205) 	NOT NULL,
+Customer_ID 		int 			auto_increment,
+Cus_Username 		varchar(165) 	NOT NULL,
+Email 				varchar(255),
 Street 				varchar(255)		NOT NULL,
 City 				varchar(255)		NOT NULL,
-Telephone_number 	char(10) 		NOT NULL,
+Telephone_number 	char(10),
 PRIMARY KEY (Customer_ID)
 );
 
 create table ACCOUNTS (
-Username 			varchar(16)		NOT NULL,
-Role 				varchar(20) 	NOT NULL,
-Password 			varchar(20),
+Username 			varchar(165)		NOT NULL,
+Role 				varchar(205) 	NOT NULL,
+Password 			varchar(205),
 PRIMARY KEY (Username)
 );
 
@@ -31,16 +31,16 @@ PRIMARY KEY(Date,ReCustomer_ID)
 );
 
 create table ORDERS (
-Payment_method 		varchar(20)		NOT NULL,
+Payment_method 		varchar(205),
 Note 				text,
-Order_ID			int				NOT NULL,
+Order_ID			int				NOT NULL auto_increment ,
 Or_cus_ID			int				NOT NULL,
 Ship_cash 			int 			NOT NULL,
 PRIMARY KEY (Order_ID)
 );
 
 create table STATUS (
-Status 				varchar(20)		NOT NULL,
+Status 				varchar(205)		NOT NULL,
 Cancelled_Time		datetime,
 Completed_Time		datetime,
 Submission_Time 	datetime		NOT NULL,
@@ -50,8 +50,8 @@ PRIMARY KEY (Sta_Order_ID)
 );
 
 create table STORES (
-Street				varchar(25) 	NOT NULL,
-City				varchar(25)		NOT NULL,
+Street				varchar(255) 	NOT NULL,
+City				varchar(255)		NOT NULL,
 CONSTRAINT PK_STORES PRIMARY KEY (Street,City)
 );
 
@@ -64,7 +64,7 @@ PRIMARY KEY (H_Street,H_City,H_Ship_ID)
 
 create table MAGAZINE_SERI_NAMES (
 Seri_name_ID 		int 			NOT NULL,
-Publisher			varchar(20)		NOT NULL,
+Publisher			varchar(205)		NOT NULL,
 Name				varchar(20)		NOT NULL,
 PRIMARY KEY (Seri_name_ID)
 );
@@ -76,7 +76,7 @@ PRIMARY KEY (S_Cus_ID,Sub_seriname_ID)
 );
 
 create table AUTHORS (
-Name 				varchar(20)		NOT NULL,
+Name 				varchar(205)		NOT NULL,
 Author_ID			int				NOT NULL,
 DOB					date			NOT NULL,
 PRIMARY KEY (Author_ID)
@@ -90,7 +90,7 @@ PRIMARY KEY (WBook_Pro_ID,WAuthor_ID)
 
 create table BOOKS (
 Name				varchar(255)		NOT NULL,	
-Publisher			varchar(20)		NOT NULL,
+Publisher			varchar(205)		NOT NULL,
 Publish_year		year,
 Pages				int,	
 Book_Pro_ID			int				NOT NULL,
@@ -117,7 +117,7 @@ PRIMARY KEY(P_Order_ID,P_Product_ID)
 
 create table SHIPMENT(
 BoundDistance		int 			NOT NULL,
-Name				varchar(20)		NOT NULL,
+Name				varchar(205)		NOT NULL,
 Shipment_ID			int 			NOT NULL,
 Price 				int 			NOT NULL,
 PRIMARY KEY (Shipment_ID)		
@@ -131,8 +131,6 @@ Magazine_ID			int				NOT NULL,
 PRIMARY KEY (Maga_Pro_ID)
 );
 
-alter table books
-modify Name varchar (10000), modify Publisher varchar(255);
 
 
 -- Completed
@@ -229,6 +227,18 @@ begin
 	WHERE Maga_Pro_ID = Maga_ID;
 end$$
 DELIMITER ;
+
+INSERT products
+VALUES("Kha Van Can", "Ho Chi Minh", "Tieng Viet", 58000, "https://static.wikia.nocookie.net/date-a-live/images/0/0e/Kurumi_Normal.png/revision/latest?cb=20200505041739&path-prefix=vi",10, 0);
+
+INSERT products
+VALUES("Kha Van Can", "Ho Chi Minh", "Tieng Viet", 10000, "https://static.wikia.nocookie.net/date-a-live/images/0/0e/Kurumi_Normal.png/revision/latest?cb=20200505041739&path-prefix=vi",2, 1);
+
+INSERT books
+VALUES("Day Lam Giau", "ABC", 2020, 100, 0);
+
+INSERT books
+VALUES("Trang Quynh tap 99", "Kim Dong", 2002, 89, 1);
 
 
 call getMagazineUI();

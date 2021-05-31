@@ -646,13 +646,14 @@ namespace E_BookStore.GUI
             detail.Show();
             Close();
         }
-
         public MainUIWindow(string role, int cusID)
         {
             InitializeComponent();
             bll = new MainUIBLL();
             this.role = role;
             this.cusID = cusID;
+            DetailBLL bllDetail = new DetailBLL();
+            textBlockTotalQuantity.Text = bllDetail.ShowTotalProCate(this.cusID).ToString();
             List<Book> bookList = new List<Book>();
             List<Magazine> magaList = new List<Magazine>();
             bookList = bll.getallBookUI();

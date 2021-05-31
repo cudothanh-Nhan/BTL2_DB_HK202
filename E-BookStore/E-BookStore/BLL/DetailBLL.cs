@@ -15,7 +15,7 @@ namespace E_BookStore.BLL
         private DetailDAO dao;
         public DetailBLL()
         {
-            dao = new DetailDAO("localhost", 3306, "db", "root", "lekhiettoan1");
+            dao = new DetailDAO("localhost", 3306, "db", "root", "anhentai");
         }
         public bool checkQuantity(string quantity)
         {

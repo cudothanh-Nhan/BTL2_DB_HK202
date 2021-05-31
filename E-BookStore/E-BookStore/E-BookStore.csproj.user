@@ -29,10 +29,19 @@
     <Page Update="GUI\InsertWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="GUI\Login.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="GUI\MainUIWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Registration.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Welcome.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
