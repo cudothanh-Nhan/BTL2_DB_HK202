@@ -35,6 +35,7 @@ namespace E_BookStore.GUI
         public List<Order> OrderList { get => orderList; set => orderList = value; }
         internal OrderingBLL Bll { get => bll; set => bll = value; }
         internal Account Account { get => account;}
+        public List<int> AllCustomerId { get => allCustomerId;}
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -116,6 +117,7 @@ namespace E_BookStore.GUI
                 shipSelection.Name = "ShipSelection" + order.Id;
                 Debug.WriteLine("ShipInfo: " + shipSelection.Name);
                 shipSelection.HorizontalAlignment = HorizontalAlignment.Right;
+                shipSelection.SelectionChanged -= Refresh_OnClick;
                 shipSelection.SelectionChanged += Shipment_OnSelect;
                 List<Shipment> shipList = bll.getAllShipment();
                 foreach (var ship in shipList)
@@ -162,7 +164,10 @@ namespace E_BookStore.GUI
             else if (status == Order.S_COMPLETED)
             {
                 if (this.account.Role == Account.R_CUSTOMER)
+                {
                     actionButton.Content = "Review";
+                    actionButton.Click += Review_OnClick;
+                }
                 else actionButton.Visibility = Visibility.Hidden;
             }
             else if(status == Order.S_ON_CART)
@@ -244,6 +249,13 @@ namespace E_BookStore.GUI
         private void Detail_OnClick(object sender, RoutedEventArgs e)
         {
             int orderId = int.Parse(((TextBlock)sender).Tag.ToString());
+            OrderDetailWindow subwindow = new OrderDetailWindow(this, orderList[OrderList.FindIndex(element => element.Id == orderId)]);
+            subwindow.Show();
+            this.Hide();
+        }
+        private void Review_OnClick(object sender, RoutedEventArgs e)
+        {
+            int orderId = int.Parse(((Button)sender).Tag.ToString());
             OrderDetailWindow subwindow = new OrderDetailWindow(this, orderList[OrderList.FindIndex(element => element.Id == orderId)]);
             subwindow.Show();
             this.Hide();
@@ -392,14 +404,15 @@ namespace E_BookStore.GUI
         }
        public void fetch()
         {
+            Debug.WriteLine("Fetchhhh");
             if (this.account.Role == Account.R_MANAGER) {
-                allCustomerId.Clear();
+                AllCustomerId.Clear();
                 List<Customer> customerList = bll.getAllCustomer();
                 foreach (var cus in customerList)
-                    allCustomerId.Add(cus.Id);
+                    AllCustomerId.Add(cus.Id);
             }
             orderList.Clear();
-            foreach (var customerId in allCustomerId)
+            foreach (var customerId in AllCustomerId)
             {
                
                 orderList.AddRange(bll.getOrder(customerId, Order.S_ON_CART));
@@ -418,15 +431,17 @@ namespace E_BookStore.GUI
             Debug.WriteLine(this.account.Role + this.account.CustomerId);
             this.allCustomerId = new List<int>();
             if (this.account.Role == Account.R_CUSTOMER)
-                allCustomerId.Add(this.account.CustomerId);
+                AllCustomerId.Add(this.account.CustomerId);
             else
             {
+                OnCartTab.Visibility = Visibility.Hidden;
+                TabRoot.SelectedIndex = 1;
                 List<Customer> customerList = bll.getAllCustomer();
                 foreach (var cus in customerList)
-                    allCustomerId.Add(cus.Id);
+                    AllCustomerId.Add(cus.Id);
             }
             this.orderList = new List<Order>();
-            foreach(var customerId in allCustomerId)
+            foreach(var customerId in AllCustomerId)
             {
                 orderList.AddRange(bll.getOrder(customerId, Order.S_ON_CART));
                 orderList.AddRange(bll.getOrder(customerId, Order.S_CANCELED));
@@ -440,8 +455,10 @@ namespace E_BookStore.GUI
 
         private void Refresh_OnClick(object sender, SelectionChangedEventArgs e)
         {
-            fetch();
-            reload();
+
+            //fetch();
+            //reload();            
+
         }
     }
 }

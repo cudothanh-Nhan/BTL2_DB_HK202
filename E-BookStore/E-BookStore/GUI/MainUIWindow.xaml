@@ -43,7 +43,9 @@
             </TextBox.Style>
         </TextBox>
         <TextBlock Grid.ColumnSpan="4" TextAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="705,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27">
-            <Image Source="https://drive.google.com/uc?id=1MUXeIB4r70gRQm36GDRka4-NaBASPzt_" OpacityMask="Black"/>
+            <Button>
+                <Image Source="https://drive.google.com/uc?id=1MUXeIB4r70gRQm36GDRka4-NaBASPzt_" OpacityMask="Black"/>
+            </Button>
         </TextBlock>
 
         <Button x:Name="Search"  HorizontalAlignment="Left" Height="26" Margin="68,10,0,0" VerticalAlignment="Top" Width="29" Grid.Column="3">

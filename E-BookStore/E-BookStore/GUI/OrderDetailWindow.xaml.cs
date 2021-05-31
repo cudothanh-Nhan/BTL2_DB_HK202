@@ -98,14 +98,23 @@ namespace E_BookStore.GUI
 
             Button deleteButton = new Button();
             deleteButton.Tag = item.Id;
-            deleteButton.Content = "Delete";
             deleteButton.Width = 50;
             deleteButton.HorizontalAlignment = HorizontalAlignment.Left;
             deleteButton.Margin = new Thickness(10, 5, 5, 5);
-            deleteButton.Click += Delete_Onclick;
-            if (MyOrder.Status.val != Order.S_ON_CART)
-                deleteButton.IsEnabled = false;
-            
+            if(MyOrder.Status.val == Order.S_COMPLETED)
+            {
+                deleteButton.Content = "Review";
+                deleteButton.Click += Review_OnClick;
+                if (this.parent.Account.Role != Account.R_CUSTOMER)
+                    deleteButton.IsEnabled = false;
+            }
+            else
+            {
+                deleteButton.Content = "Delete";
+                deleteButton.Click += Delete_Onclick;
+                if (MyOrder.Status.val != Order.S_ON_CART)
+                    deleteButton.IsEnabled = false;
+            }
             itemName.Padding = uPrice.Padding = productTotal.Padding = remaining.Padding = defaultPadding;
             uPrice.FontSize = productTotal.FontSize = 15;
             itemInfo.Children.Add(itemName);
@@ -124,6 +133,15 @@ namespace E_BookStore.GUI
             grid.Children.Add(itemInfo);
             return grid;
         }
+
+        private void Review_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            int itemId = int.Parse(btn.Tag.ToString());
+            ReviewWindow review = new ReviewWindow(itemId, this.parent.AllCustomerId[0]);
+            review.Show();
+        }
+
         private void Quantity_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox quantity = (TextBox)sender;
@@ -230,11 +248,10 @@ namespace E_BookStore.GUI
             DeleteButton.Tag = MyOrder.Id;
             if (MyOrder.Status.val != Order.S_ON_CART && MyOrder.Status.val != Order.S_CANCELED)
             {
-                if(this.parent.Account.Role == Account.R_MANAGER)
-                {
+                if (this.parent.Account.Role == Account.R_MANAGER)
                     DeleteButton.Content = "Cancel";
+                if(this.parent.Account.Role == Account.R_MANAGER && MyOrder.Status.val != Order.S_COMPLETED)
                     DeleteButton.Click += Cancel_OnClick;
-                }
                 else
                     DeleteButton.IsEnabled = false;
             }

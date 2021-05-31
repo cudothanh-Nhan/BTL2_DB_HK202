@@ -12,6 +12,7 @@ DROP PROCEDURE IF EXISTS GetProductQuantity;
 DROP PROCEDURE IF EXISTS UpdateOrderItemQuantity;
 DROP PROCEDURE IF EXISTS InsertCompletedTime;
 DROP PROCEDURE IF EXISTS UpdateProductQuantity;
+DROP PROCEDURE IF EXISTS InsertReview;
 
 DELIMITER //
 
@@ -136,6 +137,12 @@ BEGIN
 	UPDATE products as pro
 	SET pro.Quantity = pro.Quantity - subQuantity
 	WHERE pro.Product_Id = productId;
+END //
+
+CREATE PROCEDURE InsertReview(IN productId INT, IN imgUrl CHAR(255), IN cmt CHAR(255),  IN rating INT, IN customerId INT)
+BEGIN
+	insert reviews
+	values(customerId, now(), rating, imgUrl, cmt, NULL, productId);
 END //
 DELIMITER ;
 call GetAllCustomer();

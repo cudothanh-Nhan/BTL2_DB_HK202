@@ -28,8 +28,8 @@
     </Window.Resources>
     <Grid x:Name="Root">
         
-        <TabControl SelectionChanged="Refresh_OnClick">
-            <TabItem Header="OnCart">
+        <TabControl x:Name="TabRoot" SelectionChanged="Refresh_OnClick">
+            <TabItem x:Name="OnCartTab" Header="OnCart">
                 <StackPanel Margin="10">
          
                         <TextBlock Text="OnCart Order Management" FontSize="15" Margin="0 10 0 10" />
