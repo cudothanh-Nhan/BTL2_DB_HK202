@@ -20,6 +20,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="GUI\DetailWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="GUI\EditWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

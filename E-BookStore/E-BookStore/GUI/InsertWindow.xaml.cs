@@ -26,15 +26,19 @@ namespace E_BookStore.GUI
     public partial class InsertWindow : Window
     {
         InsertAndEditBLL bll;
-        MainUIWindow main = new MainUIWindow();
-        public InsertWindow()
+        private string role;
+        private int cusID;
+        
+        public InsertWindow(string role, int cusID)
         {
+            this.role = role;
+            this.cusID = cusID;
             InitializeComponent();
         }
 
         private void Edit(object sender, RoutedEventArgs e)
         {
-            EditWindow edit = new EditWindow();
+            EditWindow edit = new EditWindow(role, cusID);
             edit.Show();
             Close();
         }
@@ -131,6 +135,7 @@ namespace E_BookStore.GUI
         }
         private void CancelBook(object sender, RoutedEventArgs e)
         {
+            MainUIWindow main = new MainUIWindow(role, cusID);
             main.Show();
             Close();
         }
@@ -226,6 +231,7 @@ namespace E_BookStore.GUI
 
         private void CancelMaga(object sender, RoutedEventArgs e)
         {
+            MainUIWindow main = new MainUIWindow(role, cusID);
             main.Show();
             Close();
         }

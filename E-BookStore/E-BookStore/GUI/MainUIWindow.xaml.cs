@@ -36,7 +36,8 @@ namespace E_BookStore.GUI
             return image;
         }
         MainUIBLL bll;
-        private Account account;
+        private string role;
+        private int cusID;
         private List<ProductDisplay> getAllProduct(List<Book> bookList, List<Magazine> magaList)
         {
             List<ProductDisplay> productList = new List<ProductDisplay>();
@@ -115,7 +116,6 @@ namespace E_BookStore.GUI
                 proPrice.Padding = defaultPadding;
                 proPrice.FontSize = 18;
                 proPrice.FontWeight = FontWeights.Medium;
-;
 
                 TextBlock separator = new TextBlock();
                 separator.Width = 0.4;
@@ -642,14 +642,17 @@ namespace E_BookStore.GUI
         private void getDetail(object sender, RoutedEventArgs e)
         {
             var proID = (sender.GetType() ==  typeof(TextBlock)) ? (sender as TextBlock)?.Tag : (sender as Image)?.Tag;
-            MessageBox.Show(proID.ToString());
+            DetailWindow detail = new DetailWindow((int)proID, cusID);
+            detail.Show();
+            Close();
         }
 
-        public MainUIWindow()
+        public MainUIWindow(string role, int cusID)
         {
             InitializeComponent();
             bll = new MainUIBLL();
-            this.account = new Account("Manager", "nhanchodien", "nhanchodien");
+            this.role = role;
+            this.cusID = cusID;
             List<Book> bookList = new List<Book>();
             List<Magazine> magaList = new List<Magazine>();
             bookList = bll.getallBookUI();
@@ -665,7 +668,7 @@ namespace E_BookStore.GUI
                     return p2.Date.CompareTo(p1.Date);
                 }
             );
-            if (this.account.Role != "Manager")
+            if (this.role != "Manager")
             {
                 manage.Visibility = Visibility.Hidden;
                 manage.IsEnabled = false;
@@ -677,7 +680,6 @@ namespace E_BookStore.GUI
             ProSort.SelectionChanged += ProSort_SelectionChanged;
             SearchTaskBar.KeyDown += Search_KeyDown;
         }
-
         private void Search_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -688,7 +690,7 @@ namespace E_BookStore.GUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            InsertWindow insert = new InsertWindow();
+            InsertWindow insert = new InsertWindow(role, cusID);
             insert.Show();
             Close();
         }
