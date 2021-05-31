@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,13 +25,65 @@ namespace E_BookStore.GUI
     {
         int proID = 0;
         int CusID = 0;
+        string role;
 
 
-        public DetailWindow(int _proID, int _CusID)
+        public static Image getImage(string url)
+        {
+            var image = new Image();
+            var fullFilePath = url;
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(fullFilePath, UriKind.Absolute);
+            bitmap.EndInit();
+            image.Source = bitmap;
+            image.Stretch = Stretch.UniformToFill;
+            return image;
+        }
+
+        public DetailWindow(string _role, int _proID, int _CusID)
         {
             InitializeComponent();
             this.proID = _proID;
             this.CusID = _CusID;
+            this.role = _role;
+            string proType = bllDetail.checkType(this.proID);
+            if (proType == "Book")
+            {
+                Book book = new Book();
+                book = bllDetail.getBookDetail(proID);
+                //img = getImage(book.ImgUrl);
+                var fullFilePath = book.ImgUrl;
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(fullFilePath, UriKind.Absolute);
+                bitmap.EndInit();
+                img.Source = bitmap;
+                img.Stretch = Stretch.UniformToFill;
+                Name.Text = book.Name;
+                publisher.Text = book.Publisher;
+                price.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", book.Price) + "đ";
+                Language.Text = book.Language;
+                PublishDate.Text = book.PublishYear.Year.ToString();
+            }
+            else
+            {
+                Magazine maga = new Magazine();
+                maga = bllDetail.getMagaDetail(this.proID);
+                var fullFilePath = maga.ImgUrl;
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(fullFilePath, UriKind.Absolute);
+                bitmap.EndInit();
+                img.Source = bitmap;
+                img.Stretch = Stretch.UniformToFill;
+                Name.Text = maga.SeriName.Name + " No." + maga.No.ToString();
+                publisher.Text = maga.SeriName.Publisher;
+                price.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", maga.Price) + "đ";
+                Language.Text = maga.Language;
+                PublishDate.Text = maga.PublishDate.Day.ToString() + "/" + maga.PublishDate.Month.ToString() + "/"
+                    + maga.PublishDate.Year.ToString();
+            }
             textBlockTotalQuantity.Text = bllDetail.ShowTotalProCate(this.CusID).ToString();
         }
         public static Image GetImage(string url)
@@ -85,6 +138,13 @@ namespace E_BookStore.GUI
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            MainUIWindow main = new MainUIWindow(this.role, this.CusID);
+            main.Show();
+            Close();
         }
     }
 }

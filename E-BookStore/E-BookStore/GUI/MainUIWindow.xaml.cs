@@ -642,7 +642,7 @@ namespace E_BookStore.GUI
         private void getDetail(object sender, RoutedEventArgs e)
         {
             var proID = (sender.GetType() ==  typeof(TextBlock)) ? (sender as TextBlock)?.Tag : (sender as Image)?.Tag;
-            DetailWindow detail = new DetailWindow((int)proID, cusID);
+            DetailWindow detail = new DetailWindow(role ,(int)proID, cusID);
             detail.Show();
             Close();
         }

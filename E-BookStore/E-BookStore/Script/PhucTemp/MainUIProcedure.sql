@@ -34,31 +34,31 @@ create table ORDERS (
 Payment_method 		varchar(205),
 Note 				text,
 Order_ID			int				NOT NULL auto_increment ,
-Or_cus_ID			int				NOT NULL,
-Ship_cash 			int 			NOT NULL,
+Or_cus_ID			int				,
+Ship_cash 			int 			,
 PRIMARY KEY (Order_ID)
 );
 
 create table STATUS (
-Status 				varchar(205)		NOT NULL,
+Status 				varchar(205)		,
 Cancelled_Time		datetime,
 Completed_Time		datetime,
-Submission_Time 	datetime		NOT NULL,
-Delivering_Time 	datetime		NOT NULL,
-Sta_Order_ID 		int				NOT NULL,
+Submission_Time 	datetime,
+Delivering_Time 	datetime	,
+Sta_Order_ID 		int			,
 PRIMARY KEY (Sta_Order_ID)
 );
 
 create table STORES (
-Street				varchar(255) 	NOT NULL,
-City				varchar(255)		NOT NULL,
+Street				varchar(255) 	,
+City				varchar(255)		,
 CONSTRAINT PK_STORES PRIMARY KEY (Street,City)
 );
 
 create table STO_HAS_SHIP (
-H_City 				varchar(255)		NOT NULL,
-H_Street 			varchar(255) 	NOT NULL,
-H_Ship_ID			int				NOT NULL,
+H_City 				varchar(255)		,
+H_Street 			varchar(255) 	,
+H_Ship_ID			int				,
 PRIMARY KEY (H_Street,H_City,H_Ship_ID)
 );
 
@@ -116,10 +116,10 @@ PRIMARY KEY(P_Order_ID,P_Product_ID)
 );
 
 create table SHIPMENT(
-BoundDistance		int 			NOT NULL,
-Name				varchar(205)		NOT NULL,
-Shipment_ID			int 			NOT NULL,
-Price 				int 			NOT NULL,
+BoundDistance		int 			,
+Name				varchar(205)		,
+Shipment_ID			int 			,
+Price 				int 			,
 PRIMARY KEY (Shipment_ID)		
 );
 

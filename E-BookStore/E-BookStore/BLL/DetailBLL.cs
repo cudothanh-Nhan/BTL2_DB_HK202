@@ -1,4 +1,5 @@
 ﻿using E_BookStore.DAO;
+using E_BookStore.DTO;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ namespace E_BookStore.BLL
         private DetailDAO dao;
         public DetailBLL()
         {
-            dao = new DetailDAO("localhost", 3306, "db", "root", "anhentai");
+            SqlConnectBLL sql = new SqlConnectBLL();
+            dao = new DetailDAO(sql.host, sql.port, sql.database, sql.username, sql.password);
         }
         public bool checkQuantity(string quantity)
         {
@@ -65,5 +67,25 @@ namespace E_BookStore.BLL
         {
             dao.InsertOrder(P_Product_ID, Order_quantity, Or_cus_ID);
         }
+
+        public string checkType(int proId)
+        {
+            List<string> listBook = dao.getAllBookID();
+            string id = proId.ToString();
+            foreach(var i in listBook)
+            {
+                if (i == id) return "Book";
+            }
+            return "Magazine";
+        }
+        public Book getBookDetail(int proId)
+        {
+            return dao.getBookDetail(proId);
+        }
+        public Magazine getMagaDetail(int proId)
+        {
+            return dao.getMagaDetail(proId);
+        }
+
     }
 }

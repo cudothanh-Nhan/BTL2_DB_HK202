@@ -16,7 +16,8 @@ namespace E_BookStore.BLL
         private LoginDAO dao;
         public LoginBLL()
         {
-            dao = new LoginDAO("localhost", 3306, "db", "root", "anhentai");
+            SqlConnectBLL sql = new SqlConnectBLL();
+            dao = new LoginDAO(sql.host, sql.port, sql.database, sql.username, sql.password);
         }
         public bool checkEmailLength(string email)
         {
