@@ -1,9 +1,5 @@
 E-BookStore/E-BookStore/obj/*
 E-BookStore/.vs/*
-<<<<<<< HEAD
 E-BookStore/E-BookStore/bin/*
 .vs/*
-
-=======
-.vs*
->>>>>>> feature/login
+ E-BookStore/.vs/E-BookStore/v16/.suo
