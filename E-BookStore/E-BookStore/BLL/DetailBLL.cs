@@ -44,23 +44,23 @@ namespace E_BookStore.BLL
         }
         public int UpdatePPartOf(int P_Product_ID, int Order_quantity, int Or_cus_ID)
         {
-            MySqlCommand cmdEmail = dao.CheckProExist(P_Product_ID);
+            MySqlCommand cmdEmail = dao.CheckProExist(P_Product_ID, Or_cus_ID);
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             adapter.SelectCommand = cmdEmail;
             DataSet dataSet = new DataSet();
             adapter.Fill(dataSet);
             if (dataSet.Tables[0].Rows.Count > 0)
             {
-                dao.UpdateOrder(P_Product_ID, Order_quantity);
+                dao.UpdateOrder(P_Product_ID, Order_quantity, Or_cus_ID);
             }
             else
             {
-                dao.InsertPro(P_Product_ID, Order_quantity,Or_cus_ID);
+                dao.InsertPro(P_Product_ID, Order_quantity, Or_cus_ID);
             }
             return dao.getProCate(Or_cus_ID);
         }
         public int ShowTotalProCate(int Or_cus_ID)
-        { 
+        {
             return dao.getProCate(Or_cus_ID);
         }
         public void InsertPPartOf(int P_Product_ID, int Order_quantity, int Or_cus_ID)
@@ -72,7 +72,7 @@ namespace E_BookStore.BLL
         {
             List<string> listBook = dao.getAllBookID();
             string id = proId.ToString();
-            foreach(var i in listBook)
+            foreach (var i in listBook)
             {
                 if (i == id) return "Book";
             }

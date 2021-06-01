@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -65,6 +66,7 @@ namespace E_BookStore.GUI
                 price.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0}", book.Price) + "đ";
                 Language.Text = book.Language;
                 PublishDate.Text = book.PublishYear.Year.ToString();
+                Quantity.Text = book.Quantiy.ToString();
             }
             else
             {
@@ -83,9 +85,33 @@ namespace E_BookStore.GUI
                 Language.Text = maga.Language;
                 PublishDate.Text = maga.PublishDate.Day.ToString() + "/" + maga.PublishDate.Month.ToString() + "/"
                     + maga.PublishDate.Year.ToString();
+                Quantity.Text = maga.Quantiy.ToString();
             }
+            textBoxQuantity.PreviewTextInput += TextBoxQuantity_PreviewTextInput;
+            textBoxQuantity.TextChanged += TextBoxQuantity_TextChanged;
             textBlockTotalQuantity.Text = bllDetail.ShowTotalProCate(this.CusID).ToString();
         }
+
+        private void TextBoxQuantity_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int count = 0;
+            int quantity = 0;
+            Int32.TryParse(textBoxQuantity.Text, out count);
+            Int32.TryParse(Quantity.Text, out quantity);
+            if (count > quantity) textBoxQuantity.Text = quantity.ToString();
+        }
+
+        private static readonly Regex _regex = new Regex("[^0-9]+");
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
+        private void TextBoxQuantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+
         public static Image GetImage(string url)
         {
             var image = new Image();
