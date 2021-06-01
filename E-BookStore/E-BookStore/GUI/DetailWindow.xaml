@@ -46,13 +46,13 @@
                             <ColumnDefinition Width="350"/>
                             <ColumnDefinition Width="250"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="https://cdn0.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/b/i/bia1_tobinhyen_2_1_1.jpg" Grid.Column="0"/>
+                        <Image x:Name="img" Grid.Column="0"/>
                         <Separator Grid.Column="1" Margin="5,33,295,40" Height="1" Width="300" Grid.ColumnSpan="2" />
                         <Separator Grid.Column="1" Margin="5,33,295,-25" Height="1" Width="300" Grid.ColumnSpan="2" />
                         <Separator Grid.Column="1" Margin="5,33,295,177" Height="1" Width="300" Grid.ColumnSpan="2" />
                         <Separator Grid.Column="1" Margin="5,33,295,-90" Height="1" Width="300" Grid.ColumnSpan="2" />
                         <Separator Grid.Column="1" Margin="5,33,295,110" Height="1" Width="300" Grid.ColumnSpan="2"/>
-                        <Separator Grid.Column="1" Margin="87,-1,213,211" Height="1" Width="300" Grid.ColumnSpan="2">
+                        <Separator Grid.Column="1" Margin="87,-1,68,211" Height="1">
                             <Separator.RenderTransform>
                                 <RotateTransform Angle="90"/>
                             </Separator.RenderTransform>
@@ -62,10 +62,10 @@
             </ScrollViewer>
         </StackPanel>
         <TextBlock HorizontalAlignment="Left" Height="26" Margin="72,74,0,0" Text="Thông tin sản phẩm" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" FontWeight="Bold" FontFamily="Times New Roman" FontSize="17" Grid.Column="1"/>
-        <TextBlock HorizontalAlignment="Left" Height="34" Text="Tên sản phẩm" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="3,2,0,0"/>
-        <TextBlock HorizontalAlignment="Left" Height="35" Margin="105,99,0,0" Text="Tô bình yên vẽ hạnh phúc" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.RowSpan="2"/>
-        <TextBlock HorizontalAlignment="Left" Height="34" Text="Nhà xuất bản" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="3,35,0,0"/>
-        <TextBlock HorizontalAlignment="Left" Height="34" Margin="107,35,0,0" Text="NXB Phụ Nữ Việt Nam" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Height="17" Text="Tên sản phẩm" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="3,8,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="102,5,0,0" x:Name="Name" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Height="17" Text="Nhà xuất bản" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="3,43,0,0"/>
+        <TextBlock  HorizontalAlignment="Left" Height="18" Margin="102,42,0,0" x:Name="publisher" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1"/>
         <Grid Grid.ColumnSpan="4" Margin="0,0,0,16" Grid.RowSpan="2">
 
             <Grid.RowDefinitions>
@@ -100,10 +100,9 @@
             <StackPanel Grid.ColumnSpan="4" Grid.Row="1" Margin="0,0,0,0" Height="350">
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" Width="800" MaxHeight="350"/>
             </StackPanel>
-            <TextBlock HorizontalAlignment="Left" Height="34" Text="Năm xuất bản" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="3,175,0,0"/>
-            <TextBlock HorizontalAlignment="Left" Height="35" Margin="107,143,0,0" Text="Tiếng Việt" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1"/>
-            <TextBlock HorizontalAlignment="Left" Height="34" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="3,76,0,0"><Run Text="Tác giả"/><LineBreak/><Run/></TextBlock>
-            <TextBlock HorizontalAlignment="Left" Height="34" Margin="103,105,0,0" Text="95" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1"/>
+            <TextBlock HorizontalAlignment="Left" Height="17" Margin="101,143,0,0" x:Name="PublishDate" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1"/>
+            <TextBlock HorizontalAlignment="Left" Height="15" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="3,78,0,0"><Run Text="Giá"/><LineBreak/><Run/></TextBlock>
+            <TextBlock HorizontalAlignment="Left" Height="16" Margin="101,109,0,0" x:Name="Language" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1"/>
             <Grid Grid.ColumnSpan="3" Margin="0,-1,0,17" Grid.RowSpan="2">
 
                 <Grid.RowDefinitions>
@@ -136,18 +135,14 @@
                     <ComboBoxItem IsSelected="True" Content="Show all"/>
                 </ComboBox>
                 <StackPanel Grid.ColumnSpan="3" Grid.Row="1" Height="350"/>
-                <TextBlock HorizontalAlignment="Center" Height="47" Text="Hiện 3 cửa hàng còn sản phẩm " TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="370" FontWeight="Bold" FontFamily="Times New Roman" FontSize="17" Grid.Column="3" Grid.Row="1"/>
-                <TextBlock HorizontalAlignment="Left" Height="34" Text="Ngôn ngữ" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="2,144,0,0"/>
-                <TextBlock HorizontalAlignment="Left" Height="36" Margin="104,172,0,0" Text="2021" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1"/>
-                <TextBlock HorizontalAlignment="Left" Height="48" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="2,90,0,0"><Run/><LineBreak/><Run Text="Số trang"/></TextBlock>
-                <TextBlock HorizontalAlignment="Left" Height="34" Margin="63,75,0,0" Text="Kulzsc" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="208" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
+                <TextBlock HorizontalAlignment="Left" Height="18" Text="Năm xuất bản" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="2,144,0,0"/>
+                <TextBlock HorizontalAlignment="Left" Height="38" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="2,96,0,0"><Run/><LineBreak/><Run Text="Ngôn ngữ"/></TextBlock>
+                <TextBlock HorizontalAlignment="Left" Height="20" Margin="102,76,0,0" x:Name="price" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1"/>
                 <Button Content="Add on your cart" HorizontalAlignment="Center" Background="Red" Margin="0,247,0,0" FontSize="20" VerticalAlignment="Top" Grid.Row="1" Width="180" Height="68" Click="Button_Click"/>
-                <TextBlock HorizontalAlignment="Center" Height="34" Text="Kí túc xá khu B, ĐHQG, Tp HCM" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="3" Margin="0,52,0,0"/>
-                <TextBlock HorizontalAlignment="Center" Height="34" Text="Kí túc xá khu A, ĐHQG, Tp HCM" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="3" Margin="0,91,0,0"/>
-                <TextBlock HorizontalAlignment="Center" Height="34" Text="Kha Vạn Cân, Quận Thủ Đức, Tp HCM" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="3" Margin="0,127,0,0"/>
                 <TextBlock Height="23" HorizontalAlignment="Left" Margin="16,247,0,0" Name="textBlockQuantity" FontWeight="Bold" Text="Quantity:" VerticalAlignment="Top" Width="66" Grid.Column="1" Grid.Row="1"  />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="87,247,0,0" Name="textBoxQuantity" VerticalAlignment="Top" Width="59" Grid.Column="1" Grid.Row="1" />
                 <TextBlock Grid.Column="2" Background="Yellow" TextAlignment="Center" HorizontalAlignment="Left" Name="textBlockTotalQuantity" Margin="210,50,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30" Height="22"/>
+                <Button Content="Exit" HorizontalAlignment="Left" Height="29" Margin="10,61,0,0" VerticalAlignment="Top" Width="57" Click="Button_Click_2"/>
             </Grid>
 
         </Grid>
