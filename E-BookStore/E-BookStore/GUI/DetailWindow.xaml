@@ -13,34 +13,35 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="350"/>
+            <RowDefinition Height="242"/>
+            <RowDefinition Height="108"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="350"/>
             <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Log out" HorizontalAlignment="Left" Height="26" Margin="140,10,0,0" VerticalAlignment="Top" Width="57" FontSize="14" RenderTransformOrigin="0.506,-0.347" Grid.Column="3"/>
-        <TextBox Grid.ColumnSpan="4" TextAlignment="Left" HorizontalAlignment="Left" Height="26" Margin="92,10,0,0" Text="Search" TextWrapping="Wrap" VerticalAlignment="Top" Width="605" FontSize="14" FontFamily="Times New Roman"/>
-        <TextBlock Grid.ColumnSpan="4" TextAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="705,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27"><InlineUIContainer>
+        <Button Content="Log out" HorizontalAlignment="Left" Height="26" Margin="140,10,0,0" VerticalAlignment="Top" Width="57" FontSize="14" RenderTransformOrigin="0.506,-0.347" Grid.Column="2"/>
+        <TextBox Grid.ColumnSpan="3" TextAlignment="Left" HorizontalAlignment="Left" Height="26" Margin="92,10,0,0" Text="Search" TextWrapping="Wrap" VerticalAlignment="Top" Width="605" FontSize="14" FontFamily="Times New Roman"/>
+        <TextBlock TextAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="155,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" Grid.Column="2"><InlineUIContainer>
                 <Image Source="https://drive.google.com/uc?id=1MUXeIB4r70gRQm36GDRka4-NaBASPzt_" OpacityMask="Black"/>
             </InlineUIContainer></TextBlock>
 
-        <Button HorizontalAlignment="Left" Height="26" Margin="68,10,0,0" VerticalAlignment="Top" Width="29" Grid.Column="3">
+        <Button HorizontalAlignment="Left" Height="26" Margin="68,10,0,0" VerticalAlignment="Top" Width="29" Grid.Column="2">
             <Image Source="https://cdn.icon-icons.com/icons2/2566/PNG/512/search_icon_153438.png"/>
         </Button>
         <TextBlock HorizontalAlignment="Left" Height="26" Margin="17,10,0,0" Text="HCMUT" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="63" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14"/>
-        <ComboBox x:Name="Instock1" HorizontalAlignment="Left" Height="22" Margin="125,50,0,0" VerticalAlignment="Top" Width="72" Grid.Column="3" >
+        <ComboBox x:Name="Instock1" HorizontalAlignment="Left" Height="22" Margin="125,50,0,0" VerticalAlignment="Top" Width="72" Grid.Column="2" >
             <ComboBoxItem Content="In stock" />
             <ComboBoxItem IsSelected="True" Content="Show all"/>
         </ComboBox>
 
-        <ComboBox x:Name="ProType1" HorizontalAlignment="Left" Height="22" Margin="24,50,0,0" VerticalAlignment="Top" Width="73" Grid.Column="3" >
+        <ComboBox x:Name="ProType1" HorizontalAlignment="Left" Height="22" Margin="24,50,0,0" VerticalAlignment="Top" Width="73" Grid.Column="2" >
             <ComboBoxItem Content="Books"/>
             <ComboBoxItem Content="Magazines"/>
             <ComboBoxItem IsSelected="True" Content="Show all"/>
         </ComboBox>
-        <StackPanel Grid.ColumnSpan="4" Grid.Row="1" Margin="0,0,0,0" Height="350">
+        <StackPanel Grid.ColumnSpan="3" Grid.Row="1" Margin="0,0,0,0" Grid.RowSpan="2">
             <ScrollViewer VerticalScrollBarVisibility="Hidden" Width="800" MaxHeight="350">
                 <StackPanel Orientation="Vertical" x:Name="DisplayBookUI1">
                     <Grid>
@@ -49,7 +50,7 @@
                             <ColumnDefinition Width="350"/>
                             <ColumnDefinition Width="250"/>
                         </Grid.ColumnDefinitions>
-                        <Image x:Name="img" Grid.Column="0"/>
+                        <Image x:Name="img" Grid.Column="0" Grid.Row="1"/>
                         <Separator Grid.Column="1" Margin="5,33,295,40" Height="1" Width="300" Grid.ColumnSpan="2" />
                         <Separator Grid.Column="1" Margin="5,33,295,-25" Height="1" Width="300" Grid.ColumnSpan="2" />
                         <Separator Grid.Column="1" Margin="5,33,295,177" Height="1" Width="300" Grid.ColumnSpan="2" />
@@ -69,7 +70,7 @@
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="102,5,0,0" x:Name="Name" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1"/>
         <TextBlock HorizontalAlignment="Left" Height="17" Text="Nhà xuất bản" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="3,43,0,0"/>
         <TextBlock  HorizontalAlignment="Left" Height="18" Margin="102,42,0,0" x:Name="publisher" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1"/>
-        <Grid Grid.ColumnSpan="4" Margin="0,0,0,16" Grid.RowSpan="2">
+        <Grid Grid.ColumnSpan="3" Margin="0,0,0,16" Grid.RowSpan="3">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
@@ -120,7 +121,10 @@
                 <Button Content="Log out" HorizontalAlignment="Left" Height="26" Margin="140,11,0,0" VerticalAlignment="Top" Width="57" FontSize="14" RenderTransformOrigin="0.506,-0.347" Grid.Column="2" Click="Button_Click_1"/>
                 <TextBox Grid.ColumnSpan="3" TextAlignment="Left" HorizontalAlignment="Left" Height="26" Margin="90,11,0,0" Text="Search" TextWrapping="Wrap" VerticalAlignment="Top" Width="559" FontSize="14" FontFamily="Times New Roman" TextChanged="TextBox_TextChanged"/>
                 <TextBlock Grid.ColumnSpan="4" TextAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="760,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27"><InlineUIContainer>
+                    <Button Click="Cart_OnClick">
+                        
                         <Image Source="https://drive.google.com/uc?id=1MUXeIB4r70gRQm36GDRka4-NaBASPzt_" OpacityMask="Black"/>
+                    </Button>    
                     </InlineUIContainer></TextBlock>
 
                 <Button HorizontalAlignment="Left" Height="26" Margin="64,10,0,0" VerticalAlignment="Top" Width="29" Grid.Column="2">
@@ -145,6 +149,8 @@
                 <TextBlock Height="23" HorizontalAlignment="Left" Margin="16,247,0,0" Name="textBlockQuantity" FontWeight="Bold" Text="Quantity:" VerticalAlignment="Top" Width="66" Grid.Column="1" Grid.Row="1"  />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="87,247,0,0" Name="textBoxQuantity" VerticalAlignment="Top" Width="59" Grid.Column="1" Grid.Row="1" />
                 <TextBlock Grid.Column="2" Background="Yellow" TextAlignment="Center" HorizontalAlignment="Left" Name="textBlockTotalQuantity" Margin="210,50,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30" Height="22"/>
+                <TextBlock HorizontalAlignment="Left" Height="18" Text="Số lượng" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"  FontFamily="Times New Roman" FontSize="14" Grid.Row="1" Grid.Column="1" Margin="2,174,0,0"/>
+                <TextBlock HorizontalAlignment="Left" Height="17" Margin="101,173,0,0" x:Name="Quantity" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" Grid.Column="1" Grid.Row="1"/>
                 <Button Content="Exit" HorizontalAlignment="Left" Height="29" Margin="10,61,0,0" VerticalAlignment="Top" Width="57" Click="Button_Click_2"/>
             </Grid>
 

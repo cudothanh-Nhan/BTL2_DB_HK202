@@ -52,16 +52,16 @@ namespace E_BookStore.BLL
             adapter.Fill(dataSet);
             if (dataSet.Tables[0].Rows.Count > 0)
             {
-                dao.UpdateOrder(P_Product_ID, Order_quantity);
+                dao.UpdateOrder(P_Product_ID, Order_quantity, Or_cus_ID);
             }
             else
             {
-                dao.InsertPro(P_Product_ID, Order_quantity,Or_cus_ID);
+                dao.InsertPro(P_Product_ID, Order_quantity, Or_cus_ID);
             }
             return dao.getProCate(Or_cus_ID);
         }
         public int ShowTotalProCate(int Or_cus_ID)
-        { 
+        {
             return dao.getProCate(Or_cus_ID);
         }
 
@@ -75,7 +75,7 @@ namespace E_BookStore.BLL
         {
             List<string> listBook = dao.getAllBookID();
             string id = proId.ToString();
-            foreach(var i in listBook)
+            foreach (var i in listBook)
             {
                 if (i == id) return "Book";
             }

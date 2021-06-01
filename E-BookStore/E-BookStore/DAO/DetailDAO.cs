@@ -30,22 +30,24 @@ namespace E_BookStore.DAO
         {
             MySqlConnection con = new MySqlConnection(connString);
             con.Open();
-            MySqlCommand cmdCusID = new MySqlCommand("call GetAllOrder(" + Customer_ID + ", 'OnCart');", con);
+            MySqlCommand cmdCusID = new MySqlCommand("Select * from ORDERS,STATUS where Or_cus_ID=" + Customer_ID.ToString() + " and Sta_Order_ID = Order_ID and Status ='onCart';", con);
             return cmdCusID;
         }
-        public MySqlCommand CheckProExist(int P_Product_ID, int Or_cus_ID)
+        public MySqlCommand CheckProExist(int P_Product_ID, int Order_Cus_ID)
         {
-            int orderId = getOrderID(Or_cus_ID);
+            //int orderId = getOrderID(Or_cus_ID);
             MySqlConnection con = new MySqlConnection(connString);
             con.Open();
-            MySqlCommand cmdEmail = new MySqlCommand("Select * from P_PART_OF where P_Product_ID='" + P_Product_ID.ToString() + "' and P_Order_ID =" + orderId + ";", con);
+            MySqlCommand cmdEmail = new MySqlCommand("Select * from P_PART_OF,ORDERS,Status where P_Product_ID=" + P_Product_ID.ToString()
+                + " and P_Order_ID = Order_ID and Sta_Order_ID = Order_ID and Status = 'onCart' and Or_Cus_ID = " + Order_Cus_ID.ToString() + ";", con);
             return cmdEmail;
         }
-        public void UpdateOrder(int P_Product_ID, int Order_quantity)
+        public void UpdateOrder(int P_Product_ID, int Order_quantity, int Order_Cus_ID)
         {
             MySqlConnection con = new MySqlConnection(connString);
             con.Open();
-            string Query1 = "Update P_PART_OF SET Order_quantity =Order_quantity + " + Order_quantity.ToString() + " WHERE P_Product_ID =" + P_Product_ID.ToString() + ";";
+            int x = this.getOrderIDD(Order_Cus_ID);
+            string Query1 = "Update P_PART_OF SET Order_quantity = Order_quantity + " + Order_quantity.ToString() + " WHERE P_Product_ID = " + P_Product_ID.ToString() + " and P_Order_ID = " + x.ToString() + ";";
             MySqlCommand cmd1 = new MySqlCommand(Query1, con);
             cmd1.CommandType = CommandType.Text;
             cmd1.ExecuteNonQuery();
@@ -61,8 +63,12 @@ namespace E_BookStore.DAO
             MySqlCommand cmd2 = new MySqlCommand(Query2, con);
             cmd2.CommandType = CommandType.Text;
             cmd2.ExecuteNonQuery();
-            int x = this.getOrderID(Or_cus_ID);
-            //MessageBox.Show(x.ToString());
+            MySqlCommand cmdcdtn = new MySqlCommand("select Order_Id from orders as o where o.Order_ID NOT IN(Select Sta_Order_ID from status);", con);
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            adapter.SelectCommand = cmdcdtn;
+            DataSet dataSet = new DataSet();
+            adapter.Fill(dataSet);
+            int x = (int)dataSet.Tables[0].Rows[0][0];
             string Query1 = "Insert into P_PART_OF(P_Order_ID,P_Product_ID,Order_quantity) values (" + x.ToString() + ","
                 + P_Product_ID.ToString() + "," +
                 Order_quantity.ToString() + ");";
@@ -70,19 +76,19 @@ namespace E_BookStore.DAO
             cmd1.CommandType = CommandType.Text;
             cmd1.ExecuteNonQuery();
             string Query3 = "Insert into STATUS(Sta_Order_ID,Status) values (" +
-                x.ToString() +"," + "'OnCart'" + ");";
+                x.ToString() + "," + "'OnCart'" + ");";
             MySqlCommand cmd3 = new MySqlCommand(Query3, con);
             cmd3.CommandType = CommandType.Text;
             cmd3.ExecuteNonQuery();
             con.Close();
         }
-        
+
         public void InsertPro(int P_Product_ID, int Order_quantity, int Or_cus_ID)
         {
             MySqlConnection con = new MySqlConnection(connString);
             con.Open();
-            int x = this.getOrderID(Or_cus_ID);
-            string Query1 = "Insert into P_PART_OF(P_Order_ID,P_Product_ID,Order_quantity) values (" +x.ToString()+","+
+            int x = this.getOrderIDD(Or_cus_ID);
+            string Query1 = "Insert into P_PART_OF(P_Order_ID,P_Product_ID,Order_quantity) values (" + x.ToString() + "," +
                 P_Product_ID.ToString() + "," +
                 Order_quantity.ToString() + ");";
             MySqlCommand cmd1 = new MySqlCommand(Query1, con);
@@ -93,6 +99,36 @@ namespace E_BookStore.DAO
         private int findIndex(string[] arr, string key)
         {
             return Array.FindIndex<String>(arr, element => element.ToUpper() == key.ToUpper());
+        }
+        public int getOrderIDD(int Cus_Id)
+        {
+            var conn = new MySqlConnection(connString);
+            int res = 0;
+            try
+            {
+                conn.Open();
+                string sqlStatement = "call UpdateProduct(" + Cus_Id.ToString() + ");";
+                var cmd = new MySqlCommand(sqlStatement, conn);
+                var reader = cmd.ExecuteReader();
+
+                string[] columnName = new string[reader.FieldCount];
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    columnName[i] = reader.GetName(i);
+                }
+                while (reader.Read())
+                {
+
+                    res = reader.GetInt32(findIndex(columnName, "Order_ID"));
+
+                }
+                conn.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return res;
         }
 
         public int getProCate(int Cus_Id)
@@ -124,6 +160,7 @@ namespace E_BookStore.DAO
             }
             return res;
         }
+
         public int getOrderID(int Cus_Id)
         {
             var conn = new MySqlConnection(connString);

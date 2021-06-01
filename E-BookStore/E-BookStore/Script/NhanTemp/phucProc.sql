@@ -10,6 +10,8 @@ DROP PROCEDURE IF EXISTS removeBook;
 DROP PROCEDURE IF EXISTS removeMagazine;
 DROP PROCEDURE IF EXISTS totalProCate;
 DROP PROCEDURE IF EXISTS OrderIDuse;
+DROP PROCEDURE IF EXISTS UpdateProduct;
+DROP PROCEDURE IF EXISTS OrderIDuse2;
 DELIMITER $$
 create procedure getBookUI()
 begin
@@ -121,4 +123,23 @@ from Orders
 where or_cus_id = cus_Id  ; 
 end $$
 delimiter ;
+
+delimiter $$
+create procedure UpdateProduct(cus_Id int)
+begin
+select Order_ID 
+from Orders, Status
+where  Sta_Order_ID = Order_ID and Status = 'onCart' and Or_Cus_ID = cus_Id;
+end $$
+delimiter ;
+
+delimiter $$
+create procedure OrderIDuse2(cus_Id int)
+begin
+select Order_ID
+from Orders
+where or_cus_id = cus_Id ; 
+end $$
+delimiter ;
+
 call totalProCate(1);
